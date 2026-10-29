@@ -1,0 +1,83 @@
+<Window x:Class="ObsidianDocs.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="ObsiDopf" Icon="Assets/ObsidianDocs.ico" Width="1400" Height="900" MinWidth="1200" MinHeight="650" Background="#1E1E24" Foreground="#D8D5E2" WindowStartupLocation="CenterScreen">
+ <Window.Resources>
+  <Style TargetType="ComboBoxItem">
+   <Setter Property="Foreground" Value="#E8E5F0"/><Setter Property="Background" Value="#2C2935"/>
+   <Setter Property="Padding" Value="12,8"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ComboBoxItem">
+    <Border x:Name="ItemBorder" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"><ContentPresenter/></Border>
+    <ControlTemplate.Triggers><Trigger Property="IsHighlighted" Value="True"><Setter TargetName="ItemBorder" Property="Background" Value="#514369"/></Trigger><Trigger Property="IsSelected" Value="True"><Setter TargetName="ItemBorder" Property="Background" Value="#69518E"/></Trigger></ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style TargetType="ComboBox">
+   <Setter Property="Foreground" Value="#E8E5F0"/><Setter Property="Background" Value="#303039"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ComboBox">
+    <Grid>
+     <ToggleButton Focusable="False" IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" ClickMode="Press">
+      <ToggleButton.Template><ControlTemplate TargetType="ToggleButton"><Border x:Name="LanguageBorder" Background="#303039" BorderBrush="#51475F" BorderThickness="1" CornerRadius="5"><Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="23"/></Grid.ColumnDefinitions><Path Grid.Column="1" Data="M 0 0 L 4 4 L 8 0" Stroke="#C4B6D8" StrokeThickness="1.5" HorizontalAlignment="Center" VerticalAlignment="Center"/></Grid></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="LanguageBorder" Property="Background" Value="#40364E"/></Trigger></ControlTemplate.Triggers></ControlTemplate></ToggleButton.Template>
+     </ToggleButton>
+     <ContentPresenter x:Name="SelectionPresenter" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" IsHitTestVisible="False" Margin="10,0,24,0" VerticalAlignment="Center"/>
+     <TextBox x:Name="PART_EditableTextBox" Visibility="Collapsed" Background="Transparent" Foreground="{TemplateBinding Foreground}" BorderThickness="0" Padding="0" Margin="10,0,24,0" VerticalContentAlignment="Center"/>
+     <Popup x:Name="PART_Popup" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade"><Border Background="#2C2935" BorderBrush="#69518E" BorderThickness="1" CornerRadius="5" MinWidth="{TemplateBinding ActualWidth}" Margin="0,4,0,0"><ScrollViewer MaxHeight="240" CanContentScroll="True"><ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/></ScrollViewer></Border></Popup>
+    </Grid>
+    <ControlTemplate.Triggers><Trigger Property="IsEditable" Value="True"><Setter TargetName="SelectionPresenter" Property="Visibility" Value="Collapsed"/><Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/></Trigger></ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <SolidColorBrush x:Key="Panel" Color="#25252D"/>
+  <Style TargetType="Button"><Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="Background" Value="#303039"/><Setter Property="Foreground" Value="#D8D5E2"/><Setter Property="BorderThickness" Value="0"/><Setter Property="Padding" Value="12,9"/><Setter Property="Margin" Value="3"/><Setter Property="Cursor" Value="Hand"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border x:Name="B" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}"><ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center"/></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="B" Property="Background" Value="#514369"/></Trigger><Trigger Property="IsEnabled" Value="False"><Setter TargetName="B" Property="Opacity" Value=".4"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>
+  <Style TargetType="TextBox"><Setter Property="Background" Value="#1E1E24"/><Setter Property="Foreground" Value="#E8E5F0"/><Setter Property="CaretBrush" Value="#B39AF5"/><Setter Property="SelectionBrush" Value="#7053A5"/><Setter Property="BorderBrush" Value="#45414F"/><Setter Property="Padding" Value="10"/></Style>
+  <Style TargetType="ListBox"><Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="#D8D5E2"/><Setter Property="BorderThickness" Value="0"/><Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/></Style>
+  <Style TargetType="ListBoxItem"><Setter Property="Padding" Value="8"/><Setter Property="Margin" Value="2,4"/><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem"><Border x:Name="Item" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" CornerRadius="5" Padding="{TemplateBinding Padding}"><ContentPresenter/></Border><ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter TargetName="Item" Property="Background" Value="#25344D"/><Setter TargetName="Item" Property="BorderBrush" Value="#5E98E7"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>
+  <Style TargetType="TabItem"><Setter Property="Background" Value="#303039"/><Setter Property="Foreground" Value="#D8D5E2"/><Setter Property="Padding" Value="12,8"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TabItem"><Border x:Name="TabBorder" Background="#25252D" BorderBrush="Transparent" BorderThickness="0,0,0,2" Padding="14,9"><ContentPresenter ContentSource="Header"/></Border><ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter TargetName="TabBorder" Property="Background" Value="#34303E"/><Setter TargetName="TabBorder" Property="BorderBrush" Value="#A88ADB"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>
+ </Window.Resources>
+ <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="64"/><ColumnDefinition Width="*"/><ColumnDefinition Width="5"/><ColumnDefinition Width="285"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="34"/></Grid.RowDefinitions>
+  <Border Background="#19191F" Grid.RowSpan="2"><DockPanel><Image DockPanel.Dock="Top" Source="Assets/ObsidianDocs.png" Width="38" Height="38" HorizontalAlignment="Center" Margin="0,16"/><StackPanel><Button Content="＋" FontSize="23" ToolTip="Открыть документ" Click="Open_Click"/><Button Content="▤" FontSize="23" ToolTip="Открытые документы" Click="Documents_Click"/><Button Content="⇄" FontSize="23" ToolTip="Конвертация" Click="Convert_Click"/></StackPanel></DockPanel></Border>
+  <Grid Grid.Column="1"><Grid.RowDefinitions><RowDefinition Height="44"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+   <TabControl x:Name="Tabs" Background="#25252D" BorderThickness="0" SelectionChanged="Tabs_Changed"/>
+   <Border Grid.Row="1" Background="#25252D" BorderBrush="#37343F" BorderThickness="0,0,0,1"><StackPanel Margin="10,5"><WrapPanel VerticalAlignment="Center">
+    <Button Content="Открыть" Click="Open_Click"/><Button Content="Сохранить как…" Click="Save_Click" ToolTip="Ctrl+Shift+S · Ctrl+S сохраняет текущий документ"/><Button Content="⇄ Экспорт" Click="Convert_Click"/>
+    <Border Width="1" Background="#49434F" Margin="10,8"/>
+    <Button x:Name="OcrButton" Content="⌗ OCR области" Click="OcrMode_Click" Background="#69518E"/>
+    <Button x:Name="NoteButton" Content="✎ Комментарий" Click="NoteMode_Click"/>
+    <Button x:Name="TextNoteButton" Content="Комментарий к тексту" Click="TextNoteMode_Click" ToolTip="Выберите этот инструмент, выделите слова мышью и введите комментарий"/>
+    <ComboBox x:Name="OcrLanguage" Width="72" Margin="7" SelectedIndex="0" ToolTip="Язык OCR"><ComboBoxItem Content="RU" Tag="ru"/><ComboBoxItem Content="EN" Tag="en"/></ComboBox>
+   </WrapPanel><ContentControl x:Name="DocxTools" Visibility="Collapsed"/></StackPanel></Border>
+   <Grid Grid.Row="2" x:Name="Workspace" Background="#1E1E24" SizeChanged="Workspace_SizeChanged">
+    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition x:Name="CommentColumn" Width="270"/></Grid.ColumnDefinitions>
+    <ScrollViewer x:Name="Viewer" Grid.Column="0" Background="Transparent" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PanningMode="Both" ScrollChanged="Viewer_ScrollChanged"><StackPanel x:Name="PageStack" Margin="24" HorizontalAlignment="Stretch" Visibility="Collapsed"/></ScrollViewer>
+    <Border x:Name="CommentPanel" Grid.Column="1" Background="#22232D" BorderBrush="#344A67" BorderThickness="1,0,0,0" Padding="12">
+     <DockPanel>
+      <StackPanel DockPanel.Dock="Top">
+       <TextBlock Text="КОММЕНТАРИИ" Foreground="#9EBBE6" FontSize="11" Margin="3,8,0,12"/>
+       <TextBlock Text="Автор новых комментариев и копии" Foreground="#AAA4B7" TextWrapping="Wrap" FontSize="11" Margin="3,0,0,6"/>
+       <ComboBox x:Name="AuthorPicker" Height="34" SelectionChanged="Author_Changed"/>
+       <DockPanel Margin="0,8,0,0"><Button Content="＋" DockPanel.Dock="Right" Click="AddAuthor_Click" ToolTip="Добавить своё имя"/><TextBox x:Name="NewAuthor" MaxLength="100" ToolTip="Новое имя автора" VerticalContentAlignment="Center"/></DockPanel>
+       <Button Content="Создать копию от этого имени…" Click="Duplicate_Click" ToolTip="Все комментарии копии получат выбранное имя. Оригинал не изменится." Margin="0,8,0,8" Padding="6,9"/>
+       <TextBlock x:Name="CommentHint" Foreground="#9EA5B7" TextWrapping="Wrap" FontSize="11" Margin="3,4,0,12"/>
+      </StackPanel>
+      <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel x:Name="CommentList"/></ScrollViewer>
+     </DockPanel>
+    </Border>
+    <ContentControl x:Name="DocxHost" Grid.Column="0" Visibility="Collapsed"/>
+    <StackPanel x:Name="Welcome" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"><Image Source="Assets/ObsidianDocs.png" Width="86" Height="86" HorizontalAlignment="Center"/><TextBlock Text="Место для ваших документов" FontSize="26" Margin="0,15"/><TextBlock Text="PDF · DOCX · фотографии и сканы" Foreground="#96909F" HorizontalAlignment="Center"/><Button Content="Открыть документ" Click="Open_Click" Margin="35,28" Background="#69518E"/><TextBlock Text="Выделите область → распознайте → скопируйте текст" Foreground="#96909F"/></StackPanel>
+    <Canvas Grid.ColumnSpan="2" x:Name="FloatingLayer" IsHitTestVisible="True">
+     <Border x:Name="OcrCard" Visibility="Collapsed" Width="340" Background="#2C2935" BorderBrush="#786096" BorderThickness="1" CornerRadius="10" Padding="14">
+      <Border.Effect><DropShadowEffect BlurRadius="24" Opacity=".4" ShadowDepth="6"/></Border.Effect>
+      <StackPanel><DockPanel><Button DockPanel.Dock="Right" Content="×" Click="CardClose_Click" Padding="8,2"/><TextBlock x:Name="CardTitle" Text="Распознанный текст" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"/></DockPanel><TextBlock x:Name="CardStatus" Foreground="#ABA2B9" TextWrapping="Wrap" Margin="0,8"/>
+       <TextBox x:Name="OcrText" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="200" FontSize="14"/>
+       <StackPanel Orientation="Horizontal" Margin="0,10,0,0"><Button x:Name="CardAction" Content="Копировать всё" Click="CardAction_Click" Background="#725495"/><Button x:Name="RetryButton" Content="Повторить" Click="Retry_Click"/><Button x:Name="DeleteCommentButton" Content="Удалить" Click="DeleteComment_Click" Background="#71404E" Visibility="Collapsed"/></StackPanel>
+      </StackPanel></Border>
+    </Canvas>
+   </Grid>
+  </Grid>
+  <GridSplitter Grid.Column="2" Width="5" HorizontalAlignment="Stretch" Background="#18181E"/>
+  <Border Grid.Column="3" Background="#25252D"><Grid Margin="12"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions><StackPanel><TextBlock Text="ОБЛАСТЬ ДОКУМЕНТА" Foreground="#91899F" FontSize="11" Margin="8,12"/><StackPanel Orientation="Horizontal"><Button Content="Страницы" Click="Pages_Click"/><Button x:Name="SideCommentsButton" Content="Комментарии" Click="Comments_Click"/></StackPanel><TextBlock x:Name="SideHint" Text="Откройте файл для начала работы" Foreground="#9A93A5" TextWrapping="Wrap" Margin="8,12"/></StackPanel><ListBox x:Name="SideList" Grid.Row="1" SelectionChanged="Side_Changed"/></Grid></Border>
+  <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Background="#19191F"><DockPanel Margin="12,0"><StackPanel x:Name="PdfNavigation" DockPanel.Dock="Right" Orientation="Horizontal"><Button Content="‹" Padding="10,2" Click="Prev_Click"/><TextBlock x:Name="PageStatus" VerticalAlignment="Center" Margin="8,0"/><Button Content="›" Padding="10,2" Click="Next_Click"/><Button Content="−" Padding="10,2" Click="ZoomOut_Click"/><TextBlock x:Name="ZoomStatus" Text="100%" VerticalAlignment="Center" Margin="7,0"/><Button Content="＋" Padding="10,2" Click="ZoomIn_Click"/></StackPanel><TextBlock x:Name="Status" Text="Готово · все документы обрабатываются локально" VerticalAlignment="Center" Foreground="#A59CAE" TextTrimming="CharacterEllipsis"/></DockPanel></Border>
+ </Grid>
+</Window>
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+.venv/
+__pycache__/
+*.pyc
+
+**/bin/
+**/obj/
+**/target/
+artifacts/
+/app/
+/app-dark/
+
+/releases/
+/native/libreoffice/
+/current-build.txt
+
+/dist/
+/tools/
+/packaging/uninstall-files.nsh
+
+# IDE and local user settings
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# Temporary output and diagnostic data
+TestResults/
+*.log
+*.tmp
+*.bak
+*.dmp
+/.release-work/
+
+# Downloaded models and machine-local data
+/models/
+.oar/
+*.onnx
+*.gguf
+*.safetensors
+
+# Credentials, environment files and signing certificates
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.pem
+*.key
