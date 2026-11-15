@@ -85,6 +85,7 @@ public partial class MainWindow
             using(var package=WordprocessingDocument.Create(stream,WordprocessingDocumentType.Document,true))
             {
                 var main=package.AddMainDocumentPart();
+                DocxCompatibility.AddMissingParts(main);
                 main.Document=new W.Document(new W.Body(new W.Paragraph(),new W.SectionProperties(
                     new W.PageSize { Width=11906,Height=16838 },
                     new W.PageMargin { Top=1134,Bottom=1134,Left=1134,Right=1134,Header=567,Footer=567,Gutter=0 })));

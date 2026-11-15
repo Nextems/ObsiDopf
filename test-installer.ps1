@@ -1,8 +1,9 @@
-param([string]$Installer=(Join-Path $PSScriptRoot 'dist\ObsiDopf-1.0.0-Setup-x64.exe'))
+param([string]$Installer=(Join-Path $PSScriptRoot 'dist\ObsiDopf-1.1.0-Setup-x64.exe'))
 $ErrorActionPreference='Stop'
 $testRoot=Join-Path ([IO.Path]::GetTempPath()) ('ObsidianDocsSetupTest-'+[Guid]::NewGuid().ToString('N'))
 $installDirectory=Join-Path $testRoot 'App'
 New-Item -ItemType Directory -Path $testRoot -Force | Out-Null
+Write-Host ('Validation directory: '+$testRoot)
 Write-Host 'Testing installer in an isolated directory (no shortcuts or registry changes)...'
 $process=Start-Process -FilePath $Installer -ArgumentList ('/S /TESTMODE /D='+$installDirectory) -WindowStyle Hidden -PassThru -Wait
 if ($process.ExitCode -ne 0) { throw "Installer failed: $($process.ExitCode)" }
@@ -35,6 +36,17 @@ try {
         }
     }
 } finally { $env:DOTNET_ROOT=$originalDotnetRoot }
+Write-Host 'Checking installed Word editor: edits, search, colors, export failures, eyedropper cancellation and material picker...'
+dotnet build (Join-Path $PSScriptRoot 'packaging\validation\Validation.csproj') -c Release "-p:AppRoot=$installDirectory" --nologo
+if($LASTEXITCODE -ne 0) { throw 'Word validation runner compilation failed' }
+$probe=Join-Path $installDirectory 'ObsiDopf.Validation.dll'
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'packaging\validation\bin\Release\net10.0-windows\ObsiDopf.Validation.dll') -Destination $probe -Force
+$wordReport=Join-Path $testRoot 'word-validation.json'
+& dotnet exec --runtimeconfig (Join-Path $installDirectory 'ObsiDopf.runtimeconfig.json') --depsfile (Join-Path $installDirectory 'ObsiDopf.deps.json') $probe word $wordReport
+if($LASTEXITCODE -ne 0) { throw ('Installed Word editor validation failed: '+(Get-Content -LiteralPath $wordReport -Raw)) }
+$wordResults=Get-Content -LiteralPath $wordReport -Raw | ConvertFrom-Json
+if($wordResults.status -ne 'PASS') { throw 'Word validation report is not PASS' }
+Remove-Item -LiteralPath $probe -Force
 # Ensure uninstall preserves files that were not shipped with the app.
 $userFile=Join-Path $installDirectory 'keep-user-document.txt'
 [IO.File]::WriteAllText($userFile,'User-created content must survive uninstall')
@@ -46,7 +58,7 @@ while ((Test-Path -LiteralPath (Join-Path $installDirectory 'install.ini')) -and
 if (Test-Path -LiteralPath (Join-Path $installDirectory 'install.ini')) { throw 'Uninstaller did not finish' }
 foreach ($entry in $manifest) { if (Test-Path -LiteralPath (Join-Path $installDirectory $entry.Path)) { throw "Uninstaller left a packaged file: $($entry.Path)" } }
 if (!(Test-Path -LiteralPath $userFile) -or (Get-Content -LiteralPath $userFile -Raw) -ne 'User-created content must survive uninstall') { throw 'Uninstaller modified a user-created file' }
-$report=[ordered]@{Installer=(Get-Item -LiteralPath $Installer).FullName;SHA256=(Get-FileHash -LiteralPath $Installer -Algorithm SHA256).Hash.ToLower();FilesVerified=$manifest.Count;Install='PASS';StandaloneRuntime='PASS';OCR_EN_RU='PASS';DOCX='PASS';PDF_Comments='PASS';CtrlS='PASS';TextComments='PASS';ContinuousPages='PASS';Uninstall='PASS';UserFilesPreserved='PASS';TestDirectory=$testRoot}
+$report=[ordered]@{Installer=(Get-Item -LiteralPath $Installer).FullName;Commit=(& git -C $PSScriptRoot rev-parse HEAD).Trim();SHA256=(Get-FileHash -LiteralPath $Installer -Algorithm SHA256).Hash.ToLower();FilesVerified=$manifest.Count;Install='PASS';StandaloneRuntime='PASS';OCR_EN_RU='PASS';DOCX='PASS';WordEditor='PASS';WordChecks=$wordResults.checks;GeminiLiveAPI='NOT_RUN';PDF_Comments='PASS';CtrlS='PASS';TextComments='PASS';ContinuousPages='PASS';Uninstall='PASS';UserFilesPreserved='PASS';TestDirectory=$testRoot}
 $report | ConvertTo-Json | Set-Content (Join-Path $PSScriptRoot 'dist\installer-validation.json') -Encoding utf8
 Write-Host 'PASS: install, full application tests, uninstall and user-file preservation'
 

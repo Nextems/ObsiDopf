@@ -31,7 +31,7 @@ public partial class MainWindow
         for (int i=0;i<3;i++)
         {
             await NavigateAsync(i); await LayoutReady();
-            TextNoteMode_Click(this,new RoutedEventArgs()); activeSurface=surfaces[i];
+            SetTool(); TextNoteMode_Click(this,new RoutedEventArgs()); activeSurface=surfaces[i];
             wordsTask=LoadTextWordsAsync(activeSurface); await wordsTask;
             var words=activeSurface.Words!;
             if (words.Count!=6)
@@ -46,24 +46,27 @@ public partial class MainWindow
             start=new Point(Center(words[0].Bounds).X*activeSurface.Width,Center(words[0].Bounds).Y*activeSurface.Height);
             var end=Center(words[^1].Bounds);
             await FinishTextSelectionAsync(new Point(end.X*activeSurface.Width,end.Y*activeSurface.Height));
-            if (selectedWords.Count!=6 || OcrCard.Visibility!=Visibility.Visible || activeSurface.TextHighlights.Children.Count!=6) throw new Exception("Multiline text selection failed");
+            int bands=PdfTextComments.HighlightBands(selectedWords,activeSurface.Ratio).Count;
+            if (selectedWords.Count!=6 || bands<2 || bands>=6 || OcrCard.Visibility!=Visibility.Visible || activeSurface.TextHighlights.Children.Count!=bands) throw new Exception("Multiline text selection failed");
             OcrText.Text="Проверка комментария к тексту"; await ApplyCardAsync();
             var note=session.Pdf!.Pages[i].Annotations[session.Pdf.Pages[i].Annotations.Count-1];
-            if (note.Elements.GetName("/Subtype")!="/Highlight" || note.Elements.GetArray("/QuadPoints")?.Elements.Count!=48 || note.Elements.GetString("/ODQuote")!="Alpha beta gamma Second line text") throw new Exception("Text comment geometry/quote was not persisted");
+            if (note.Elements.GetName("/Subtype")!="/Highlight" || note.Elements.GetArray("/QuadPoints")?.Elements.Count!=8*bands || note.Elements.GetString("/ODQuote")!="Alpha beta gamma Second line text") throw new Exception("Text comment geometry/quote was not persisted");
         }
         session.SaveTo(Path.Combine(folder,"text-comments.pdf"));
         using (var reopened=DocumentSession.Open(Path.Combine(folder,"text-comments.pdf")))
             if (reopened.Pdf!.Pages[0].Annotations[1].Contents!="Проверка комментария к тексту") throw new Exception("Text comment roundtrip failed");
         var marked=session.Render(0);
+        var originalAnchor=session.Pdf!.Pages[0].Annotations[1].Elements.GetArray("/QuadPoints")!.ToString();
+        var copiedAnchor=session.Pdf.Pages[1].Annotations[0].Elements.GetArray("/QuadPoints")!.ToString();
         static byte[] Pixels(BitmapSource image) { var bytes=new byte[image.PixelHeight*image.PixelWidth*4]; image.CopyPixels(bytes,image.PixelWidth*4,0); return bytes; }
         if (Pixels(before).SequenceEqual(Pixels(marked))) throw new Exception("Saved PDF highlight is not visible");
         await NavigateAsync(0); await OpenCommentAsync(0,1);
         if (DeleteCommentButton.Visibility!=Visibility.Visible) throw new Exception("Delete button is missing");
         OcrText.Text="Изменённый комментарий"; await ApplyCardAsync();
-        if (session.Pdf!.Pages[0].Annotations[1].Elements.GetArray("/QuadPoints")?.Elements.Count!=48) throw new Exception("Editing lost text anchor");
+        if (session.Pdf!.Pages[0].Annotations[1].Elements.GetArray("/QuadPoints")?.ToString()!=originalAnchor) throw new Exception("Editing lost text anchor");
         session.DuplicateWithAuthor(Path.Combine(folder,"text-comments-copy.pdf"),"Copy reviewer");
         using (var copy=DocumentSession.Open(Path.Combine(folder,"text-comments-copy.pdf")))
-            if (copy.Pdf!.Pages[1].Annotations[0].Title!="Copy reviewer" || copy.Pdf.Pages[1].Annotations[0].Elements.GetArray("/QuadPoints")?.Elements.Count!=48) throw new Exception("Copy lost text comment");
+            if (copy.Pdf!.Pages[1].Annotations[0].Title!="Copy reviewer" || copy.Pdf.Pages[1].Annotations[0].Elements.GetArray("/QuadPoints")?.ToString()!=copiedAnchor) throw new Exception("Copy lost text comment");
         await NavigateAsync(0); await LayoutReady();
         var shot=new RenderTargetBitmap((int)ActualWidth,(int)ActualHeight,96,96,PixelFormats.Pbgra32); shot.Render(this);
         var encoder=new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(shot)); using(var f=File.Create(Path.Combine(folder,"text-comments-ui.png"))) encoder.Save(f);

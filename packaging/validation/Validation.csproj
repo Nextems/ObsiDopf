@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ObsiDopf.Validation</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ObsiDopf"><HintPath>$(AppRoot)\ObsiDopf.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="PdfSharp-wpf"><HintPath>$(AppRoot)\PdfSharp-wpf.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UglyToad.PdfPig"><HintPath>$(AppRoot)\UglyToad.PdfPig.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core"><HintPath>$(AppRoot)\Microsoft.Web.WebView2.Core.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf"><HintPath>$(AppRoot)\Microsoft.Web.WebView2.Wpf.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>

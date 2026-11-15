@@ -191,6 +191,7 @@ public sealed class DocumentSession : IDisposable
             using (var document = WordprocessingDocument.Create(temp, DocumentFormat.OpenXml.WordprocessingDocumentType.Document))
             {
                 var main = document.AddMainDocumentPart(); main.Document = new W.Document(new W.Body());
+                DocxCompatibility.AddMissingParts(main);
                 for (int i = 0; i < pages.Count; i++)
                 {
                     if (i > 0) main.Document.Body!.Append(new W.Paragraph(new W.Run(new W.Break { Type = W.BreakValues.Page })));

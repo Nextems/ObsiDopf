@@ -42,7 +42,8 @@ public static class SmokeTests
         if (!pig.GetPage(1).Text.Contains("Привет")) throw new Exception("Unicode PDF failed");
         var image = session.Render(0); if (image.PixelWidth < 500) throw new Exception("Render failed");
         DocumentSession.WriteDocx(["Привет, мир!\nSecond line"], Path.Combine(folder,"sample.docx"));
-        using var word = DocumentSession.Open(Path.Combine(folder,"sample.docx"));
+        File.WriteAllBytes(Path.Combine(folder,"docx-preview.pdf"),DocxRenderer.Render(Path.Combine(folder,"sample.docx")));
+        using var word = DocumentSession.Open(Path.Combine(folder,"docx-preview.pdf"));
         word.SaveTo(Path.Combine(folder, "docx-export.pdf"));
         word.SaveTo(Path.Combine(folder, "docx-export.pdf"));
         if (word.Render(0).PixelHeight == 0) throw new Exception("DOCX preview failed");

@@ -31,7 +31,8 @@ internal static class LayoutRegression
             main.Document.Save();
         }
         var original = File.ReadAllBytes(path);
-        using var session=DocumentSession.Open(path); session.SaveTo(Path.Combine(folder,"layout.pdf"));
+        var previewPath=Path.Combine(folder,"layout.pdf"); File.WriteAllBytes(previewPath,DocxRenderer.Render(path));
+        using var session=DocumentSession.Open(previewPath);
         if (!original.SequenceEqual(File.ReadAllBytes(path))) throw new Exception("DOCX source was modified during preview");
         using var pdf=UglyToad.PdfPig.PdfDocument.Open(session.RenderBytes!);
         if (pdf.NumberOfPages != 2 || !pdf.GetPage(1).Text.Contains("LAYOUT HEADER") || !pdf.GetPage(1).Text.Contains("Cell 2 B") || !pdf.GetPage(2).Text.Contains("SECOND PAGE MARKER") || !pdf.GetPage(2).Text.Contains("LAYOUT FOOTER") || !pdf.GetPage(1).GetImages().Any()) throw new Exception("DOCX layout regression failed");

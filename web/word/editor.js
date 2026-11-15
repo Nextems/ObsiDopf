@@ -2,7 +2,7 @@
   'use strict';
   const bridge = window.chrome.webview;
   const send = (type, data = {}) => bridge.postMessage({ type, ...data });
-  let instance, ready = false, searchMatches = [], searchIndex = -1;
+  let instance, ready = false, searchMatches = [], searchIndex = -1, exportsInProgress = 0;
   let lastPageCount = 0, currentZoom = 1;
   let documentRevision = 0, reportedRevision = 0, changeTimer = null;
   let immediateChange = true, searchActive = false;
@@ -25,6 +25,9 @@
     return doc ? instance.getPresentationEditorForDocument(doc.id) : null;
   };
   const reportError = error => {
+    // Snapshot reports its own failure through the awaited host request. Do not
+    // open a second modal from an exception emitted inside the export callback.
+    if (exportsInProgress) return;
     const message = String(error?.message || error || 'Ошибка редактора');
     if (!ready) document.querySelector('#loading').textContent = 'Не удалось открыть документ.\n' + message;
     send('error', { message });
@@ -102,7 +105,16 @@
     switch (name) {
       case 'snapshot': {
         flushChanges();
-        const blob = await instance.export({ triggerDownload: false, exportType: ['docx'] });
+        let blob, exportFailure;
+        const failed = ({ error }) => { exportFailure ||= error || new Error('Ошибка экспорта DOCX.'); };
+        instance.on('exception', failed); exportsInProgress++;
+        try {
+          // SuperDoc may fall back to the original input Blob after emitting an
+          // exception. Treat that as failure; otherwise Ctrl+S would lose edits
+          // while incorrectly marking the document saved.
+          blob = await instance.export({ triggerDownload: false, exportType: ['docx'] });
+          if (exportFailure) throw exportFailure;
+        } finally { instance.off('exception', failed); exportsInProgress--; }
         if (!(blob instanceof Blob)) throw new Error('Редактор не вернул DOCX.');
         const base64 = await new Promise((resolve, reject) => {
           const reader = new FileReader();

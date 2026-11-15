@@ -45,7 +45,7 @@ internal sealed class WordEditor : Grid,IDisposable
     public long Revision { get; private set; }
     public WordEditor(byte[] bytes)
     {
-        original=bytes;
+        original=DocxCompatibility.Prepare(bytes);
         Background=new SolidColorBrush(Color.FromRgb(30,30,36));
         Children.Add(browser);
         pageList=new ListBox
