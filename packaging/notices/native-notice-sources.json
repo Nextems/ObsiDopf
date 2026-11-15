@@ -1,0 +1,179 @@
+{
+  "files": [
+    {
+      "file": "rust-supplement/oar-ocr-core-0.9.2/LICENSE",
+      "source": "https://raw.githubusercontent.com/greatv/oar-ocr/81dddb1d0b40690f660b5c79f9c0693e6388cf29/LICENSE",
+      "sha256": "8a7ec3e5de8c98ead49da38ca820edb995102e95093da040b304413e37b6c607"
+    },
+    {
+      "file": "rust-supplement/oar-ocr-derive-0.9.2/LICENSE",
+      "source": "https://raw.githubusercontent.com/greatv/oar-ocr/81dddb1d0b40690f660b5c79f9c0693e6388cf29/LICENSE",
+      "sha256": "8a7ec3e5de8c98ead49da38ca820edb995102e95093da040b304413e37b6c607"
+    },
+    {
+      "file": "rust-supplement/profiling-1.0.18/LICENSE-APACHE",
+      "source": "https://raw.githubusercontent.com/aclysma/profiling/8271551172eb6fa4cba47369aedd93790c623df9/LICENSE-APACHE",
+      "sha256": "10d30a673cd5e9349bdc02aeb48f14b3386d27d0da32df8f0a555d4aa16aa551"
+    },
+    {
+      "file": "rust-supplement/profiling-1.0.18/LICENSE-MIT",
+      "source": "https://raw.githubusercontent.com/aclysma/profiling/8271551172eb6fa4cba47369aedd93790c623df9/LICENSE-MIT",
+      "sha256": "c8167fdeeed46d3f244d3f85c5bf998ce889343691c32be2c61a8bc4b5c08333"
+    },
+    {
+      "file": "rust-supplement/profiling-procmacros-1.0.18/LICENSE-APACHE",
+      "source": "https://raw.githubusercontent.com/aclysma/profiling/8271551172eb6fa4cba47369aedd93790c623df9/LICENSE-APACHE",
+      "sha256": "10d30a673cd5e9349bdc02aeb48f14b3386d27d0da32df8f0a555d4aa16aa551"
+    },
+    {
+      "file": "rust-supplement/profiling-procmacros-1.0.18/LICENSE-MIT",
+      "source": "https://raw.githubusercontent.com/aclysma/profiling/8271551172eb6fa4cba47369aedd93790c623df9/LICENSE-MIT",
+      "sha256": "c8167fdeeed46d3f244d3f85c5bf998ce889343691c32be2c61a8bc4b5c08333"
+    },
+    {
+      "file": "rust-supplement/pulp-wasm-simd-flag-0.1.1/LICENSE",
+      "source": "https://raw.githubusercontent.com/sarah-quinones/pulp/5eb07fd7b68edf0a5e19f71737d315f72a510295/LICENSE",
+      "sha256": "d64f878c89bd5f1e5ada7e4aad57690b122727cf5229b7b87ea1980c188da1d9"
+    },
+    {
+      "file": "rust-supplement/simd_helpers-0.1.0/Cargo.toml",
+      "source": "crates.io:simd_helpers-0.1.0",
+      "sha256": "42364d200c5cc7792960bdf10354a108b6c68ca49f2e1567967e2d5b1dba37a6"
+    },
+    {
+      "file": "rust-supplement/simd_helpers-0.1.0/README.txt",
+      "source": "https://github.com/lu-zero/simd_helpers/tree/ca1a2f84aa386d758e98f8a609d990263932fb85",
+      "sha256": "215a739f93baaa3f3b88922b94a7ba4c34c555f60058383fd0332ad8ee9c0873"
+    },
+    {
+      "file": "rust-supplement/simd_helpers-0.1.0/MIT-standard-template.txt",
+      "source": "https://spdx.org/licenses/MIT.txt",
+      "sha256": "c3b1b78bc8bd3ea13aa4bc9778442d16560270afa235006d816e5e88cef24db4"
+    },
+    {
+      "file": "rust-supplement/zune-inflate-0.2.54/LICENSE-ZLIB",
+      "source": "https://raw.githubusercontent.com/etemesi254/zune-image/69502ce83fdfecdd0beefd677e2abb3781b29d98/LICENSE-ZLIB",
+      "sha256": "7fa429541e55b1509909e058f2d21a37467e4958ec713b357f6e0cf9dc4ee352"
+    },
+    {
+      "file": "rust-supplement/zune-inflate-0.2.54/LICENSE.md",
+      "source": "https://raw.githubusercontent.com/etemesi254/zune-image/69502ce83fdfecdd0beefd677e2abb3781b29d98/LICENSE.md",
+      "sha256": "e870d7fd7819a9f0453c62798cb52ae95d148a8c91dc2de1d983f997143c72de"
+    },
+    {
+      "file": "dotnet/microsoft.netcore.app.runtime.win-x64-10.0.12/LICENSE.TXT",
+      "source": "NuGet:microsoft.netcore.app.runtime.win-x64/10.0.12",
+      "sha256": "d7a68596ab69b06f51ca278a6545148e4269a9381c26d597c13df5d88e08cf5b"
+    },
+    {
+      "file": "dotnet/microsoft.netcore.app.runtime.win-x64-10.0.12/THIRD-PARTY-NOTICES.TXT",
+      "source": "NuGet:microsoft.netcore.app.runtime.win-x64/10.0.12",
+      "sha256": "6d15e10a101c6bfff2ab4429ed061bf76c456fc4b23ad6b03e0d0f8377148a21"
+    },
+    {
+      "file": "dotnet/microsoft.windowsdesktop.app.runtime.win-x64-10.0.12/LICENSE",
+      "source": "NuGet:microsoft.windowsdesktop.app.runtime.win-x64/10.0.12",
+      "sha256": "a89886665765362eb77e0f8e26602c924520041d1711b2eedc136434fe4d01ab"
+    },
+    {
+      "file": "onnxruntime/LICENSE",
+      "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.0/LICENSE",
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    {
+      "file": "onnxruntime/ThirdPartyNotices.txt",
+      "source": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.0/ThirdPartyNotices.txt",
+      "sha256": "0e07b95f3a8d6230037707c5c4a2b554d12c4cb67369669ac255635528ffcee2"
+    },
+    {
+      "file": "directml/LICENSE-CODE.txt",
+      "source": "https://api.nuget.org/v3-flatcontainer/microsoft.ai.directml/1.15.4/microsoft.ai.directml.1.15.4.nupkg :: LICENSE-CODE.txt",
+      "sha256": "903df5512f7d02609fed0c780a9b704f5a3eeb6e4d84ebe42a29845c81899a3c"
+    },
+    {
+      "file": "directml/LICENSE.txt",
+      "source": "https://api.nuget.org/v3-flatcontainer/microsoft.ai.directml/1.15.4/microsoft.ai.directml.1.15.4.nupkg :: LICENSE.txt",
+      "sha256": "a05138e3a085ff60a44881eedfa58dccb03ecc1d7b1f6ae888418e8c2fec4b8d"
+    },
+    {
+      "file": "pdfium/LICENSE",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: LICENSE",
+      "sha256": "8854f4388f1ca13b3ad9baa42e95f5546b4c0b17109c159256d3eca7be39b09b"
+    },
+    {
+      "file": "pdfium/licenses_llvm-libc.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/llvm-libc.txt",
+      "sha256": "3b6226c32e168c83b891d8d6f0d3c29c2116dc3ef93dc93c307b54f279ecf383"
+    },
+    {
+      "file": "pdfium/licenses_fast_float.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/fast_float.txt",
+      "sha256": "bf1b57355feca8fce77ee95f48002f8d4789fb71b30ec7599c06cda4901fbb2b"
+    },
+    {
+      "file": "pdfium/licenses_icu.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/icu.txt",
+      "sha256": "93679f4389d53b6835d89843f251844fb9bc455b35bab036d3c8e7abe497a47a"
+    },
+    {
+      "file": "pdfium/licenses_libjpeg_turbo.md",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/libjpeg_turbo.md",
+      "sha256": "be2b2b5ab168bce87bc3e31f2a5c5adba4b7f6e9e51d618e958d1d46972ebd95"
+    },
+    {
+      "file": "pdfium/licenses_freetype.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/freetype.txt",
+      "sha256": "f4b133e25df1f86ad3ffea453aa0e613f0474f34778dbbb3e437e7b2724937d8"
+    },
+    {
+      "file": "pdfium/licenses_pdfium.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/pdfium.txt",
+      "sha256": "961eacd9633fff6d051db7208b755e9210e30efac7adec3e6a6d52798f0ccf0e"
+    },
+    {
+      "file": "pdfium/licenses_libtiff.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/libtiff.txt",
+      "sha256": "92b72ba97e6c2749c2a94bc0ef646b47080217f1e772a482b33cf5a5f98a6506"
+    },
+    {
+      "file": "pdfium/licenses_libjpeg_turbo.ijg",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/libjpeg_turbo.ijg",
+      "sha256": "db16a04128171879c60708d171b88d97345a2dd20f9bfc173680a4497c73f704"
+    },
+    {
+      "file": "pdfium/licenses_abseil.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/abseil.txt",
+      "sha256": "f54fff0b905df5b3464527c652a30e903b172d6dcab4d89b5e6f105d5e4a4603"
+    },
+    {
+      "file": "pdfium/licenses_lcms.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/lcms.txt",
+      "sha256": "7312b68c5b25e9bf2b828706fb4e29588f22705112f411fd42e1f7d84c3d139a"
+    },
+    {
+      "file": "pdfium/licenses_simdutf.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/simdutf.txt",
+      "sha256": "c172a0ba936ff31230febb5dad869e25cb7c1a07480c7a381be8cf011bb52719"
+    },
+    {
+      "file": "pdfium/licenses_agg23.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/agg23.txt",
+      "sha256": "c110d3ea2ad77467ce0dcff7d3337e6c8be8049a5103f4b9bd5fd911a77972e5"
+    },
+    {
+      "file": "pdfium/licenses_libopenjpeg.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/libopenjpeg.txt",
+      "sha256": "c5ab0890a737c2dfa7ba675036554f6d17741d98629b0c2a145354d00617e6b2"
+    },
+    {
+      "file": "pdfium/licenses_zlib.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/zlib.txt",
+      "sha256": "33fd641c9f3b0e0be64bc78fea9e94807674cdd70c48477599226cb8956565fe"
+    },
+    {
+      "file": "pdfium/licenses_libpng.txt",
+      "source": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F7961/pdfium-win-x64.tgz :: licenses/libpng.txt",
+      "sha256": "452390433ba0f88aa3e2b122c647741b72a0c117cd6ed7a329b49785aecb5511"
+    }
+  ]
+}

@@ -1,0 +1,3386 @@
+{
+  "description": "Exact-version npm license texts, including dependencies embedded in the SuperDoc bundle.",
+  "packages": [
+    {
+      "name": "@acemir/cssom",
+      "version": "0.9.32",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-OijrAUu7rrJhSIoHNg6LMPS5e344nwUHA+1EFYYjrh64D+GmytUsfBQjci45TjT+rd5Spsp8B5xsZDT+TgyXXQ==",
+      "licenseFiles": [
+        "package/LICENSE.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@asamuzakjp/css-color",
+      "version": "4.1.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-NfBUvBaYgKIuq6E/RBLY1m0IohzNHAYyaJGuTK79Z23uNwmz2jl1mPsC5ZxCCxylinKhT1Amn5oNTlx1wN8cQg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@asamuzakjp/dom-selector",
+      "version": "6.8.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-MvRz1nCqW0fsy8Qz4dnLIvhOlMzqDVBabZx6lH+YywFDdjXhMY37SmpV1XFX3JzG5GWHn63j6HX6QPr3lZXHvQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@asamuzakjp/nwsapi",
+      "version": "2.3.9",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@babel/helper-string-parser",
+      "version": "7.29.13",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-fWegr+WsEsiMVW4KUNdIIzzMTZSzNiqhy0//6+2MRi2d5NFNsL/AYwBQW8eBnRbTBVRnDVzjaJEUqKaCWjMMdQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@babel/helper-validator-identifier",
+      "version": "7.29.7",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-qehxGkRj55h/ff8EMaJ+cYhyaKlHIxqYDn682wQD7RNp9UujOQsHog2uS0r2vzr4pW+sXf90NeeayjcNaX3fFg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@babel/parser",
+      "version": "7.29.13",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-fJM50YYjlTiBhgdkGmC1tBpv+FMAyo4annf2X6Aks+0yRlaiVkYW/3f07xAfVVkYIoZ9fFZp+mEThUFnuybhkQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@babel/types",
+      "version": "7.29.11",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-WCsemW40Cpc6gouC1SrY6PBaZ+oLRlEVY9XBvZBI7il/HyUrb2nJ505wE1MHEFyDZNnrWDEuy4jL50WVHfTTSQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@csstools/color-helpers",
+      "version": "6.1.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT-0",
+      "integrity": "sha512-grhRy3OKmniaAEKXMjua5z/EODX0MSqBGjunw8+j/3HQjOnahs2AGhvEOIYVUWcU6ScApbhLhVrQTX8XqrMrow==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@csstools/css-calc",
+      "version": "3.4.3",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-iex20d8CHVkyvg6B7UKV7uHnI2Bqo9g+EFfT9E0y+GvTvhZ/DwONJ+9aKb1dlqm0ZiGsL5RXjp0fCoJYnkeDjA==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@csstools/css-color-parser",
+      "version": "4.2.7",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-zgm9yjQz5iJB4VL8RyVwd71TWB8Q89FSxt/NzXoWqPSkEBOVtn9L6vAPtSc9hpKfB0Awo/AL2VKFHjYetBLFHQ==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@csstools/css-parser-algorithms",
+      "version": "4.0.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-40cSKyMvK+tq4qz6Awrlye2WGuOKt3FwPgtGg6KTfbHOWNw+Rk1rzbAtZnZ6IBhsY491HLRnDXwoyBAijmmILA==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@csstools/css-syntax-patches-for-csstree",
+      "version": "1.1.16",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT-0",
+      "integrity": "sha512-LsDbJPP/B8cPasUJyTA5S99F7C4G93ngW8hUluXz8CFeOaaRnBPtBiIlvgcPYU0HmHNz8CXg+1vwFrIB4F6Dgw==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@csstools/css-tokenizer",
+      "version": "4.0.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-OoKoR0f76dCY666JlcbhmVTs2drYj1GUXZTYTcbUgJjh9Nv41aFfZ21bPQTERm5+L5cBDo466NltB2lplS5GBw==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@docfonts/fallbacks",
+      "version": "0.16.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-nFvGPHT7b5iww3AfWwob3NhwAM23/uptskuqJR2PD6EU5k573Dn12Kd3YqN/vHHw5RsKkstnJl5AgEpL9oACkA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@exodus/bytes",
+      "version": "1.16.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-IcpW84uEn3N7ETtNZMlxKhfl6Pec8rUNGOTBtWbK1FKhJxIFAptZyVrvVRVBimAJxJCgc3PxepxkdWWG4DVzfA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@hocuspocus/common",
+      "version": "2.15.3",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Rzh1HF0a2o/tf90A3w2XNdXd9Ym3aQzMDfD3lAUONCX9B9QOdqdyiORrj6M25QEaJrEIbXFy8LtAFcL0wRdWzA==",
+      "licenseFiles": [],
+      "noticeFiles": [
+        "package/README.md"
+      ],
+      "upstreamNotices": [
+        {
+          "url": "https://raw.githubusercontent.com/ueberdosis/hocuspocus/cd788b6a315f608ef531524409abdce1e6790726/LICENSE.md",
+          "sha256": "db393bb93f624cb322cf8e7db1607d8cebfb325af6acfa75eae6c7f1ad04d2cf"
+        }
+      ]
+    },
+    {
+      "name": "@hocuspocus/provider",
+      "version": "2.15.3",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-oadN05m+KL4ylNKVo5YspNG4MXkT2Y+FUFzrgigpQeTjQibkPUwCNmUnkUxMgrGRgxb+O0lJCfirFIJMxedctA==",
+      "licenseFiles": [],
+      "noticeFiles": [],
+      "upstreamNotices": [
+        {
+          "url": "https://raw.githubusercontent.com/ueberdosis/hocuspocus/cd788b6a315f608ef531524409abdce1e6790726/LICENSE.md",
+          "sha256": "db393bb93f624cb322cf8e7db1607d8cebfb325af6acfa75eae6c7f1ad04d2cf"
+        }
+      ]
+    },
+    {
+      "name": "@jridgewell/sourcemap-codec",
+      "version": "1.6.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@lifeomic/attempt",
+      "version": "3.1.0",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-QZqem4QuAnAyzfz+Gj5/+SLxqwCAw2qmt7732ZXodr6VDWGeYLG6w1i/vYLa55JQM9wRuBKLmXmiZ2P0LtE5rw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@popperjs/core",
+      "version": "2.11.8",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@types/mdast",
+      "version": "4.0.4",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==",
+      "licenseFiles": [
+        "mdast/LICENSE"
+      ],
+      "noticeFiles": [
+        "mdast/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@types/node",
+      "version": "26.6.6",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==",
+      "licenseFiles": [
+        "node/LICENSE"
+      ],
+      "noticeFiles": [
+        "node/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@types/unist",
+      "version": "3.0.3",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==",
+      "licenseFiles": [
+        "unist/LICENSE"
+      ],
+      "noticeFiles": [
+        "unist/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@types/ws",
+      "version": "8.18.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-67MQl+fpWKVTT1NYdnmo3U4sc/xPo/zQBncVnI74qmQa0z/b+1g6iYqNmGCPbxO+zz2aklb08a0oHfegiVd0/w==",
+      "licenseFiles": [
+        "ws/LICENSE"
+      ],
+      "noticeFiles": [
+        "ws/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@ungap/structured-clone",
+      "version": "1.3.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "ISC",
+      "integrity": "sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/compiler-core",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-XGHJrM6ufZARAc/w+tyOswStw9tdKiqCKBScI4gGaNxD+aaGu/HQWgKJ+JItjRLPqenQ7iE7G8AJC7T5ew1p+g==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/compiler-dom",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-LbP2d19GSOYGPmvMBBCVJVlv7TKtjM1Cfeyu3cYia720pknZP+1cLX7H5MVatvruT6MuJhiPuNbQBW/MDn/EwA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/compiler-sfc",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-MKFjb2UX0M/l/jhfzqMLrI8VM4pfvFKG3pqFZkSZFHRLtNld/O4RtUPZFWSwhro/14qP88UQEkWzHxAZAQ0tsw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/compiler-ssr",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-RF5sbZOfYz5AK00tOJUn2PwFXR2fS1u2HVzI8D9VF9rGAFxuGBqg2bB1kJ3ZHMprqSltXnT9MZE1IsqjSM8oew==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/devtools-api",
+      "version": "6.6.4",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==",
+      "licenseFiles": [],
+      "noticeFiles": [],
+      "upstreamNotices": [
+        {
+          "url": "https://raw.githubusercontent.com/vuejs/vue-devtools/df6ab6bb7791a7a525a97990de73b3ea5e9a1941/LICENSE",
+          "sha256": "050bbca6960784db52ff387271bf2ecc5cbed7cf8581b415d528a6ecb6585015"
+        }
+      ]
+    },
+    {
+      "name": "@vue/reactivity",
+      "version": "3.5.32",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-/ORasxSGvZ6MN5gc+uE364SxFdJ0+WqVG0CENXaGW58TOCdrAW76WWaplDtECeS1qphvtBZtR+3/o1g1zL4xPQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/reactivity",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-WqkyubNWpI4OYBOipSrjIssMdJO8K1i9Zts/Wm8Er10/0msOEwCyWWWvZnAI7WW3kQsTong6DJp8Cbb+vd4cPA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/runtime-core",
+      "version": "3.5.32",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-pDrXCejn4UpFDFmMd27AcJEbHaLemaE5o4pbb7sLk79SRIhc6/t34BQA7SGNgYtbMnvbF/HHOftYBgFJtUoJUQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/runtime-core",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-bzIO3+FABjpj85uIKSc+Qnj36/sxDNI3tcH9i6w6xKA1k6e0ejv0G0jMCfeJBvK3yGL5XbJ3DMZj+ClqyCHFYw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/runtime-dom",
+      "version": "3.5.32",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-1CDVv7tv/IV13V8Nip1k/aaObVbWqRlVCVezTwx3K07p7Vxossp5JU1dcPNhJk3w347gonIUT9jQOGutyJrSVQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/runtime-dom",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-ZvRTFMDgfqTDYWvJfoVpQTJx1RN5M6l7Pyd6wfdY2NaXzbPQVh9ezeQYFbNPP6bIcRVn2SqSSR25N/jSW69BFw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/server-renderer",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-1fNXUHhhsWf4EVL4XixbGBU5mKdiIXJAB82feHRTyPPo6ZUEYWIJuEeUl3mVV6QDBp50HJOX4obLhxYXlrjrzA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/shared",
+      "version": "3.5.32",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-ksNyrmRQzWJJ8n3cRDuSF7zNNontuJg1YHnmWRJd2AMu8Ij2bqwiiri2lH5rHtYPZjj4STkNcgcmiQqlOjiYGg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "@vue/shared",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-ue9fgHmVNPlP7iW3+cxoBX/Cnlw53dHlVSw0JKGY6z1lObg8pHoj928M2nzG4/yVsMZ3NaRZ2s2z61uC16NDwQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "agent-base",
+      "version": "7.1.4",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "bail",
+      "version": "2.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "bidi-js",
+      "version": "1.1.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-fX1Onk0tdVPC7obPWB5EbJ1z7NVhLq4m2xZLq2YXBkxzMXIGRpNMU88n0EPgWseKl12J7zXs7qrDxPK4sRs2fg==",
+      "licenseFiles": [
+        "package/LICENSE.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "buffer-crc32",
+      "version": "1.0.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Db1SbgBS/fg/392AblrMJk97KggmvYhr4pB5ZIMTWtaivCPMWLkmb7m21cJvpvgK+J3nsU2CmmixNBZx4vFj/w==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "ccount",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "character-entities",
+      "version": "2.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-shx7oQ0Awen/BRIdkjkvz54PnEEI/EjwXDSIZp86/KKdbafHh1Df/RYGBhn4hbe2+uKC9FnT5UCEdyPz3ai9hQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "color2k",
+      "version": "2.0.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-zW190nQTIoXcGCaU08DvVNFTmQhUpnJfVuAKfWqUQkflXKpaDdpaYoM0iluLS9lgJNHyBF58KKA2FBEwkD7wog==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "comma-separated-tokens",
+      "version": "2.0.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "css-tree",
+      "version": "3.2.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-X7sjQzceUhu1u7Y/ylrRZFU2FS6LRiFVp6rKLPg23y3x3c3DOKAwuXGDp+PAGjh6CSnCjYeAul8pcT8bAl+lSA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "cssstyle",
+      "version": "5.3.7",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-7D2EPVltRrsTkhpQmksIu+LxeWAIEk6wRDMJ1qljlv+CKHJM+cJLlfhWIzNA44eAsHXSNe3+vO6DW1yCYx8SuQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "csstype",
+      "version": "3.2.3",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "data-urls",
+      "version": "6.0.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-euIQENZg6x8mj3fO6o9+fOW8MimUI4PpD/fZBhJfeioZVy9TUpM4UY7KjQNVZFlqwJ0UdzRDzkycB997HEq1BQ==",
+      "licenseFiles": [
+        "package/LICENSE.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "debug",
+      "version": "4.4.3",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "decimal.js",
+      "version": "10.6.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==",
+      "licenseFiles": [
+        "package/LICENCE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENCE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "decode-named-character-reference",
+      "version": "1.3.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-GtpQYB283KrPp6nRw50q3U9/VfOutZOe103qlN7BPP6Ad27xYnOIWv4lPzo8HCAL+mMZofJ9KEy30fq6MfaK6Q==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "devlop",
+      "version": "1.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "entities",
+      "version": "6.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "BSD-2-Clause",
+      "integrity": "sha512-aN97NXWF6AWBTahfVOIrB/NShkzi5H7F9r1s9mD3cDj4Ko5f2qhhVoYMibXF7GlLveb/D2ioWay8lxI97Ven3g==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "entities",
+      "version": "7.0.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "BSD-2-Clause",
+      "integrity": "sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "entities",
+      "version": "9.0.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "BSD-2-Clause",
+      "integrity": "sha512-oJFNDJg3kTPwAD1cNn2+WmUq4wFoo09npc3Ydf1D7ED4smRiWrsKnaLxykrTWgyGEcusc87P5dxlAleol9kpkg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "escape-string-regexp",
+      "version": "5.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "estree-walker",
+      "version": "2.0.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "eventemitter3",
+      "version": "5.0.4",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "extend",
+      "version": "3.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-embedded",
+      "version": "3.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-naH8sld4Pe2ep03qqULEtvYr7EjrLK2QHY8KJR6RJkTUjPGObe1vnx585uzem2hGra+s1q08DZZpfgDVYRbaXA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-from-html",
+      "version": "2.0.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-CUSRHXyKjzHov8yKsQjGOElXy/3EKpyX56ELnkHH34vDVw1N1XSQ1ZcAvTyAPtGqLTuKP/uxM+aLkSPqF/EtMw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-from-parse5",
+      "version": "8.0.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-3kxEVkEKt0zvcZ3hCRYI8rqrgwtlIOFMWkbclACvjlDw8Li9S2hk/d51OI0nr/gIpdMHNepwgOKqZ/sy0Clpyg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-has-property",
+      "version": "3.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-MNilsvEKLFpV604hwfhVStK0usFY/QmM5zX16bo7EjnAEGofr5YyI37kzopBlZJkHD4t887i+q/C8/tr5Q94cA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-is-body-ok-link",
+      "version": "3.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-0qpnzOBLztXHbHQenVB8uNuxTnm/QBFUOmdOSsEn7GnBtyY07+ENTWVFBAnXd/zEgd9/SUG3lRY7hSIBWRgGpQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-is-element",
+      "version": "3.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Val9mnv2IWpLbNPqc/pUem+a7Ipj2aHacCwgNfTiK0vJKl0LF+4Ba4+v1oPHFpf3bLYmreq0/l3Gud9S5OH42g==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-minify-whitespace",
+      "version": "1.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-L96fPOVpnclQE0xzdWb/D12VT5FabA7SnZOUMtL1DbXmYiHJMXZvFkIZfiMmTCNJHUeO2K9UYNXoVyfz+QHuOw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-parse-selector",
+      "version": "4.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-wkQCkSYoOGCRKERFWcxMVMOcYE2K1AaNLU8DXS9arxnLOUEWbOXKXiJUNzEpqZ3JOKpnha3jkFrumEjVliDe7A==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-phrasing",
+      "version": "3.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-6h60VfI3uBQUxHqTyMymMZnEbNl1XmEGtOxxKYL7stY2o601COo62AWAYBQR9lZbYXYSBoxag8UpPRXK+9fqSQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-to-mdast",
+      "version": "10.1.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-FiCRI7NmOvM4y+f5w32jPRzcxDIz+PUqDwEqn1A+1q2cdp3B8Gx7aVrXORdOKjMNDQsD1ogOr896+0jJHW1EFQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-to-text",
+      "version": "4.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-KK6y/BN8lbaq654j7JgBydev7wuNMcID54lkRav1P0CaE1e47P72AWWPiGKXTJU271ooYzcvTAn/Zt0REnvc7A==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hast-util-whitespace",
+      "version": "3.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "hastscript",
+      "version": "9.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-g7df9rMFX/SPi34tyGCyUBREQoKkapwdY/T04Qn9TDWfHhAYt4/I0gMVirzK5wEzeUqIjEB+LXC/ypb7Aqno5w==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "he",
+      "version": "1.2.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==",
+      "licenseFiles": [
+        "package/LICENSE-MIT.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE-MIT.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "html-encoding-sniffer",
+      "version": "6.0.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-CV9TW3Y3f8/wT0BRFc1/KAVQ3TUHiXmaAb6VW9vtiMFf7SLoMd1PdAc4W3KFOFETBJUb90KatHqlsZMWV+R9Gg==",
+      "licenseFiles": [
+        "package/LICENSE.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "http-proxy-agent",
+      "version": "7.0.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "https-proxy-agent",
+      "version": "7.0.6",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "is-plain-obj",
+      "version": "4.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "is-potential-custom-element-name",
+      "version": "1.0.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==",
+      "licenseFiles": [
+        "package/LICENSE-MIT.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE-MIT.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "isomorphic.js",
+      "version": "0.2.5",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "jsdom",
+      "version": "27.4.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-mjzqwWRD9Y1J1KUi7W97Gja1bwOOM5Ug0EZ6UDK3xS7j7mndrkwozHtSblfomlzyB4NepioNt+B2sOSzczVgtQ==",
+      "licenseFiles": [
+        "package/LICENSE.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "jszip",
+      "version": "3.10.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "(MIT OR GPL-3.0-or-later)",
+      "integrity": "sha512-xXDvecyTpGLrqFrvkrUSoxxfJI5AH7U8zxxtVclpsUtMCq4JQ290LY8AW5c7Ggnr/Y/oK+bQMbqK2qmtk3pN4g==",
+      "licenseFiles": [
+        "package/LICENSE.markdown",
+        "package/lib/license_header.js"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.markdown",
+        "package/lib/license_header.js"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "konva",
+      "version": "10.2.5",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-WwBoe/EBhFcv+seL1Wnp3OAOwOFjCY4nCCgpLRrzUzw1IX4lKf/lYhj2Z3qo9P9q2fA3h+OdGDlimSNqZJaY5A==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "konva",
+      "version": "10.9.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-m49x+GatSxEUSvqahYhxpTjgKbtrLtw4P4o4B4iux953ZFpceaK52Ea+CFsAsd7W4I0Y5u6mMoRUsY/eltNZmw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "lib0",
+      "version": "0.2.117",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-DeXj9X5xDCjgKLU/7RR+/HQEVzuuEUiwldwOGsHK/sfAfELGWEyTcf0x+uOvCvK3O2zPmZePXWL85vtia6GyZw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "lib0",
+      "version": "0.2.119",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-vh+TiejVy8Xm+hCdnRfn9BthGNvNUZdEXltNjVZL3TzRIKP3s1lnQh8pWd/Q0wCgY0FPAGVVjFF4ZiHUV3LFgA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "lodash",
+      "version": "4.17.23",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "longest-streak",
+      "version": "3.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "lru-cache",
+      "version": "11.5.3",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "BlueOak-1.0.0",
+      "integrity": "sha512-U4N8FgzmWxc8k1VH8Kr6lQg18U7Fjvby6wXHVRX/ZZ7IwWbRMgrRbP0Wrb5q5NVinryp4SQampHKdvtecItxUg==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "magic-string",
+      "version": "0.30.21",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "markdown-table",
+      "version": "3.0.4",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-find-and-replace",
+      "version": "3.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Tmd1Vg/m3Xz43afeNxDIhWRtFZgM2VLyaf4vSTYwudTyeuTneoL3qtWMA5jeLyz/O1vDJmmV4QuScFCA2tBPwg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-from-markdown",
+      "version": "2.0.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-W4mAWTvSlKvf8L6J+VN9yLSqQ9AOAAvHuoDAmPkz4dHf553m5gVj2ejadHJhoJmcmxEnOv6Pa8XJhpxE93kb8Q==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-gfm-autolink-literal",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-5HVP2MKaP6L+G6YaxPNjuL0BPrq9orG3TsrZ9YXbA3vDw/ACI4MEsnoDpn6ZNm7GnZgtAcONJyPhOP8tNJQavQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-gfm-footnote",
+      "version": "2.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-sqpDWlsHn7Ac9GNZQMeUzPQSMzR6Wv0WKRNvQRg0KqHh02fpTz69Qc1QSseNX29bhz1ROIyNyxExfawVKTm1GQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-gfm-strikethrough",
+      "version": "2.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-mKKb915TF+OC5ptj5bJ7WFRPdYtuHv0yTRxK2tJvi+BDqbkiG7h7u/9SI89nRAYcmap2xHQL9D+QG/6wSrTtXg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-gfm-table",
+      "version": "2.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-78UEvebzz/rJIxLvE7ZtDd/vIQ0RHv+3Mh5DR96p7cS7HsBhYIICDBCu8csTNWNO6tBWfqXPWekRuj2FNOGOZg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-gfm-task-list-item",
+      "version": "2.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-IrtvNvjxC1o06taBAVJznEnkiHxLFTzgonUdy8hzFVeDun0uTjxxrRGVaNFqkU1wJR3RBPEfsxmU6jDWPofrTQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-gfm",
+      "version": "3.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-0ulfdQOM3ysHhCJ1p06l0b0VKlhU0wuQs3thxZQagjcjPrlFRqY215uZGHHJan9GEAXd9MbfPjFJz+qMkVR6zQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-phrasing",
+      "version": "4.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-TqICwyvJJpBwvGAMZjj4J2n0X8QWp21b9l0o7eXyVJ25YNWYbJDVIyD1bZXE6WtV6RmKJVYmQAKWa0zWOABz2w==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-to-markdown",
+      "version": "2.1.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-xj68wMTvGXVOKonmog6LwyJKrYXZPvlwabaryTjLh9LuvovB/KAH+kvi8Gjj+7rJjsFi23nkUxRQv1KqSroMqA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdast-util-to-string",
+      "version": "4.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "mdn-data",
+      "version": "2.27.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "CC0-1.0",
+      "integrity": "sha512-9Yubnt3e8A0OKwxYSXyhLymGW4sCufcLG6VdiDdUGVkPhpqLxlvP5vl1983gQjJl3tqbrM731mjaZaP68AgosQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-core-commonmark",
+      "version": "2.0.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-RDBrHEMSxVFLg6xvnXmb1Ayr2WzLAWjeSATAoxwKYJV94TeNavgoIdA0a9ytzDSVzBy2YKFK+emCPOEibLeCrg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-extension-gfm-autolink-literal",
+      "version": "2.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-oOg7knzhicgQ3t4QCjCWgTmfNhvQbDDnJeVu9v81r7NltNCVmhPy1fJRX27pISafdjL+SVc4d3l48Gb6pbRypw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-extension-gfm-footnote",
+      "version": "2.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-/yPhxI1ntnDNsiHtzLKYnE3vf9JZ6cAisqVDauhp4CEHxlb4uoOTxOCJ+9s51bIB8U1N1FJ1RXOKTIlD5B/gqw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-extension-gfm-strikethrough",
+      "version": "2.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-ADVjpOOkjz1hhkZLlBiYA9cR2Anf8F4HqZUO6e5eDcPQd0Txw5fxLzzxnEkSkfnD0wziSGiv7sYhk/ktvbf1uw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-extension-gfm-table",
+      "version": "2.1.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-t2OU/dXXioARrC6yWfJ4hqB7rct14e8f7m0cbI5hUmDyyIlwv5vEtooptH8INkbLzOatzKuVbQmAYcbWoyz6Dg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-extension-gfm-task-list-item",
+      "version": "2.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-qIBZhqxqI6fjLDYFTBIa4eivDMnP+OZqsNwmQ3xNLE4Cxwc+zfQEfbs6tzAo2Hjq+bh6q5F+Z8/cksrLFYWQQw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-extension-gfm",
+      "version": "3.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-vsKArQsicm7t0z2GugkCKtZehqUm31oeGBV/KVSorWSy8ZlNAv7ytjFhvaryUiCUJYqs+NoE6AFhpQvBTM6Q4w==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-factory-destination",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Xe6rDdJlkmbFRExpTOmRj9N3MaWmbAgdpSrBQvCFqhezUn4AHqJHbaEnfbVYYiexVSs//tqOdY/DxhjdCiJnIA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-factory-label",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-VFMekyQExqIW7xIChcXn4ok29YE3rnuyveW3wZQWWqF4Nv9Wk5rgJ99KzPvHjkmPXF93FXIbBp6YdW3t71/7Vg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-factory-space",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-zRkxjtBxxLd2Sc0d+fbnEunsTj46SWXgXciZmHq0kDYGnck/ZSGj9/wULTV95uoeYiK5hRXP2mJ98Uo4cq/LQg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-factory-title",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-5bZ+3CjhAd9eChYTHsjy6TGxpOFSKgKKJPJxr293jTbfry2KDoWkhBb6TcPVB4NmzaPhMs1Frm9AZH7OD4Cjzw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-factory-whitespace",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Ob0nuZ3PKt/n0hORHyvoD9uZhr+Za8sFoP+OnMcnWK5lngSzALgQYKMr9RJVOWLqQYuyn6ulqGWSXdwf6F80lQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-character",
+      "version": "2.1.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-wv8tdUTJ3thSFFFJKtpYKOYiGP2+v96Hvk4Tu8KpCAsTMs6yi+nVmGh1syvSCsaxz45J6Jbw+9DD6g97+NV67Q==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-chunked",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-QUNFEOPELfmvv+4xiNg2sRYeS/P84pTW0TCgP5zc9FpXetHY0ab7SxKyAQCNCc1eK0459uoLI1y5oO5Vc1dbhA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-classify-character",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-K0kHzM6afW/MbeWYWLjoHQv1sgg2Q9EccHEDzSkxiP/EaagNzCm7T/WMKZ3rjMbvIpvBiZgwR3dKMygtA4mG1Q==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-combine-extensions",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-OnAnH8Ujmy59JcyZw8JSbK9cGpdVY44NKgSM7E9Eh7DiLS2E9RNQf0dONaGDzEG9yjEl5hcqeIsj4hfRkLH/Bg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-decode-numeric-character-reference",
+      "version": "2.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-ccUbYk6CwVdkmCQMyr64dXz42EfHGkPQlBj5p7YVGzq8I7CtjXZJrubAYezf7Rp+bjPseiROqe7G6foFd+lEuw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-decode-string",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-nDV/77Fj6eH1ynwscYTOsbK7rR//Uj0bZXBwJZRfaLEJ1iGBR6kIfNmlNqaqJf649EP0F3NWNdeJi03elllNUQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-html-tag-name",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-2cNEiYDhCWKI+Gs9T0Tiysk136SnR13hhO8yW6BGNyhOC4qYFnwF1nKfD3HFAIXA5c45RrIG1ub11GiXeYd1xA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-normalize-identifier",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-sxPqmo70LyARJs0w2UclACPUUEqltCkJ6PhKdMIDuJ3gSf/Q+/GIe3WKl0Ijb/GyH9lOpUkRAO2wp0GVkLvS9Q==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-resolve-all",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-VdQyxFWFT2/FGJgwQnJYbe1jjQoNTS4RjglmSjTUlpUMa95Htx9NHeYW4rGDJzbjvCsl9eLjMQwGeElsqmzcHg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark-util-subtokenize",
+      "version": "2.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-XQLu552iSctvnEcgXw6+Sx75GflAPNED1qx7eBJ+wydBb2KCbRZe+NwvIEEMM83uml1+2WSXpBAcp9IUCgCYWA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "micromark",
+      "version": "4.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-zpe98Q6kvavpCr1NPVSCMebCKfD7CA2NqZ+rykeNhONIJBpc1tFKt9hucLGwha3jNTNI8lHpctWJWoimVF4PfA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "ms",
+      "version": "2.1.3",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==",
+      "licenseFiles": [
+        "package/license.md"
+      ],
+      "noticeFiles": [
+        "package/license.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "nanoid",
+      "version": "3.3.20",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "orderedmap",
+      "version": "2.1.1",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-TvAWxi0nDe1j/rtMcWcIj94+Ffe6n7zhow33h40SKxmsmozs6dz/e+EajymfoFcHd7sxNn8yHM8839uixMOV6g==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "pako",
+      "version": "1.0.11",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "(MIT AND Zlib)",
+      "integrity": "sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "parse5",
+      "version": "7.3.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "parse5",
+      "version": "8.1.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-sq3qBFpee5jeocbFbO48VHlGr8sT7mbXS0vxlKN6sottBtJzrOG3998sr0llSZcQAGgfpdmEYAIZE0P9z0dE8w==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "picocolors",
+      "version": "1.1.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "ISC",
+      "integrity": "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "pinia",
+      "version": "2.3.1",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-khUlZSwt9xXCaTbbxFYBKDc/bWAGWJjOgvxETwkTN7KRm66EeT1ZdZj6i2ceh9sP2Pzqsbc704r2yngBrxBVug==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "postcss",
+      "version": "8.5.32",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-LJlKCCAUFKOuZxipUdYw1NzIITEsPcgyOG9LkvRJvuKj/bRzbuRY0ARXvL0pWGpsZvn8jku+LMep2eU0seHp8g==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "property-information",
+      "version": "7.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-commands",
+      "version": "1.7.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-rT7qZnQtx5c0/y/KlYaGvtG411S97UaL6gdp6RIZ23DLHanMYLyfGBV5DtSnZdthQql7W+lEVbpSfwtO8T+L2w==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-dropcursor",
+      "version": "1.8.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-CCk6Gyx9+Tt2sbYk5NK0nB1ukHi2ryaRgadV/LvyNuO3ena1payM2z6Cg0vO1ebK8cxbzo41ku2DE5Axj1Zuiw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-gapcursor",
+      "version": "1.4.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-pMdYaEnjNMSwl11yjEGtgTmLkR08m/Vl+Jj443167p9eB3HVQKhYCc4gmHVDsLPODfZfjr/MmirsdyZziXbQKw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-history",
+      "version": "1.5.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-zlzTiH01eKA55UAf1MEjtssJeHnGxO0j4K4Dpx+gnmX9n+SHNlDqI2oO1Kv1iPN5B1dm5fsljCfqKF9nFL6HRg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-keymap",
+      "version": "1.2.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-4HucRlpiLd1IPQQXNqeo81BGtkY8Ai5smHhKW9jjPKRc2wQIxksg7Hl1tTI2IfT2B/LgX6bfYvXxEpJl7aKYKw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-model",
+      "version": "1.25.12",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Ue2gTmXMa7EhpLNhC7J+h4+ykD8ha12K6rrZFFKKJHBForfIStw5gJ6Zrf1mqqAa9NmpmEB4wp9bKmA4eUVjWg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-model",
+      "version": "1.25.4",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-PIM7E43PBxKce8OQeezAs9j4TP+5yDpZVbuurd1h5phUxEKIu+G2a+EUZzIC5nS1mJktDJWzbqS23n1tsAf5QA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-state",
+      "version": "1.4.4",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-6jiYHH2CIGbCfnxdHbXZ12gySFY/fz/ulZE333G6bPqIZ4F+TXo9ifiR86nAHpWnfoNjOb3o5ESi7J8Uz1jXHw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-tables",
+      "version": "1.8.5",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-V/0cDCsHKHe/tfWkeCmthNUcEp1IVO3p6vwN8XtwE9PZQLAZJigbw3QoraAdfJPir4NKJtNvOB8oYGKRl+t0Dw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-transform",
+      "version": "1.11.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-4I7Ce4KpygXb9bkiPS3hTEk4dSHorfRw8uI0pE8IhxlK2GXsqv5tIA7JUSxtSu7u8APVOTtbUBxTmnHIxVkIJw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-transform",
+      "version": "1.12.5",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-3EBXZBM4h3MKuWvs9sQ7IA0/v6jCqCZ4wC08PIvzY1VSQWDL90KEyfg5C0Ex52UJesf/QVogxvuBsZdKmLc3NQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-view",
+      "version": "1.41.7",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-jUwKNCEIGiqdvhlS91/2QAg21e4dfU5bH2iwmSDQeosXJgKF7smG0YSplOWK0cjSNgIqXe7VXqo7EIfUFJdt3w==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "prosemirror-view",
+      "version": "1.42.9",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-bKbfzeKZOu2H2JQU2TaJmYu6EBcor3VnGIR4jR31cbEt1ztUnfUB6bKGV1+fJzOJdrVWR+tRU0208zM3oQx4wA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "punycode",
+      "version": "2.3.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==",
+      "licenseFiles": [
+        "package/LICENSE-MIT.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE-MIT.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "rehype-minify-whitespace",
+      "version": "6.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Zk0pyQ06A3Lyxhe9vGtOtzz3Z0+qZ5+7icZ/PL/2x1SHPbKao5oB/g/rlc6BCTajqBb33JcOe71Ye1oFsuYbnw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "rehype-parse",
+      "version": "9.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-ksCzCD0Fgfh7trPDxr2rSylbwq9iYDkSn8TCDmEJ49ljEUBxDVCzCHv7QNzZOfODanX4+bWQ4WZqLCRWYLfhag==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "rehype-remark",
+      "version": "10.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-EmDndlb5NVwXGfUa4c9GPK+lXeItTilLhE6ADSaQuHr4JUlKw9MidzGzx4HpqZrNCt6vnHmEifXQiiA+CEnjYQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "remark-gfm",
+      "version": "4.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "remark-parse",
+      "version": "11.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-FCxlKLNGknS5ba/1lmpYijMUzX2esxW5xQqjWxw2eHFfS2MSdaHVINFmhjo+qN1WhZhNimq0dZATN9pH0IDrpA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "remark-stringify",
+      "version": "11.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "require-from-string",
+      "version": "2.0.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "ret",
+      "version": "0.5.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-I1XxrZSQ+oErkRR4jYbAyEEu2I0avBvvMM5JN+6EBprOGRCs63ENqZ3vjavq8fBw2+62G5LF5XelKwuJpcvcxw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "rope-sequence",
+      "version": "1.3.4",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-UT5EDe2cu2E/6O4igUr5PSFs23nvvukicWHx6GnOPlHAiiYbzNuCRQCuiUdHJQcqKalLKlrYJnjY0ySGsXNQXQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "safe-regex2",
+      "version": "5.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-pNHAuBW7TrcleFHsxBr5QMi/Iyp0ENjUKz7GCcX1UO7cMh+NmVK6HxQckNL1tJp1XAJVjG6B8OKIPqodqj9rtw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "sax",
+      "version": "1.6.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "BlueOak-1.0.0",
+      "integrity": "sha512-6R3J5M4AcbtLUdZmRv2SygeVaM7IhrLXu9BmnOGmmACak8fiUtOsYNWUS4uK7upbmHIBbLBeFeI//477BKLBzA==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "saxes",
+      "version": "6.0.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "ISC",
+      "integrity": "sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==",
+      "licenseFiles": [],
+      "noticeFiles": [
+        "package/README.md"
+      ],
+      "upstreamNotices": [
+        {
+          "url": "https://raw.githubusercontent.com/lddubeau/saxes/211fa0ebec9b628affc09219199639887174bfc3/LICENSE",
+          "sha256": "0fac2374380621b22e6b50451057721a9c52935b02d16d106a9f04897f061d0e"
+        }
+      ]
+    },
+    {
+      "name": "source-map-js",
+      "version": "1.2.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "BSD-3-Clause",
+      "integrity": "sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "space-separated-tokens",
+      "version": "2.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "superdoc",
+      "version": "1.47.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "AGPL-3.0",
+      "integrity": "sha512-ueTZHIvtglJMIKomBrjhz/aXFSabXvSmDdKGt7ZIj04+U2yCD/XhopvtclQMvxgMipIU7FY7XyU29wCwvtVSlA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "symbol-tree",
+      "version": "3.2.4",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "tippy.js",
+      "version": "6.3.7",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "tldts-core",
+      "version": "7.4.20",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-C630TWXZCZmLq0F2bW4QqwnaaxCQ/svpAqvJwnC4JvgEM5ohhBnGsEzTLSOXcN+xjz+kEaHS5uoWIw2klnqd0A==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "tldts",
+      "version": "7.4.19",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-48dH6aSpQnpbzDUc4vIQZ1VjB8tkK+e8c1yx05/SZK+rkssgjEOlxDd/yU8/a4vGYQ9vRgJr9dwMq9TJ0b3X2Q==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "tough-cookie",
+      "version": "6.0.2",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "BSD-3-Clause",
+      "integrity": "sha512-exgYmnmL/sJpR3upZfXG5PoatXQii55xAiXGXzY+sROLZ/Y+SLcp9PgJNI9Vz37HpQ74WvDcLT8eqm+kV3FzrA==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "tr46",
+      "version": "6.0.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-bLVMLPtstlZ4iMQHpFHTR7GAGj2jxi8Dg0s2h2MafAE4uSWF98FC/3MomU51iQAMf8/qDUbKWf5GxuvvVcXEhw==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "trim-trailing-lines",
+      "version": "2.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-5UR5Biq4VlVOtzqkm2AZlgvSlDJtME46uV0br0gENbwN4l5+mMKT4b9gJKqWtuL2zAIqajGJGuvbCbcAJUZqBg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "trough",
+      "version": "2.2.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "undici-types",
+      "version": "8.9.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "unified",
+      "version": "11.0.5",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "unist-util-find-after",
+      "version": "5.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "unist-util-is",
+      "version": "6.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "unist-util-position",
+      "version": "5.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-fucsC7HjXvkB5R3kTCO7kUjRdrS0BJt3M/FPxmHMBOm8JQi2BsHAHFsy27E0EolP8rp0NzXsJ+jNPyDWvOJZPA==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "unist-util-stringify-position",
+      "version": "4.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-0ASV06AAoKCDkS2+xw5RXJywruurpbC4JZSm7nr7MOt1ojAzvyyaO+UxZf18j8FCF6kmzCZKcAgN/yu2gm2XgQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "unist-util-visit-parents",
+      "version": "6.0.2",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-goh1s1TBrqSqukSc8wrjwWhL0hiJxgA8m4kFxGlQ+8FYQ3C/m11FcTs4YYem7V664AhHVvgoQLk890Ssdsr2IQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "unist-util-visit",
+      "version": "5.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-m+vIdyeCOpdr/QeQCu2EzxX/ohgS8KbnPDgFni4dQsfSCtpz8UqDyY5GjRru8PDKuYn7Fq19j1CQ+nJSsGKOzg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "utif2",
+      "version": "4.1.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-+oknB9FHrJ7oW7A2WZYajOcv4FcDR4CfoGB0dPNfxbi4GO05RRnFmt5oa23+9w32EanrYcSJWspUiJkLMs+37w==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "uuid",
+      "version": "11.1.1",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-vIYxrBCC/N/K+Js3qSN88go7kIfNPssr/hHCesKCQNAjmgvYS2oqr69kIufEG+O4+PfezOH4EbIeHCfFov8ZgQ==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "vfile-location",
+      "version": "5.0.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-5yXvWDEgqeiYiBe1lbxYF7UMAIm/IcopxMHrMQDq3nvKcjPKIhZklUKL+AE7J7uApI4kwe2snsK+eI6UTj9EHg==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "vfile-message",
+      "version": "4.0.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-QTHzsGd1EhbZs4AsQ20JX1rC3cOlt/IWJruk893DfLRr57lcnOeMaWG4K0JrRta4mIJZKth2Au3mM3u03/JWKw==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "vfile",
+      "version": "6.0.3",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "vue-demi",
+      "version": "0.14.10",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "vue",
+      "version": "3.5.32",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-vM4z4Q9tTafVfMAK7IVzmxg34rSzTFMyIe0UUEijUCkn9+23lj0WRfA83dg7eQZIUlgOSGrkViIaCfqSAUXsMw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "vue",
+      "version": "3.5.45",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-3cvsib8m9c0vB24+MDKsgcW4+Da4xaBl9Z/5Tbm2pmSIsRPxcil4cdXjXlVsmJ2g64XJo5h+IRd7rsdGT9pZaw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "w3c-keyname",
+      "version": "2.2.8",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "w3c-xmlserializer",
+      "version": "5.0.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "web-namespaces",
+      "version": "2.0.1",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "webidl-conversions",
+      "version": "8.0.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "BSD-2-Clause",
+      "integrity": "sha512-BMhLD/Sw+GbJC21C/UgyaZX41nPt8bUTg+jWyDeg7e7YN4xOM05YPSIXceACnXVtqyEw/LMClUQMtMZ+PGGpqQ==",
+      "licenseFiles": [
+        "package/LICENSE.md"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.md"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "whatwg-mimetype",
+      "version": "4.0.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==",
+      "licenseFiles": [
+        "package/LICENSE.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "whatwg-mimetype",
+      "version": "5.0.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-sXcNcHOC51uPGF0P/D4NVtrkjSU2fNsm9iog4ZvZJsL3rjoDAzXZhkm2MWt1y+PUdggKAYVoMAIYcs78wJ51Cw==",
+      "licenseFiles": [
+        "package/LICENSE.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "whatwg-url",
+      "version": "15.1.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-2ytDk0kiEj/yu90JOAp44PVPUkO9+jVhyf+SybKlRHSDlvOOZhdPIrr7xTH64l4WixO2cP+wQIcgujkGBPPz6g==",
+      "licenseFiles": [
+        "package/LICENSE.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "ws",
+      "version": "8.22.1",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-oyL6OPYme/CmiFvNuGzeoxCJ4nOrZE2O1FwM9MWM1AsGri6nLXB2pg+lNA8aLeXMSav0J6eIVS1j6vUPzUtK9g==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "xml-js",
+      "version": "1.6.11",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "xml-name-validator",
+      "version": "5.0.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "Apache-2.0",
+      "integrity": "sha512-EvGK8EJ3DhaHfbRlETOWAS5pO9MZITeauHKJyb8wyajUfQUenkIg2MvLDTZ4T/TgIcm3HU0TFBgWWboAZ30UHg==",
+      "licenseFiles": [
+        "package/LICENSE.txt"
+      ],
+      "noticeFiles": [
+        "package/LICENSE.txt"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "xmlchars",
+      "version": "2.2.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "y-prosemirror",
+      "version": "1.3.7",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-NpM99WSdD4Fx4if5xOMDpPtU3oAmTSjlzh5U4353ABbRHl1HtAFUx6HlebLZfyFxXN9jzKMDkVbcRjqOZVkYQg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "y-protocols",
+      "version": "1.0.7",
+      "sources": [
+        "package-lock.json",
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-YSVsLoXxO67J6eE/nV4AtFtT3QEotZf5sK5BHxFBXso7VDUT3Tx07IfA6hsu5Q5OmBdMkQVmFZ9QOA7fikWvnw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "y-websocket",
+      "version": "3.0.0",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-mUHy7AzkOZ834T/7piqtlA8Yk6AchqKqcrCXjKW8J1w2lPtRDjz8W5/CvXz9higKAHgKRKqpI3T33YkRFLkPtg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "y-websocket",
+      "version": "3.1.0",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-ZNzwH84Ysxv7zjpFNZHjTJvrBZgcAqMljTe+6zrWciAML9LQ18aVylyPNH9faxCXqEOV8I0JY4TGtrIHFX+Xwg==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "yjs",
+      "version": "13.6.30",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-vv/9h42eCMC81ZHDFswuu/MKzkl/vyq1BhaNGfHyOonwlG4CJbQF4oiBBJPvfdeCt/PlVDWh7Nov9D34YY09uQ==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "yjs",
+      "version": "13.6.33",
+      "sources": [
+        "package-lock.json"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-q/UYvr1gOk4XII+Cu1CW2dINjYqJJFifTzogEaIARznrvX7uOlHsdTEXcnOBMuIsrCGEEKdNxi74kyMLZlKVfw==",
+      "licenseFiles": [
+        "package/LICENSE"
+      ],
+      "noticeFiles": [
+        "package/LICENSE"
+      ],
+      "upstreamNotices": []
+    },
+    {
+      "name": "zwitch",
+      "version": "2.0.4",
+      "sources": [
+        "superdoc.min.js.map"
+      ],
+      "license": "MIT",
+      "integrity": "sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==",
+      "licenseFiles": [
+        "package/license"
+      ],
+      "noticeFiles": [
+        "package/license"
+      ],
+      "upstreamNotices": []
+    }
+  ]
+}

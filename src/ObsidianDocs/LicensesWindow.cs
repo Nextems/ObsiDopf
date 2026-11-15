@@ -73,7 +73,9 @@ internal sealed class LicensesWindow : Window
                     string name=System.IO.Path.GetFileName(file);
                     if(name.Contains("LICENSE",StringComparison.OrdinalIgnoreCase) || name.Contains("LICENCE",StringComparison.OrdinalIgnoreCase)
                         || name.Contains("COPYING",StringComparison.OrdinalIgnoreCase) || name.Contains("NOTICE",StringComparison.OrdinalIgnoreCase)
-                        || name.Contains("COPYRIGHT",StringComparison.OrdinalIgnoreCase))
+                        || name.Contains("COPYRIGHT",StringComparison.OrdinalIgnoreCase)
+                        || System.IO.Path.GetExtension(file).Equals(".txt",StringComparison.OrdinalIgnoreCase)
+                        || System.IO.Path.GetExtension(file).Equals(".md",StringComparison.OrdinalIgnoreCase))
                         AddFile(System.IO.Path.GetRelativePath(notices,file),file);
                 }
             }

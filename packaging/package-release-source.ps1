@@ -44,14 +44,14 @@ try {
     [ordered]@{
         Product='ObsiDopf'; Version=$Version; Platform='win-x64'; Stage=$(if($SourcesOnly){'source-preparation'}else{'release-candidate'})
         PreparedUtc=[DateTime]::UtcNow.ToString('o'); BaseCommit=(& git rev-parse HEAD).Trim()
-        Source='Current working tree, including uncommitted files; Source.zip is the build source snapshot.'
+        Source='Source.zip is the build source snapshot; BaseCommit identifies the release commit. Publish only from a clean working tree.'
         Build=$(if($SourcesOnly){'Source preparation only; this command did not build an installer.'}else{'dotnet publish Release, self-contained; NSIS solid LZMA'})
         NativeComponents='Unchanged OCR and LibreOffice reused from the previous installed release.'
         Validation='Compilation and packaging only. No application, installer, functional tests or Gemini API requests executed.'
         Prerequisites=@('Windows 10/11 x64','Microsoft Edge WebView2 Runtime for DOC/DOCX')
         License='Original ObsiDopf code: AGPL-3.0-only; third-party licenses preserved.'
         EngineSource='SuperDoc 1.47.2: pinned repository snapshot, complete published source-map contents, original npm archive, preferred-source changes and build instructions.'
-        Publication='Not published. Finish the component notice review before public distribution.'
+        Publication=('Prepared for GitHub release v'+$Version+'. Publishing is a separate operation.')
         Artifacts=$artifacts
     } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $outputRoot "ObsiDopf-$Version-Release.json") -Encoding utf8
     $artifacts | Select-Object Name,Bytes
