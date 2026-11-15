@@ -28,12 +28,13 @@ public partial class MainWindow
     {
         if (current is null) return;
         ConfigureDocumentUi();
-        if (current.IsDocx) { ++viewGeneration; ++thumbnailGeneration; surfaces.Clear(); PageStack.Children.Clear(); HideCard(); return; }
+        ChangeSearchDocument();
+        if (current.IsWordDocument) { ++viewGeneration; ++thumbnailGeneration; surfaces.Clear(); PageStack.Children.Clear(); HideCard(); return; }
         HideCard(); var session=current; int requested=session.Page;
         buildingView=true; ++viewGeneration;
         try
         {
-            PageStack.Children.Clear(); surfaces.Clear();
+            PageStack.Children.Clear(); surfaces.Clear(); windowEnd=-1;
             for (int index=0;index<session.Count;index++)
             {
                 double ratio;
@@ -49,39 +50,45 @@ public partial class MainWindow
                 surface.Selection.MouseLeftButtonDown+=Select_Start;
                 surface.Selection.MouseMove+=Select_Move;
                 surface.Selection.MouseLeftButtonUp+=Select_End;
-                surfaces.Add(surface); PageStack.Children.Add(surface);
+                surface.Selection.ContextMenu=CreateTextSelectionMenu(surface);
+                surfaces.Add(surface);
             }
             activeSurface=surfaces[requested]; bitmap=null;
             PageStack.Visibility=Visibility.Visible; Welcome.Visibility=Visibility.Collapsed;
+            SetPageWindow(requested,false);
             ResizePage(); Viewer.UpdateLayout();
             // A vertical scrollbar can reduce the viewport after first layout.
             ResizePage(); Viewer.UpdateLayout();
             Viewer.ScrollToVerticalOffset(surfaces[requested].Top);
             UpdateCurrentPageUi();
-            await RefreshSideAsync(); RefreshComments();
+            await RefreshSideAsync(deferLoading:true); RefreshComments();
         }
         finally { buildingView=false; }
         await EnsurePageAsync(requested,viewGeneration);
         await RenderVisibleAsync();
+        thumbnailTask=LoadThumbnailsAsync(session,thumbnailGeneration);
     }
     void ResizePage()
     {
+        if(current?.IsWordDocument==true) { current.Editor?.SetZoom(zoom); ZoomStatus.Text=$"{zoom:P0}"; return; }
         if (surfaces.Count==0) return;
         double available=Viewer.ViewportWidth>80 ? Viewer.ViewportWidth : Math.Max(300,Workspace.ActualWidth-CommentColumn.ActualWidth-18);
         double width=Math.Max(180,Math.Min(800,available-48))*zoom;
         double top=24;
-        foreach (var surface in surfaces) { surface.Size(width); surface.Top=top; top+=surface.Height+24; BuildMarkers(surface); }
+        foreach (var surface in WindowSurfaces) { surface.Size(width); surface.Top=top; top+=surface.Height+24; BuildMarkers(surface); }
+        PaintSearchHighlights();
+        PaintTextSelection();
         ZoomStatus.Text=$"{zoom:P0}";
     }
-    async Task EnsurePageAsync(int index,int generation)
+    async Task EnsurePageAsync(int index,int generation,int dpi=144)
     {
-        if (current is null || index<0 || index>=surfaces.Count) return;
+        if (current is null || index<0 || index>=surfaces.Count || !InPageWindow(index)) return;
         var session=current; var surface=surfaces[index];
-        if (surface.Image.Source is null)
+        if (surface.Image.Source is null || surface.RenderDpi<dpi)
         {
-            var image=await Task.Run(()=>session.Render(index,includeNoteIcons:false));
+            var image=await Task.Run(()=>session.Render(index,dpi,includeNoteIcons:false));
             if (generation!=viewGeneration || current!=session) return;
-            surface.Image.Source=image;
+            if(surface.RenderDpi<=dpi) { surface.Image.Source=image; surface.RenderDpi=dpi; }
         }
         if (surface==activeSurface) bitmap=(BitmapSource?)surface.Image.Source;
         BuildMarkers(surface);
@@ -102,62 +109,21 @@ public partial class MainWindow
             {
                 renderAgain=false; var generation=viewGeneration;
                 double height=Math.Max(400,Viewer.ViewportHeight), offset=Viewer.VerticalOffset;
-                var near=surfaces.Where(p=>p.Top+p.Height>=offset-height && p.Top<=offset+2*height).ToArray();
+                var near=WindowSurfaces.Where(p=>p.Top+p.Height>=offset-height && p.Top<=offset+2*height).ToArray();
                 foreach (var surface in near)
                 {
                     await EnsurePageAsync(surface.Index,generation);
                     if (generation!=viewGeneration) { renderAgain=true; break; }
                 }
                 if (generation!=viewGeneration) continue;
-                foreach (var surface in surfaces)
-                    if ((surface.Top+surface.Height<offset-3*height || surface.Top>offset+4*height) && surface!=activeSurface) surface.Image.Source=null;
             }
+            StartPagePrefetch();
         }
         catch (Exception error) { Status.Text="Ошибка отображения: "+error.Message; }
         finally { renderingVisible=false; }
     }
-    async Task RefreshSideAsync()
-    {
-        if (current is null) return;
-        var session=current; var generation=++thumbnailGeneration;
-        refreshing=true;
-        SideList.Items.Clear();
-        for (int i=0;i<surfaces.Count;i++)
-        {
-            var stack=new StackPanel();
-            stack.Children.Add(new TextBlock { Text=$"Страница {i+1}",Margin=new Thickness(0,0,0,8) });
-            // Fixed aspect-ratio placeholders reserve space even before rendering.
-            var image=new Image { Width=160,Height=160*surfaces[i].Ratio,Stretch=Stretch.Uniform,Tag=i };
-            stack.Children.Add(new Border { Background=Brushes.White,Child=image,HorizontalAlignment=HorizontalAlignment.Center });
-            SideList.Items.Add(new ListBoxItem { Content=stack,Tag=i });
-        }
-        SideHint.Text=$"Страниц: {session.Count} · непрерывная лента";
-        SideList.SelectedIndex=session.Page; refreshing=false;
-        thumbnailTask=LoadThumbnailsAsync(session,generation);
-        await Task.CompletedTask;
-    }
-    async Task LoadThumbnailsAsync(DocumentSession session,int generation)
-    {
-        int count=session.Count;
-        for (int index=0;index<count;index++)
-        {
-            if (generation!=thumbnailGeneration || current!=session) return;
-            try
-            {
-                var image=await Task.Run(()=>session.Render(index,40,includeNoteIcons:false));
-                if (generation!=thumbnailGeneration || current!=session) return;
-                var stack=(StackPanel)((ListBoxItem)SideList.Items[index]).Content;
-                ((Image)((Border)stack.Children[1]).Child).Source=image;
-            }
-            catch (Exception error) { Status.Text=$"Не удалось отобразить миниатюру {index+1}: {error.Message}"; }
-        }
-    }
     async void Side_Changed(object sender,SelectionChangedEventArgs e)
     {
-        if (!busy && current?.IsDocx==true && SideList.SelectedItem is ListBoxItem { Tag:System.Windows.Documents.Block block })
-        {
-            block.BringIntoView(); current.Editor!.CaretPosition=block.ContentStart.GetInsertionPosition(System.Windows.Documents.LogicalDirection.Forward); current.Editor.Focus(); return;
-        }
         if (refreshing || busy || current is null || SideList.SelectedItem is not ListBoxItem { Tag: int page }) return;
         try { await NavigateAsync(page); } catch (Exception error) { Error(error); }
     }
@@ -165,6 +131,7 @@ public partial class MainWindow
     {
         if (busy || current is null || page<0 || page>=surfaces.Count) return;
         HideCard(); current.Page=page; activeSurface=surfaces[page];
+        SetPageWindow(page,false);
         Viewer.UpdateLayout();
         Viewer.ScrollToVerticalOffset(surfaces[page].Top + (enterAtBottom ? Math.Max(0,surfaces[page].Height-Viewer.ViewportHeight) : 0));
         UpdateCurrentPageUi(); await EnsurePageAsync(page,viewGeneration);
@@ -173,17 +140,19 @@ public partial class MainWindow
     {
         if (current is null) return;
         PageStatus.Text=$"{current.Page+1} / {current.Count}";
-        refreshing=true; SideList.SelectedIndex=current.Page;
+        if(!PageJump.IsKeyboardFocusWithin) PageJump.Text=(current.Page+1).ToString();
+        if(!buildingView && (thumbStart!=Math.Max(0,current.Page-PageWindowRadius) || thumbEnd!=Math.Min(current.Count-1,current.Page+PageWindowRadius))) _=RefreshSideAsync();
+        refreshing=true; SideList.SelectedIndex=current.Page>=thumbStart && current.Page<=thumbEnd ? current.Page-thumbStart : -1;
         if (SideList.SelectedItem is { } item) SideList.ScrollIntoView(item);
         refreshing=false;
     }
     async void Viewer_ScrollChanged(object sender,ScrollChangedEventArgs e)
     {
-        if (buildingView || current is null || surfaces.Count==0) return;
+        if (buildingView || shiftingWindow || current is null || surfaces.Count==0) return;
         if (Math.Abs(e.ViewportWidthChange)>1) ResizePage();
         double line=Viewer.VerticalOffset+Math.Min(200,Viewer.ViewportHeight*.35);
-        int page=surfaces.FindLastIndex(p=>p.Top<=line); page=Math.Clamp(page,0,surfaces.Count-1);
-        if (page!=current.Page) { current.Page=page; UpdateCurrentPageUi(); }
+        int page=(WindowSurfaces.LastOrDefault(p=>p.Top<=line) ?? WindowSurfaces.First()).Index;
+        if (page!=current.Page) { current.Page=page; if(!draggingDocumentThumb) SetPageWindow(page,true); UpdateCurrentPageUi(); }
         if (OcrCard.Visibility==Visibility.Visible) PositionCard(selection);
         await RenderVisibleAsync();
     }
@@ -195,19 +164,18 @@ public partial class MainWindow
     }
     void Pages_Click(object sender,RoutedEventArgs e)
     {
-        HideCard(); CommentColumn.Width=new GridLength(0); ResizePage();
+        SetCommentPanel(false);
     }
     void Comments_Click(object sender,RoutedEventArgs e)
     {
-        if (current?.IsDocx==true) return;
-        HideCard(); CommentColumn.Width=new GridLength(270); ResizePage(); RefreshComments();
+        if (current?.IsWordDocument==true) return;
+        SetCommentPanel(true); RefreshComments();
     }
-    void Documents_Click(object sender,RoutedEventArgs e) { HideCard(); Tabs.Focus(); Status.Text="Документы открыты во вкладках сверху"; }
 
     void RefreshComments()
     {
         CommentList.Children.Clear();
-        if (current?.Pdf is null || current.IsDocx) { CommentHint.Text="Комментарии доступны для PDF"; return; }
+        if (current?.Pdf is null || !current.CanEditPdf) { CommentHint.Text="Комментарии доступны для PDF"; return; }
         int count=0;
         for (int page=0;page<current.Count;page++)
         {
@@ -243,7 +211,7 @@ public partial class MainWindow
     void BuildMarkers(PageSurface surface)
     {
         surface.Markers.Children.Clear();
-        if (current?.Pdf is null || current.IsDocx) return;
+        if (current?.Pdf is null || !current.CanEditPdf) return;
         var page=current.Pdf.Pages[surface.Index];
         for (int i=0;i<page.Annotations.Count;i++)
         {
@@ -279,7 +247,7 @@ public partial class MainWindow
     async void Duplicate_Click(object sender,RoutedEventArgs e)
     {
         if (busy || current?.Pdf is null) return;
-        if (current.IsDocx) { Status.Text="Сначала сохраните документ как PDF"; return; }
+        if (current.IsWordDocument) { Status.Text="Сначала сохраните документ как PDF"; return; }
         var session=current; var author=authors.Selected;
         string safe=string.Concat(author.Select(c=>System.IO.Path.GetInvalidFileNameChars().Contains(c)?'_':c));
         var dialog=new SaveFileDialog { Filter="PDF|*.pdf",FileName=System.IO.Path.GetFileNameWithoutExtension(session.Name)+"_"+safe+".pdf",Title="Копия комментариев от имени: "+author };
@@ -290,6 +258,7 @@ public partial class MainWindow
             session.DuplicateWithAuthor(dialog.FileName,author);
             var copy=await Task.Run(()=>DocumentSession.Open(dialog.FileName));
             AddSessionTab(copy); await RenderAsync();
+            await RememberRecentFileAsync(copy.Path);
             Status.Text="Копия сохранена. Автор комментариев: "+author;
         }
         catch (Exception error) { Error(error); }

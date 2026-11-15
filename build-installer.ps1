@@ -1,8 +1,23 @@
-param([string]$Version='1.0.0')
+param(
+    [string]$Version='1.1.0',
+    # Optional unchanged native components from a previous installed release.
+    [string]$ComponentsRoot
+)
 $ErrorActionPreference='Stop'
 Push-Location $PSScriptRoot
 try {
-    $payload=Join-Path $PSScriptRoot 'dist\staging'
+    if ($Version -notmatch '^\d+\.\d+\.\d+$') { throw 'Version must have the form major.minor.patch' }
+    $payload=Join-Path $PSScriptRoot ('dist\staging-'+$Version+'-'+(Get-Date -Format 'yyyyMMdd-HHmmss'))
+    $workerRoot=Join-Path $PSScriptRoot 'native\ocr-worker\target\release'
+    $loSource=Join-Path $PSScriptRoot 'native\libreoffice\runtime'
+    if ($ComponentsRoot) {
+        $ComponentsRoot=(Resolve-Path -LiteralPath $ComponentsRoot).Path
+        $workerRoot=$ComponentsRoot
+        $loSource=Join-Path $ComponentsRoot 'native\libreoffice\runtime'
+        foreach ($required in @((Join-Path $workerRoot 'ocr-worker.exe'),(Join-Path $workerRoot 'DirectML.dll'),(Join-Path $loSource 'program\soffice.com'))) {
+            if (!(Test-Path -LiteralPath $required)) { throw "Native component missing: $required" }
+        }
+    }
     $compiler=Join-Path $PSScriptRoot 'tools\nsis-3.13\makensis.exe'
     if (!(Test-Path -LiteralPath $compiler)) {
         New-Item -ItemType Directory -Force tools | Out-Null
@@ -12,15 +27,20 @@ try {
         if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLower() -ne 'ba63dffc4410ee89193e1cb5a41989991bd77c61068da17e3156d136b7b0b3d8') { throw 'NSIS checksum mismatch' }
         Expand-Archive -LiteralPath $archive -DestinationPath (Join-Path $PSScriptRoot 'tools') -Force
     }
-    & (Join-Path $PSScriptRoot 'setup-docx.ps1')
+    if (!$ComponentsRoot) { & (Join-Path $PSScriptRoot 'setup-docx.ps1') }
     dotnet publish src/ObsidianDocs -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -p:DebugType=None -p:DebugSymbols=false "-p:Version=$Version" -o $payload --nologo
     if ($LASTEXITCODE -ne 0) { throw '.NET publish failed' }
-    if (!(Test-Path native/ocr-worker/target/release/ocr-worker.exe)) {
+    if (!(Test-Path -LiteralPath (Join-Path $workerRoot 'ocr-worker.exe'))) {
         cargo build --manifest-path native/ocr-worker/Cargo.toml --release --locked
         if ($LASTEXITCODE -ne 0) { throw 'Rust build failed' }
     }
-    Copy-Item native/ocr-worker/target/release/ocr-worker.exe $payload -Force
-    Copy-Item native/ocr-worker/target/release/*.dll $payload -Force
+    Copy-Item -LiteralPath (Join-Path $workerRoot 'ocr-worker.exe') -Destination $payload -Force
+    if ($ComponentsRoot) {
+        # Do not copy the previous application's managed DLLs, profiles or logs.
+        Copy-Item -LiteralPath (Join-Path $workerRoot 'DirectML.dll') -Destination $payload -Force
+    } else {
+        Get-ChildItem -LiteralPath $workerRoot -Filter '*.dll' -File | Copy-Item -Destination $payload -Force
+    }
     $models=Join-Path $payload 'models'
     New-Item -ItemType Directory -Force $models | Out-Null
     foreach ($name in @('pp-ocrv5_mobile_det.onnx','en_pp-ocrv5_mobile_rec.onnx','eslav_pp-ocrv5_mobile_rec.onnx','ppocrv5_en_dict.txt','ppocrv5_eslav_dict.txt')) {
@@ -32,12 +52,13 @@ try {
         Copy-Item -LiteralPath $digestFile -Destination $models -Force
     }
     $loDestination=Join-Path $payload 'native\libreoffice\runtime'
-    robocopy native/libreoffice/runtime $loDestination /E /XF *.msi /NFL /NDL /NJH /NJS /NP
+    robocopy $loSource $loDestination /E /XF *.msi /NFL /NDL /NJH /NJS /NP
     if ($LASTEXITCODE -gt 7) { throw 'LibreOffice runtime copy failed' }
     # App-local Visual C++ redistributables shipped with the signed LO package.
-    Copy-Item native/libreoffice/runtime/System64/*.dll $payload -Force
-    Copy-Item native/libreoffice/runtime/System64/*.dll (Join-Path $loDestination 'program') -Force
+    Get-ChildItem -LiteralPath (Join-Path $loSource 'System64') -Filter '*.dll' -File | Copy-Item -Destination $payload -Force
+    Get-ChildItem -LiteralPath (Join-Path $loSource 'System64') -Filter '*.dll' -File | Copy-Item -Destination (Join-Path $loDestination 'program') -Force
     Copy-Item README.md (Join-Path $payload 'README.md') -Force
+    Copy-Item RELEASE-NOTES.md (Join-Path $payload 'RELEASE-NOTES.md') -Force
     $notices=Join-Path $payload 'ThirdPartyNotices'
     New-Item -ItemType Directory -Force $notices | Out-Null
     $nugetRoot=Join-Path $env:USERPROFILE '.nuget\packages'
@@ -63,7 +84,7 @@ try {
     }
     $sourceNotices=Join-Path $PSScriptRoot 'packaging\notices'
     if (Test-Path -LiteralPath $sourceNotices) { Copy-Item "$sourceNotices\*" $notices -Recurse -Force }
-    $rows=@('ObsiDopf '+$Version, 'LibreOffice runtime: native/libreoffice/runtime/LICENSE.html, license.txt and NOTICE', 'OCR: oar-ocr/PaddleOCR PP-OCRv5; EN and RU models included.', 'Third-party metadata and license texts are in this directory.', 'Model cache supplied without personal documents, profiles, API keys or logs.')
+    $rows=@('ObsiDopf '+$Version, 'SuperDoc 1.47.2 (modified): WordAssets/SUPERDOC-LICENSE.txt and THIRD-PARTY-NOTICES.txt (AGPL-3.0).', 'Corresponding application sources must accompany public distribution. See RELEASE-NOTES.md.', 'LibreOffice runtime: native/libreoffice/runtime/LICENSE.html, license.txt and NOTICE', 'OCR: oar-ocr/PaddleOCR PP-OCRv5; EN and RU models included.', 'Third-party metadata and license texts are in this directory.', 'Model cache supplied without personal documents, profiles, API keys or logs.', 'Microsoft Edge WebView2 Runtime is required for DOC/DOCX editing and is not bundled.')
     $rows | Set-Content (Join-Path $notices 'README.txt') -Encoding utf8
     $files=Get-ChildItem -LiteralPath $payload -File -Recurse | Where-Object {$_.FullName -ne (Join-Path $payload 'payload-manifest.json')}
     $manifest=@($files | ForEach-Object { [pscustomobject]@{Path=$_.FullName.Substring($payload.Length+1);Length=$_.Length;SHA256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLower()} })
@@ -79,7 +100,7 @@ try {
     foreach ($directory in $directories) { $relative=$directory.FullName.Substring($payload.Length+1).Replace('$','$$').Replace('"','$\"'); $lines.Add('RMDir "$INSTDIR\'+$relative+'"') }
     $lines | Set-Content packaging/uninstall-files.nsh -Encoding utf8
     $output=Join-Path $PSScriptRoot "dist\ObsiDopf-$Version-Setup-x64.exe"
-    & $compiler /V2 /INPUTCHARSET UTF8 "/DPAYLOAD=$payload" "/DVERSION=$Version" "/DOUTPUT=$output" packaging/installer.nsi
+    & $compiler /V2 /INPUTCHARSET UTF8 "/DPAYLOAD=$payload" "/DVERSION=$Version" "/DPRODUCT_VERSION=$Version.0" "/DOUTPUT=$output" packaging/installer.nsi
     if ($LASTEXITCODE -ne 0) { throw 'Installer compilation failed' }
     Get-FileHash -LiteralPath $output -Algorithm SHA256 | ForEach-Object { $_.Hash.ToLower()+'  '+[IO.Path]::GetFileName($output) } | Set-Content ($output+'.sha256') -Encoding ascii
     Get-Item -LiteralPath $output | Select-Object FullName,Length

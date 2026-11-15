@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self' blob: data:; connect-src 'self' blob: data:; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'none'">
+  <link rel="stylesheet" href="vendor/style.css">
+  <link rel="stylesheet" href="editor.css">
+  <title>ObsiDopf · Word</title>
+</head>
+<body>
+  <div id="toolbar"></div>
+  <div id="document-actions">
+    <span>Таблица:</span>
+    <input id="table-rows" type="number" value="3" min="1" max="100" aria-label="Количество строк" title="Строки">
+    <span>×</span>
+    <input id="table-cols" type="number" value="3" min="1" max="20" aria-label="Количество столбцов" title="Столбцы">
+    <button id="insert-solid-table" disabled>＋ С границами и заливкой</button>
+    <button id="style-solid-table" disabled>Оформить текущую таблицу</button>
+    <span id="table-status" role="status"></span>
+  </div>
+  <main id="editor"></main>
+  <div id="loading" role="status">Открываю документ…</div>
+  <script src="layout-performance.js"></script>
+  <script src="vendor/superdoc.min.js"></script>
+  <script src="selection-assistant.js"></script>
+  <script src="color-picker.js"></script>
+  <script src="editor.js"></script>
+</body>
+</html>

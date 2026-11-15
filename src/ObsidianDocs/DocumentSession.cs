@@ -1,4 +1,5 @@
 using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Media.Imaging;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
@@ -15,10 +16,42 @@ public sealed class DocumentSession : IDisposable
     public BitmapSource? Photo { get; set; }
     public byte[]? RenderBytes { get; set; }
     public byte[]? DocxBytes { get; set; }
-    internal DocxEditor? Editor { get; set; }
+    internal WordEditor? Editor { get; set; }
     public int Page { get; set; }
     public bool Dirty { get; set; }
+    public bool IsUntitled { get; set; }
+    readonly List<(byte[] Bytes,int Page)> pdfUndo=[];
+    public bool CanUndoPdf=>pdfUndo.Count>0;
+    void RememberPdfSnapshot()
+    {
+        if(RenderBytes is null) return;
+        pdfUndo.Add((RenderBytes,Page));
+        while(pdfUndo.Count>1 && (pdfUndo.Count>10 || pdfUndo.Sum(s=>(long)s.Bytes.Length)>128L*1024*1024)) pdfUndo.RemoveAt(0);
+    }
+    public void ApplyPdfEdit(Action<PdfDocument> edit,int? targetPage=null)
+    {
+        if(!CanEditPdf || RenderBytes is null) throw new InvalidOperationException("Правки доступны только в PDF.");
+        using var copy=PdfReader.Open(new MemoryStream(RenderBytes),PdfDocumentOpenMode.Modify);
+        edit(copy);
+        using var output=new MemoryStream(); copy.Save(output,false);
+        var bytes=output.ToArray();
+        var editable=PdfReader.Open(new MemoryStream(bytes),PdfDocumentOpenMode.Modify);
+        RememberPdfSnapshot(); var previous=Pdf; Pdf=editable; RenderBytes=bytes;
+        Page=Math.Clamp(targetPage ?? Page,0,editable.PageCount-1); Dirty=true; previous.Dispose();
+    }
+    public void UndoPdfEdit()
+    {
+        if(!CanUndoPdf || Pdf is null || IsDocx) return;
+        var snapshot=pdfUndo[^1];
+        var editable=PdfReader.Open(new MemoryStream(snapshot.Bytes),PdfDocumentOpenMode.Modify);
+        pdfUndo.RemoveAt(pdfUndo.Count-1); var previous=Pdf; Pdf=editable; RenderBytes=snapshot.Bytes;
+        Page=Math.Clamp(snapshot.Page,0,editable.PageCount-1); Dirty=true; previous.Dispose();
+    }
     public bool IsDocx => System.IO.Path.GetExtension(Path).Equals(".docx", StringComparison.OrdinalIgnoreCase);
+    public bool IsDoc => System.IO.Path.GetExtension(Path).Equals(".doc", StringComparison.OrdinalIgnoreCase);
+    public bool IsWordDocument => IsDocx || IsDoc;
+    [MemberNotNullWhen(true,nameof(Pdf))]
+    public bool CanEditPdf => Pdf is not null && System.IO.Path.GetExtension(Path).Equals(".pdf", StringComparison.OrdinalIgnoreCase);
     public int Count => Pdf?.PageCount ?? 1;
     public string Name => System.IO.Path.GetFileName(Path);
     public void Snapshot()
@@ -30,6 +63,7 @@ public sealed class DocumentSession : IDisposable
         Pdf.Save(output, false);
         var bytes = output.ToArray();
         var editable = PdfReader.Open(new MemoryStream(bytes), PdfDocumentOpenMode.Modify);
+        RememberPdfSnapshot();
         var previous = Pdf;
         Pdf = editable;
         RenderBytes = bytes;
@@ -37,6 +71,7 @@ public sealed class DocumentSession : IDisposable
     }
     public void SaveTo(string path)
     {
+        if(IsWordDocument) throw new InvalidOperationException("Для сохранения документа Word используйте редактор DOCX или экспорт в PDF.");
         if (RenderBytes is null) throw new InvalidOperationException("Нет PDF для сохранения.");
         var temp = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(path))!, Guid.NewGuid() + ".tmp");
         try { File.WriteAllBytes(temp, RenderBytes); File.Move(temp, path, true); }
@@ -54,7 +89,7 @@ public sealed class DocumentSession : IDisposable
         author = author.Trim();
         if (string.IsNullOrWhiteSpace(author) || author.Length > 100 || author.Any(char.IsControl)) throw new ArgumentException("Укажите корректное имя автора.");
         if (System.IO.Path.GetFullPath(destination).Equals(System.IO.Path.GetFullPath(Path),StringComparison.OrdinalIgnoreCase)) throw new InvalidOperationException("Для копии выберите другое имя файла. Оригинал должен сохраниться.");
-        if (RenderBytes is null || IsDocx) throw new InvalidOperationException("Копирование комментариев доступно для PDF.");
+        if (RenderBytes is null || !CanEditPdf) throw new InvalidOperationException("Копирование комментариев доступно для PDF.");
         using var copy = PdfReader.Open(new MemoryStream(RenderBytes),PdfDocumentOpenMode.Modify);
         foreach (var page in copy.Pages)
             foreach (PdfSharp.Pdf.Annotations.PdfAnnotation note in page.Annotations)
@@ -94,8 +129,9 @@ public sealed class DocumentSession : IDisposable
         using var memory = new MemoryStream(encoded.ToArray());
         var image = new BitmapImage(); image.BeginInit(); image.CacheOption = BitmapCacheOption.OnLoad; image.StreamSource = memory; image.EndInit(); image.Freeze(); return image;
     }
-    public static DocumentSession Open(string path)
+    public static DocumentSession Open(string path,CancellationToken cancellation=default,IProgress<string>? progress=null)
     {
+        cancellation.ThrowIfCancellationRequested();
         var session = new DocumentSession { Path = path };
         var extension = System.IO.Path.GetExtension(path).ToLowerInvariant();
         if (extension == ".pdf")
@@ -108,6 +144,10 @@ public sealed class DocumentSession : IDisposable
         else if (extension == ".docx")
         {
             session.DocxBytes = File.ReadAllBytes(path);
+        }
+        else if (extension == ".doc")
+        {
+            session.DocxBytes=DocConversionCache.ConvertToDocx(path,cancellation,progress);
         }
         else
         {
@@ -162,7 +202,7 @@ public sealed class DocumentSession : IDisposable
         }
         finally { if (File.Exists(temp)) File.Delete(temp); }
     }
-    public void Dispose() => Pdf?.Dispose();
+    public void Dispose() { Editor?.Dispose(); Pdf?.Dispose(); }
 }
 
 

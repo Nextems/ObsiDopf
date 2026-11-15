@@ -1,0 +1,23 @@
+{
+  "package": "superdoc",
+  "version": "1.47.2",
+  "repository": "https://github.com/superdoc/docx-editor",
+  "commit": "66c22186c7c0735360ca4fd94f7499898415e903",
+  "sourceArchiveUrl": "https://codeload.github.com/superdoc/docx-editor/zip/66c22186c7c0735360ca4fd94f7499898415e903",
+  "sourceArchiveSha256": "3ffb739fcd4cefb87c837fafaccfe61bf275f60ba333dcce3354373d8dbc7250",
+  "npmArchiveUrl": "https://registry.npmjs.org/superdoc/-/superdoc-1.47.2.tgz",
+  "npmArchiveSha256": "12d9ab6178b8082949bbe3171ab395e38b9eec3594ea28f782e9d8fdc18f2125",
+  "npmIntegrity": "sha512-ueTZHIvtglJMIKomBrjhz/aXFSabXvSmDdKGt7ZIj04+U2yCD/XhopvtclQMvxgMipIU7FY7XyU29wCwvtVSlA==",
+  "bundleSha256": "5898d2a2f77e791841d540084b75d012a7005ed79e3b2293f9a6dafcfb908a8f",
+  "sourceMapSha256": "3aa277f9b44baf15c97f515912535d6daf275463ba76d7b46b9abd80fc8bc5ec",
+  "presentationSourceSha256": "ff9259fa7cdc4a646de05882e7ad5ff3d150b4cebd4e52fc892e122bdbd06c57",
+  "sourceProvenance": {
+    "npmGitHead": null,
+    "explanation": "The npm package has no gitHead and no matching public version tag. The repository snapshot was identified using the package's published source map.",
+    "matchingRepositoryFiles": 1734,
+    "differentRepositoryFiles": 0,
+    "virtualOnly": ["packages/superdoc/__vite-browser-external"],
+    "sourceMapEntries": 2386,
+    "missingSourceContents": 0
+  }
+}

@@ -1,12 +1,30 @@
 # Windows installer
 
-Build: `powershell -NoProfile -ExecutionPolicy Bypass -File build-installer.ps1 -Version 1.0.1`
+Build: `powershell -NoProfile -ExecutionPolicy Bypass -File build-installer.ps1 -Version 1.1.0`
 
-Output: `dist/ObsiDopf-1.0.1-Setup-x64.exe`, SHA-256 file and payload manifest. Publish the EXE and its SHA-256 as GitHub Release assets; do not commit the staging directory or installer binaries to Git.
+Output: `dist/ObsiDopf-1.1.0-Setup-x64.exe`, SHA-256 file and payload manifest. Each build creates a fresh staging directory so stale output cannot enter a new installer. Do not commit staging or installer binaries to Git.
+
+Prepare source and release assets after the installer finishes:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File packaging/package-release-source.ps1 -Version 1.1.0
+```
+
+This archives the actual working tree (including uncommitted source changes), copies release notes, and creates SHA-256 sums and release metadata. It does not commit, tag, push, publish, run the application, install anything, or call Gemini. Original ObsiDopf code is licensed under AGPL-3.0-only (root LICENSE and COPYRIGHT.md); third-party licenses are preserved. Both root notices are included in future application builds/publishes. Before publishing the combined SuperDoc build, complete corresponding-source availability and component notices; see RELEASE-NOTES.md and web/word/README.md. An archive of application source alone does not resolve the upstream engine's distribution requirements.
+
+The source packager also prepares `ObsiDopf-1.1.0-SuperDoc-1.47.2-Source.zip` using
+`superdoc/prepare-source.ps1` when the engine archive is missing or stale. This includes
+the complete pinned upstream snapshot, original npm tarball, all published source-map
+contents, preferred-source modifications and build instructions. See superdoc/SOURCE-INFO.md.
+Publish both source ZIPs alongside the corresponding installer. `-SourcesOnly` creates
+source archives/metadata without including an older installer in the new checksum set;
+it does not assert that the existing installer matches the current source snapshot.
+
+For a build using unchanged native components from an earlier installed release, pass `-ComponentsRoot 'C:\absolute\installation\folder'` to build-installer.ps1. Only the OCR worker, DirectML and LibreOffice runtime are reused; previous app DLLs and user data are not copied. The current C#/Word assets are always published from source. Use this option only when the native worker sources are unchanged from that installed build.
 
 The NSIS 3.13 compiler archive is downloaded from the official SourceForge project and verified against its published SHA-256. Build inputs include .NET 10 SDK, Rust worker build and cached EN/RU OCR models. LibreOffice is prepared with setup-docx.ps1 from a signed official MSI. Native VC++ libraries come from that same verified distribution.
 
-The payload includes a self-contained .NET 10 Windows x64 app, Rust OCR worker, EN/RU models, app-local VC++ and DirectML dependencies, and the full local LibreOffice runtime (excluding its original MSI). Third-party licenses/notices are included. No user documents, author profiles or API credentials are packaged.
+The payload includes a self-contained .NET 10 Windows x64 app, local SuperDoc 1.47.2 assets, Rust OCR worker, EN/RU models, app-local VC++ and DirectML dependencies, and the full local LibreOffice runtime (excluding its original MSI). Third-party licenses/notices are included. No user documents, author profiles or API credentials are packaged. Microsoft Edge WebView2 Runtime is required for DOC/DOCX and is not bundled. Gemini requires an internet connection and the user's own API key.
 
 Installation is per-user in LocalAppData/Programs/ObsiDopf, without elevation. A protected location such as Program Files requires starting the installer as administrator. The file-association option registers PDF/DOCX under the current user for Open With; it does not override the user's default application. Start menu shortcuts and an optional desktop shortcut are provided. Uninstall removes only exact packaged files; extra user files and author settings remain.
 
@@ -14,6 +32,6 @@ Validation: `powershell -NoProfile -ExecutionPolicy Bypass -File test-installer.
 
 The resulting EXE is unsigned. No code-signing key was configured.
 
-The app icon source is src/ObsidianDocs/Assets/ObsidianDocs.svg. Regenerate its PNG and multi-size Windows ICO with: dotnet run --project packaging/IconGenerator -- src/ObsidianDocs/Assets. The ICO is embedded in the app EXE and used by the installer/uninstaller; the PNG is embedded for the app's sidebar and welcome screen. Installer payloads use solid zlib compression for faster rebuilds.
+The app icon source is src/ObsidianDocs/Assets/ObsidianDocs.svg. Regenerate its PNG and multi-size Windows ICO with: dotnet run --project packaging/IconGenerator -- src/ObsidianDocs/Assets. The ICO is embedded in the app EXE and used by the installer/uninstaller; the PNG is embedded for the app's sidebar and welcome screen. Installer payloads use solid LZMA compression with a 32 MiB dictionary to reduce download size.
 
 

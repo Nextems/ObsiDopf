@@ -23,9 +23,11 @@ public sealed class OcrService : IDisposable
             if (process is null || process.HasExited)
             {
                 var worker = Path.Combine(AppContext.BaseDirectory, "ocr-worker.exe");
+                if(!File.Exists(worker)) worker=InstalledComponents.Find("ocr-worker.exe") ?? worker;
                 if (!File.Exists(worker)) throw new FileNotFoundException("Не найден OCR-модуль. Запустите build.ps1.", worker);
                 process = new Process { StartInfo = new ProcessStartInfo(worker) { UseShellExecute = false, CreateNoWindow = true, RedirectStandardInput = true, RedirectStandardOutput = true, RedirectStandardError = true, StandardInputEncoding = new UTF8Encoding(false), StandardOutputEncoding = Encoding.UTF8 }};
                 var models=Path.Combine(AppContext.BaseDirectory,"models");
+                if(!Directory.Exists(models)) models=InstalledComponents.Find("models") ?? models;
                 if (Directory.Exists(models)) process.StartInfo.Environment["OAR_HOME"]=models;
                 process.Start();
                 process.ErrorDataReceived += (_, _) => { }; process.BeginErrorReadLine();

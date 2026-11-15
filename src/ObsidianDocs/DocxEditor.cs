@@ -18,7 +18,7 @@ namespace ObsidianDocs;
 // Each tab owns its editor and undo history. Keep package parts and untouched
 // blocks verbatim; replacing the entire DOCX with a text export loses drawings,
 // relationships, numbering, section properties and headers.
-internal sealed class DocxEditor : RichTextBox
+internal sealed partial class DocxEditor : RichTextBox
 {
     readonly byte[] source;
     readonly Dictionary<TextElement, OpenXmlElement> originals = [];
@@ -29,9 +29,19 @@ internal sealed class DocxEditor : RichTextBox
     W.DocDefaults? defaults;
     string? defaultStyle;
     WordprocessingDocument package = null!;
+    readonly List<TextElement> pageBreakElements=[];
+    readonly PagedWordView paged;
+    readonly Thickness paperMargins;
+    bool paperMarginsReady;
     public event Action? Changed;
+    internal bool AdjustingPageGaps { get; set; }
     public FrameworkElement Tools { get; }
     public FrameworkElement View { get; }
+    public FrameworkElement MiniMap { get; }
+    public int PageCount=>paged.PageCount;
+    public event Action? PagesChanged;
+    public void SetZoom(double factor)=>paged.SetZoom(factor);
+    public void SetFindHighlights(IEnumerable<(TextPointer Start,TextPointer End)> ranges,int active)=>paged.SetFindRanges(ranges,active);
     public IEnumerable<(string Label,Block Block)> Outline()
     {
         int table=0;
@@ -64,7 +74,8 @@ internal sealed class DocxEditor : RichTextBox
         Margin=new Thickness(24);
         VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
         HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
-        IsUndoEnabled = true; AcceptsTab = true;
+        IsUndoEnabled = true; UndoLimit=50; AcceptsTab = true;
+        IsInactiveSelectionHighlightEnabled=true;
         var doc = new FlowDocument { Background = Brushes.White, Foreground = Brushes.Black,
             FontFamily = new FontFamily("Calibri"), FontSize = 11*96d/72,
             PagePadding = new Thickness(64), PageWidth = 794 };
@@ -102,38 +113,83 @@ internal sealed class DocxEditor : RichTextBox
             }
         }
         if (doc.Blocks.Count == 0) doc.Blocks.Add(new Paragraph());
+        paperMargins=doc.PagePadding;
+        double paperWidth=doc.PageWidth;
+        // The editor owns the paper width and margins. Let the bottomless
+        // formatter wrap to its inner viewport instead of formatting another
+        // full paper width inside those margins.
+        doc.PageWidth=double.NaN;
+        Padding=paperMargins;
         Document = doc;
-        Width=doc.PageWidth;
+        Width=paperWidth;
+        paperMarginsReady=true;
         MinHeight=paperHeight;
         // Only the outer view scrolls. An inner horizontal scrollbar shifts the
         // text independently of the paper and clips its left edge at the caret.
+        paged=new PagedWordView(this,paperHeight,paperMargins,PageBreaks);
+        void HistoryCommand(RoutedCommand command,bool redo)
+        {
+            CommandBindings.Add(new CommandBinding(command,(_,e)=>
+            {
+                e.Handled=true;
+                paged.KeepViewport(()=> { if(redo) Redo(); else Undo(); });
+            },(_,e)=> { e.CanExecute=redo ? CanRedo : CanUndo; e.Handled=true; }));
+        }
+        HistoryCommand(ApplicationCommands.Undo,false);
+        HistoryCommand(ApplicationCommands.Redo,true);
+        paged.PagesChanged+=()=>PagesChanged?.Invoke();
         View=new ScrollViewer
         {
-            Content=this,
+            Content=paged,
             Background=new SolidColorBrush(Color.FromRgb(30,30,36)),
             HorizontalContentAlignment=HorizontalAlignment.Center,
             VerticalContentAlignment=VerticalAlignment.Top,
             HorizontalScrollBarVisibility=ScrollBarVisibility.Auto,
-            VerticalScrollBarVisibility=ScrollBarVisibility.Auto
+            VerticalScrollBarVisibility=ScrollBarVisibility.Hidden
         };
+        MiniMap=new WordMiniMap(paged,(ScrollViewer)View,this).View;
         foreach(var block in initial.Keys.ToList()) initial[block]=Fingerprint(block);
         Tools = BuildTools();
-        TextChanged += (_,_) => Changed?.Invoke();
+        TextChanged += (_,_) => { if(!AdjustingPageGaps) Changed?.Invoke(); };
+    }
+    public override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+        if(!paperMarginsReady) return;
+        // RichTextBox.CreateRenderScope replaces FlowDocument.PagePadding with
+        // its caret inset. Preserve Word's real margins in the control padding,
+        // subtracting that inset so the same margins are not counted twice.
+        var caret=Document.PagePadding;
+        static double Inset(double requested,double native)=>Math.Max(0,requested-(double.IsFinite(native) ? native : 0));
+        Padding=new Thickness(Inset(paperMargins.Left,caret.Left),Inset(paperMargins.Top,caret.Top),Inset(paperMargins.Right,caret.Right),Inset(paperMargins.Bottom,caret.Bottom));
+    }
+    IEnumerable<TextPointer> PageBreaks()
+    {
+        foreach(var element in pageBreakElements)
+        {
+            DependencyObject? parent=element;
+            while(parent is FrameworkContentElement content && parent is not FlowDocument) parent=content.Parent;
+            if(parent!=Document) continue;
+            yield return element is Paragraph ? element.ContentStart : element.ContentEnd;
+        }
     }
 
     Block? ReadBlock(OpenXmlElement element)
     {
+        if(element.LocalName is "bookmarkStart" or "bookmarkEnd" or "proofErr" or "permStart" or "permEnd" or "commentRangeStart" or "commentRangeEnd" or "moveFromRangeStart" or "moveFromRangeEnd" or "moveToRangeStart" or "moveToRangeEnd") return null;
         if(element is W.TableCellProperties) return null;
         Block? block = null;
         if (element is W.Paragraph p)
         {
-            var paragraph = new Paragraph { Margin = new Thickness(0,0,0,8) };
+            var paragraph = new Paragraph { Margin = new Thickness(0) };
             var props = p.ParagraphProperties;
             // Resolve paragraph styles for the editor, retaining style IDs on save.
             var chain=StyleChain(props?.ParagraphStyleId?.Val?.Value ?? defaultStyle).ToList();
             ApplyParagraph(paragraph, defaults?.ParagraphPropertiesDefault?.ParagraphPropertiesBaseStyle);
             foreach(var style in chain) ApplyParagraph(paragraph,style.StyleParagraphProperties);
             ApplyParagraph(paragraph, props);
+            var before=props?.PageBreakBefore ?? chain.Select(s=>s.StyleParagraphProperties?.PageBreakBefore).LastOrDefault(p=>p is not null);
+            if(before is not null && before.Val?.Value!=false) pageBreakElements.Add(paragraph);
             foreach (var run in p.Descendants<W.Run>())
             {
                 foreach (var child in run.ChildElements)
@@ -143,6 +199,7 @@ internal sealed class DocxEditor : RichTextBox
                         W.Text t => new Run(t.Text),
                         W.TabChar => new Run("\t"),
                         W.Break => new LineBreak(),
+                        W.LastRenderedPageBreak => new LineBreak(),
                         W.Drawing => ReadDrawing(child),
                         _ => null
                     };
@@ -156,8 +213,21 @@ internal sealed class DocxEditor : RichTextBox
                         originals[r] = run;
                     }
                     paragraph.Inlines.Add(inline);
+                    if(child is W.Break { Type.Value:var kind } && kind==W.BreakValues.Page || child is W.LastRenderedPageBreak)
+                    {
+                        pageBreakElements.Add(inline);
+                        opaque[inline]=child;
+                    }
                 }
             }
+            AddNumbering(paragraph,p,chain);
+            if(paragraph.Inlines.OfType<Run>().FirstOrDefault(r=>!numberMarkers.Contains(r)) is { } first)
+            {
+                paragraph.FontFamily=first.FontFamily; paragraph.FontSize=first.FontSize;
+            }
+            ApplyParagraph(paragraph,defaults?.ParagraphPropertiesDefault?.ParagraphPropertiesBaseStyle);
+            foreach(var style in chain) ApplyParagraph(paragraph,style.StyleParagraphProperties);
+            ApplyParagraph(paragraph,props);
             block = paragraph;
         }
         else if (element is W.Table t)
@@ -173,6 +243,13 @@ internal sealed class DocxEditor : RichTextBox
                 foreach (var cell in row.Elements<W.TableCell>())
                 {
                     var uiCell = NewCell(); originals[uiCell] = cell;
+                    var cellMargins=cell.TableCellProperties?.ChildElements.FirstOrDefault(e=>e.LocalName=="tcMar") ?? t.TableProperties?.ChildElements.FirstOrDefault(e=>e.LocalName=="tblCellMar");
+                    double CellMargin(string edge,double fallback)
+                    {
+                        var margin=cellMargins?.ChildElements.FirstOrDefault(e=>e.LocalName==edge || edge=="left" && e.LocalName=="start" || edge=="right" && e.LocalName=="end");
+                        return margin is null ? fallback : Math.Max(0,Number(margin.GetAttribute("w","http://schemas.openxmlformats.org/wordprocessingml/2006/main").Value)/15);
+                    }
+                    uiCell.Padding=new Thickness(CellMargin("left",7.2),CellMargin("top",0),CellMargin("right",7.2),CellMargin("bottom",0));
                     uiCell.ColumnSpan = Math.Max(1,cell.TableCellProperties?.GridSpan?.Val?.Value ?? 1);
                     foreach (var item in cell.ChildElements) if (ReadBlock(item) is { } b) uiCell.Blocks.Add(b);
                     if (uiCell.Blocks.Count == 0) uiCell.Blocks.Add(new Paragraph());
@@ -204,8 +281,14 @@ internal sealed class DocxEditor : RichTextBox
         {
             var blip = drawing.Descendants<DocumentFormat.OpenXml.Drawing.Blip>().First();
             var part = package.MainDocumentPart!.GetPartById(blip.Embed!.Value!);
-            using var stream = part.GetStream();
-            var image = new BitmapImage(); image.BeginInit(); image.CacheOption = BitmapCacheOption.OnLoad; image.StreamSource = stream; image.EndInit(); image.Freeze();
+            // WPF/WIC may use asynchronous reads even during image setup.
+            // Never give it a package's non-seekable DeflateStream: disposal of
+            // the DOCX can otherwise race an outstanding native zlib read.
+            using var memory=new MemoryStream();
+            using(var compressed=part.GetStream(FileMode.Open,FileAccess.Read)) compressed.CopyTo(memory);
+            memory.Position=0;
+            var image = new BitmapImage(); image.BeginInit(); image.CacheOption = BitmapCacheOption.OnLoad;
+            image.StreamSource = memory; image.EndInit(); image.Freeze();
             var extent = drawing.Descendants<DocumentFormat.OpenXml.Drawing.Wordprocessing.Extent>().FirstOrDefault();
             view = new Image { Source = image, Width = Math.Min(660,(extent?.Cx?.Value ?? image.PixelWidth*9525L)/9525d), Stretch = Stretch.Uniform };
         }
@@ -220,11 +303,20 @@ internal sealed class DocxEditor : RichTextBox
             p.TextAlignment = align.Val?.Value == W.JustificationValues.Center ? TextAlignment.Center : align.Val?.Value == W.JustificationValues.Right ? TextAlignment.Right : align.Val?.Value == W.JustificationValues.Both ? TextAlignment.Justify : TextAlignment.Left;
         if (props.GetFirstChild<W.Indentation>() is { } indent)
         {
-            p.Margin = new Thickness(Math.Max(0,Number(indent.Left?.Value)/15),p.Margin.Top,Math.Max(0,Number(indent.Right?.Value)/15),p.Margin.Bottom);
-            p.TextIndent = (Number(indent.FirstLine?.Value)-Number(indent.Hanging?.Value))/15;
+            p.Margin = new Thickness(indent.Left is null ? p.Margin.Left : Math.Max(0,Number(indent.Left.Value)/15),p.Margin.Top,indent.Right is null ? p.Margin.Right : Math.Max(0,Number(indent.Right.Value)/15),p.Margin.Bottom);
+            if(indent.FirstLine is not null || indent.Hanging is not null) p.TextIndent = (Number(indent.FirstLine?.Value)-Number(indent.Hanging?.Value))/15;
         }
         if (props.GetFirstChild<W.SpacingBetweenLines>() is { } spacing)
-            p.Margin = new Thickness(p.Margin.Left,Number(spacing.Before?.Value)/15,p.Margin.Right,Number(spacing.After?.Value,120)/15);
+        {
+            p.Margin = new Thickness(p.Margin.Left,spacing.Before is null ? p.Margin.Top : Number(spacing.Before.Value)/15,p.Margin.Right,spacing.After is null ? p.Margin.Bottom : Number(spacing.After.Value)/15);
+            if(spacing.Line is not null)
+            {
+                double natural=p.FontSize*p.FontFamily.LineSpacing;
+                double height=spacing.LineRule?.Value==W.LineSpacingRuleValues.Exact ? Number(spacing.Line.Value)/15 : spacing.LineRule?.Value==W.LineSpacingRuleValues.AtLeast ? Math.Max(natural,Number(spacing.Line.Value)/15) : natural*Number(spacing.Line.Value,240)/240;
+                p.LineHeight=Math.Clamp(height,1,10000);
+                p.LineStackingStrategy=spacing.LineRule?.Value==W.LineSpacingRuleValues.Exact ? System.Windows.LineStackingStrategy.BlockLineHeight : System.Windows.LineStackingStrategy.MaxHeight;
+            }
+        }
     }
     static void ApplyRun(Run run, OpenXmlElement? props)
     {
@@ -311,6 +403,7 @@ internal sealed class DocxEditor : RichTextBox
     }
     void WriteInline(W.Paragraph p, Inline inline)
     {
+        if(numberMarkers.Contains(inline)) return;
         if (opaque.TryGetValue(inline,out var element)) { p.Append(new W.Run(element.CloneNode(true))); return; }
         if (inline is Span span) { foreach (var child in span.Inlines) WriteInline(p,child); return; }
         if (inline is LineBreak) { p.Append(new W.Run(new W.Break())); return; }
@@ -333,7 +426,16 @@ internal sealed class DocxEditor : RichTextBox
     {
         var panel = new WrapPanel { Margin=new Thickness(0,4,0,2) };
         void Button(string label, Action action) { var b=new Button { Content=label,Focusable=false,Padding=new Thickness(8,6,8,6) }; b.Click+=(_,_)=> { BeginChange(); try { action(); } finally { EndChange(); Focus(); } }; panel.Children.Add(b); }
-        void Command(string label, RoutedCommand command) => Button(label,()=>command.Execute(null,this));
+        void Command(string label, RoutedCommand command)
+        {
+            if(command!=ApplicationCommands.Undo && command!=ApplicationCommands.Redo)
+            { Button(label,()=>command.Execute(null,this)); return; }
+            // Undo/redo must run outside a BeginChange transaction. Starting a
+            // new edit while undoing interferes with WPF's existing undo units.
+            var button=new Button { Content=label,Focusable=false,Padding=new Thickness(8,6,8,6) };
+            button.Click+=(_,_)=> { if(command.CanExecute(null,this)) command.Execute(null,this); Focus(); };
+            panel.Children.Add(button);
+        }
         bool updating=false;
         var fontNames=Fonts.SystemFontFamilies.Select(f=>f.Source).Distinct().OrderBy(x=>x).ToList();
         var fontView=CollectionViewSource.GetDefaultView(fontNames);

@@ -28,10 +28,15 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         ConfigureSaveCommands();
+        ConfigureDocumentCommands();
+        ConfigureTextSearch();
+        ConfigureAiChat();
+        ConfigurePageWindow();
+        ConfigureTabReordering();
         SourceInitialized += (_, _) => WindowTheme.Apply(this);
         AuthorPicker.ItemsSource = authors.Names; AuthorPicker.SelectedItem = authors.Selected;
         Closing += OnClosing; OcrLanguage.SelectionChanged += (_, _) => HideCard();
-        PreviewKeyDown += (_, e) => { if (e.Key == Key.Escape) { HideCard(); } if (e.Key == Key.O && Keyboard.Modifiers == ModifierKeys.Control) Open_Click(this, new RoutedEventArgs()); };
+        PreviewKeyDown += (_, e) => { if (e.Key == Key.Escape) { SetTool(); if(openingCancellation is not null) CancelOpening_Click(this,new RoutedEventArgs()); HideCard(); } if (e.Key == Key.O && Keyboard.Modifiers == ModifierKeys.Control) Open_Click(this, new RoutedEventArgs()); };
     }
     void Error(Exception error) => DarkDialog.Show(this, error.Message, "Не удалось выполнить действие", MessageBoxButton.OK, MessageBoxImage.Warning);
     void SetBusy(bool value, string message)
@@ -40,78 +45,95 @@ public partial class MainWindow : Window
         CardAction.IsEnabled = !value; RetryButton.IsEnabled = !value; Status.Text = message;
         TextNoteButton.IsEnabled=!value; DeleteCommentButton.IsEnabled=!value;
         DocxHost.IsEnabled=DocxTools.IsEnabled=!value;
+        RecentFilesList.IsEnabled=!value;
     }
     async void Open_Click(object sender, RoutedEventArgs e)
     {
         if (busy) return;
         HideCard();
-        var dialog = new OpenFileDialog { Filter = "Документы и изображения|*.pdf;*.docx;*.png;*.jpg;*.jpeg;*.bmp;*.tif;*.tiff", Multiselect = true };
+        var dialog = new OpenFileDialog { Filter = "Документы и изображения|*.pdf;*.docx;*.doc;*.png;*.jpg;*.jpeg;*.bmp;*.tif;*.tiff", Multiselect = true };
         if (dialog.ShowDialog(this) != true) return;
         await OpenPathsAsync(dialog.FileNames);
     }
     internal async Task OpenPathsAsync(IEnumerable<string> paths)
     {
-        if(busy) return;
+        if(busy || openingCancellation is not null) return;
         HideCard();
-        foreach (var inputPath in paths)
+        using var cancellation=new CancellationTokenSource();
+        openingCancellation=cancellation;
+        var progress=new Progress<string>(message=>
         {
-            try
+            if(ReferenceEquals(openingCancellation,cancellation) && !cancellation.IsCancellationRequested && LoadingOverlay.Visibility==Visibility.Visible)
+                LoadingTitle.Text=Status.Text=message;
+        });
+        try
+        {
+            foreach(var inputPath in paths)
             {
-                var path=Path.GetFullPath(inputPath);
-                var existing = sessions.FirstOrDefault(s => s.Path == path);
-                if (existing is not null) { Tabs.SelectedIndex = sessions.IndexOf(existing); continue; }
-                SetBusy(true, "Открываю документ…");
-                var session = await Task.Run(() => DocumentSession.Open(path));
-                sessions.Add(session);
-                var header = new StackPanel { Orientation = Orientation.Horizontal };
-                header.Children.Add(new TextBlock { Text = session.Name, VerticalAlignment = VerticalAlignment.Center });
-                var close = new Button { Content = "×", Padding = new Thickness(6, 0, 6, 0), Margin = new Thickness(12, 0, 0, 0) };
-                var tab = new TabItem { Header = header, Tag = session };
-                close.Click += (_, _) => CloseSession(session, tab);
-                header.Children.Add(close); Tabs.Items.Add(tab); Tabs.SelectedItem = tab;
-                current = session; await RenderAsync();
+                DocumentSession? loaded=null;
+                string result="Готово";
+                try
+                {
+                    cancellation.Token.ThrowIfCancellationRequested();
+                    var path=Path.GetFullPath(inputPath);
+                    var existing=sessions.FirstOrDefault(s=>s.Path.Equals(path,StringComparison.OrdinalIgnoreCase));
+                    if(existing is not null) { Tabs.SelectedIndex=sessions.IndexOf(existing); await RememberRecentFileAsync(existing.Path); continue; }
+                    SetBusy(true,"Открываю документ…"); ShowOpenProgress(path);
+                    loaded=await Task.Run(()=>DocumentSession.Open(path,cancellation.Token,progress),cancellation.Token);
+                    cancellation.Token.ThrowIfCancellationRequested();
+                    HideOpenProgress();
+                    AddSessionTab(loaded); loaded=null;
+                    Status.Text="Отображаю документ…";
+                    await RenderAsync();
+                    await RememberRecentFileAsync(path);
+                    result=current?.IsDoc==true ? "DOC → DOCX · редактирование · Ctrl+S — сохранить как DOCX" : current?.IsWordDocument==true ? "DOCX · Ctrl+S — сохранить · Ctrl+Z — отменить" : "Готово · OCR: выделите область мышью";
+                }
+                catch(OperationCanceledException) when(cancellation.IsCancellationRequested) { result="Открытие отменено"; break; }
+                catch(Exception error) { result="Не удалось открыть документ"; HideOpenProgress(); Error(error); }
+                finally { loaded?.Dispose(); HideOpenProgress(); SetBusy(false,result); }
             }
-            catch (Exception error) { Error(error); }
-            finally { SetBusy(false, current?.IsDocx==true ? "DOCX · Ctrl+S — сохранить · Ctrl+Z — отменить" : "Готово · OCR: выделите область мышью"); }
         }
+        finally { openingCancellation=null; HideOpenProgress(); }
     }
     void CloseSession(DocumentSession session, TabItem tab)
     {
         if (busy) return;
         if (session.Dirty && DarkDialog.Show(this, "Закрыть без сохранения изменений?", "Несохранённые изменения", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
         sessions.Remove(session); Tabs.Items.Remove(tab); session.Dispose();
-        if (sessions.Count == 0) { current = null; ConfigureDocumentUi(); bitmap = null; viewGeneration++; surfaces.Clear(); PageStack.Children.Clear(); PageStack.Visibility = Visibility.Collapsed; CommentList.Children.Clear(); Welcome.Visibility = Visibility.Visible; SideList.Items.Clear(); PageStatus.Text = ""; OcrCard.Visibility = Visibility.Collapsed; }
+        if (sessions.Count == 0) { current = null; ConfigureDocumentUi(); ChangeSearchDocument(); bitmap = null; viewGeneration++; surfaces.Clear(); PageStack.Children.Clear(); PageStack.Visibility = Visibility.Collapsed; CommentList.Children.Clear(); Welcome.Visibility = Visibility.Visible; SideList.Items.Clear(); PageStatus.Text = ""; OcrCard.Visibility = Visibility.Collapsed; }
     }
     async void Tabs_Changed(object sender, SelectionChangedEventArgs e)
     {
+        if(reorderingTabs) return;
         if (Tabs.SelectedItem is not TabItem { Tag: DocumentSession session } || current == session) return;
         current = session;
         if (!busy) { try { SetBusy(true, "Загружаю страницу…"); await RenderAsync(); } catch (Exception error) { Error(error); } finally { SetBusy(false, "Готово"); } }
     }
     async void Prev_Click(object s, RoutedEventArgs e) { try { await NavigateAsync((current?.Page ?? 0)-1); } catch (Exception error) { Error(error); } }
     async void Next_Click(object s, RoutedEventArgs e) { try { await NavigateAsync((current?.Page ?? 0)+1); } catch (Exception error) { Error(error); } }
-    void ZoomOut_Click(object s, RoutedEventArgs e) { if (busy) return; zoom = Math.Max(.3, zoom-.1); ResizePage(); HideCard(); }
-    void ZoomIn_Click(object s, RoutedEventArgs e) { if (busy) return; zoom = Math.Min(3, zoom+.1); ResizePage(); HideCard(); }
-    void OcrMode_Click(object s, RoutedEventArgs e) { HideCard(); textNoteMode=false; TextNoteButton.Background=Brush("#303039"); noteMode = false; OcrButton.Background = Brush("#69518E"); NoteButton.Background = Brush("#303039"); Status.Text = "Выделите прямоугольную область для распознавания"; }
-    void NoteMode_Click(object s, RoutedEventArgs e) { HideCard(); textNoteMode=false; TextNoteButton.Background=Brush("#303039"); noteMode = true; NoteButton.Background = Brush("#69518E"); OcrButton.Background = Brush("#303039"); Status.Text = "Щёлкните по странице PDF, чтобы добавить комментарий"; }
+    void ZoomOut_Click(object s, RoutedEventArgs e)=>ChangeZoom(zoom-.1);
+    void ZoomIn_Click(object s, RoutedEventArgs e)=>ChangeZoom(zoom+.1);
+    void OcrMode_Click(object s,RoutedEventArgs e) { if(busy) return; bool enable=!ocrMode; SetTool(ocr:enable); Status.Text=enable ? "Выделите область для OCR" : "OCR отключён · выделите текст и нажмите Ctrl+C"; }
+    void NoteMode_Click(object s,RoutedEventArgs e) { if(busy) return; bool enable=!noteMode; SetTool(note:enable); Status.Text=enable ? "Щёлкните по странице для комментария" : "Комментарии отключены · выделите текст и нажмите Ctrl+C"; }
     static SolidColorBrush Brush(string value) => (SolidColorBrush)new BrushConverter().ConvertFromString(value)!;
     Point Clamp(Point p) => new(Math.Clamp(p.X, 0, PageImage.Width), Math.Clamp(p.Y, 0, PageImage.Height));
     void Select_Start(object s, MouseButtonEventArgs e)
     {
-        if (busy || bitmap is null || current?.IsDocx==true) return;
+        if (busy || bitmap is null || current?.IsWordDocument==true) return;
         if (s is not Canvas { Tag: PageSurface surface } || surface.Image.Source is not BitmapSource source) return;
         HideCard(); activeSurface=surface; bitmap=source; current!.Page=surface.Index; UpdateCurrentPageUi();
         start = Clamp(e.GetPosition(SelectionCanvas)); editingNote = null;
-        if (textNoteMode)
+        if(pdfTextMode) { e.Handled=true; AddPdfTextAtAsync(new Point(start.X/surface.Width,start.Y/surface.Height)); return; }
+        if (textNoteMode || (!ocrMode && !noteMode))
         {
-            if (current?.Pdf is null || current.IsDocx) { Status.Text="Комментарии к тексту доступны в PDF. Сначала экспортируйте документ в PDF."; return; }
-            dragging=true; SelectionCanvas.CaptureMouse();
+            if (textNoteMode && current?.CanEditPdf!=true) { Status.Text="Комментарии к тексту доступны в PDF. Сначала экспортируйте документ в PDF."; return; }
+            Viewer.Focus(); dragging=true; SelectionCanvas.CaptureMouse();
             wordsTask=LoadTextWordsAsync(surface);
             return;
         }
         if (noteMode)
         {
-            if (current?.Pdf is null || current.IsDocx) { Status.Text = "Комментарии доступны в PDF. Сначала экспортируйте документ в PDF."; return; }
+            if (current?.CanEditPdf!=true) { Status.Text = "Комментарии доступны в PDF. Сначала экспортируйте документ в PDF."; return; }
             selection = new Rect(start.X, start.Y, 1, 1); ShowCard(selection, true); OcrText.Text = ""; OcrText.Focus(); return;
         }
         dragging = true; SelectionCanvas.CaptureMouse(); SelectionBox.Visibility = Visibility.Visible; UpdateSelection(start);
@@ -120,7 +142,7 @@ public partial class MainWindow : Window
     {
         if (!dragging) return;
         var end=Clamp(e.GetPosition(SelectionCanvas));
-        if (textNoteMode) { if (wordsTask.IsCompletedSuccessfully) UpdateTextSelection(end); }
+        if (textNoteMode || !ocrMode) { if (wordsTask.IsCompletedSuccessfully) UpdateTextSelection(end); }
         else UpdateSelection(end);
     }
     void UpdateSelection(Point end)
@@ -132,7 +154,7 @@ public partial class MainWindow : Window
         if (!dragging) return;
         dragging = false; SelectionCanvas.ReleaseMouseCapture();
         var end=Clamp(e.GetPosition(SelectionCanvas));
-        if (textNoteMode) { await FinishTextSelectionAsync(end); return; }
+        if (textNoteMode || !ocrMode) { await FinishTextSelectionAsync(end,textNoteMode); return; }
         UpdateSelection(end);
         if (selection.Width < 6 || selection.Height < 6) { SelectionBox.Visibility = Visibility.Collapsed; return; }
         ShowCard(selection, false); await RunOcrAsync();
@@ -177,6 +199,7 @@ public partial class MainWindow : Window
     async void Retry_Click(object s, RoutedEventArgs e) => await RunOcrAsync();
     void HideCard()
     {
+        HideAiSelectionPopup();
         dragging = false;
         if (SelectionCanvas.IsMouseCaptured) SelectionCanvas.ReleaseMouseCapture();
         SelectionBox.Visibility = Visibility.Collapsed;
@@ -217,17 +240,22 @@ public partial class MainWindow : Window
             }
             finally { SetBusy(false,Status.Text); }
     }
-    void Save_Click(object s, RoutedEventArgs e)
+    async void Save_Click(object s, RoutedEventArgs e)=>await SaveAsCurrentAsync();
+    async Task SaveAsCurrentAsync()
     {
-        if (busy || current is null || (current.Pdf is null && !current.IsDocx)) return;
-        var dialog = new SaveFileDialog { Filter = current.IsDocx ? "Документ Word|*.docx" : "PDF|*.pdf", FileName = Path.GetFileNameWithoutExtension(current.Name) + (current.IsDocx ? "_edited.docx" : "_edited.pdf") };
+        if (busy || current is null || (current.Pdf is null && !current.IsWordDocument)) return;
+        var dialog = new SaveFileDialog { Filter = current.IsWordDocument ? "Документ Word|*.docx" : "PDF|*.pdf", FileName = current.IsUntitled ? current.Name : Path.GetFileNameWithoutExtension(current.Name) + (current.IsDoc ? ".docx" : current.IsWordDocument ? "_edited.docx" : "_edited.pdf") };
         if (dialog.ShowDialog(this) != true) return;
         try
         {
-            if (current.IsDocx) SaveDocx(dialog.FileName); else current.SaveTo(dialog.FileName);
-            current.Path=dialog.FileName; current.Dirty=false;
+            var session=current;
+            bool convertedDoc=session.IsDoc;
+            if (session.IsWordDocument) await SaveDocxAsync(dialog.FileName); else { session.SaveTo(dialog.FileName); session.Dirty=false; }
+            session.Path=dialog.FileName;
+            await RememberRecentFileAsync(session.Path);
+            if(convertedDoc && current==session) { ConfigureDocumentUi(); RefreshComments(); }
             foreach (TabItem tab in Tabs.Items)
-                if (tab.Tag==current && tab.Header is StackPanel header && header.Children[0] is TextBlock title) title.Text=current.Name;
+                if (tab.Tag==session && tab.Header is StackPanel header && header.Children[0] is TextBlock title) title.Text=session.Name;
             Status.Text="Сохранено: "+dialog.FileName;
         }
         catch (Exception error) { Error(error); }
@@ -237,11 +265,21 @@ public partial class MainWindow : Window
         if (busy || current is null) return;
         HideCard();
         var session = current;
-        var dialog = new SaveFileDialog { FileName = Path.GetFileNameWithoutExtension(session.Name), Filter = session.Photo is not null ? "PDF|*.pdf|PDF с текстовым слоем OCR|*.pdf|Текст OCR|*.txt|DOCX с текстом OCR|*.docx" : session.IsDocx ? "PDF|*.pdf" : "DOCX (текст, без исходной верстки)|*.docx|PNG текущей страницы|*.png|Текст|*.txt|PDF с текстовым слоем OCR|*.pdf" };
+        var dialog = new SaveFileDialog { FileName = Path.GetFileNameWithoutExtension(session.Name), Filter = session.Photo is not null ? "PDF|*.pdf|PDF с текстовым слоем OCR|*.pdf|Текст OCR|*.txt|DOCX с текстом OCR|*.docx" : session.IsDoc ? "DOCX|*.docx|PDF|*.pdf" : session.IsWordDocument ? "PDF|*.pdf" : "DOCX (текст, без исходной верстки)|*.docx|PNG текущей страницы|*.png|Текст|*.txt|PDF с текстовым слоем OCR|*.pdf" };
         if (dialog.ShowDialog(this) != true) return;
         try
         {
-            if (session.IsDocx) { await ExportDocxAsync(dialog.FileName); return; }
+            if (session.IsWordDocument)
+            {
+                if(Path.GetExtension(dialog.FileName).Equals(".docx",StringComparison.OrdinalIgnoreCase))
+                {
+                    await WriteDocxCopyAsync(dialog.FileName);
+                    Status.Text="Экспорт завершён: "+dialog.FileName;
+                }
+                else if(Path.GetExtension(dialog.FileName).Equals(".pdf",StringComparison.OrdinalIgnoreCase)) await ExportDocxAsync(dialog.FileName);
+                else throw new InvalidOperationException("Выберите формат DOCX или PDF.");
+                return;
+            }
             var extension = Path.GetExtension(dialog.FileName).ToLowerInvariant();
             if (extension == ".docx" && DarkDialog.Show(this, "Экспорт переносит текст с разделением по страницам, без исходной верстки и изображений. Страницы без текстового слоя будут распознаны OCR. Продолжить?", "Текстовая конвертация", MessageBoxButton.OKCancel) != MessageBoxResult.OK) return;
             SetBusy(true, "Конвертация…");
@@ -251,8 +289,8 @@ public partial class MainWindow : Window
             }
             else if (extension == ".pdf")
             {
-                if (!session.IsDocx && (session.Photo is null || dialog.FilterIndex == 2) && DarkDialog.Show(this,"Будет создана копия из изображений страниц с распознанным текстовым слоем. Интерактивные комментарии, ссылки и формы в эту копию не переносятся.","PDF с OCR",MessageBoxButton.OKCancel) != MessageBoxResult.OK) return;
-                if ((!session.IsDocx && session.Photo is null) || (session.Photo is not null && dialog.FilterIndex == 2))
+                if (!session.IsWordDocument && (session.Photo is null || dialog.FilterIndex == 2) && DarkDialog.Show(this,"Будет создана копия из изображений страниц с распознанным текстовым слоем. Интерактивные комментарии, ссылки и формы в эту копию не переносятся.","PDF с OCR",MessageBoxButton.OKCancel) != MessageBoxResult.OK) return;
+                if ((!session.IsWordDocument && session.Photo is null) || (session.Photo is not null && dialog.FilterIndex == 2))
                 {
                     using var result = new PdfDocument();
                     var language = ((ComboBoxItem)OcrLanguage.SelectedItem).Tag.ToString()!;
@@ -328,7 +366,7 @@ public partial class MainWindow : Window
     {
         if (busy) { e.Cancel = true; Status.Text = "Дождитесь окончания текущей операции"; return; }
         if (sessions.Any(x => x.Dirty) && DarkDialog.Show(this, "Есть несохранённые изменения. Закрыть приложение без сохранения?", "Закрытие", MessageBoxButton.YesNo) != MessageBoxResult.Yes) { e.Cancel = true; return; }
-        ocr.Dispose(); foreach (var session in sessions) session.Dispose();
+        searchCancellation?.Cancel(); searchTimer.Stop(); ocr.Dispose(); foreach (var session in sessions) session.Dispose();
     }
 }
 

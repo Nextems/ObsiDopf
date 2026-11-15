@@ -1,0 +1,14 @@
+{
+  "name": "obsidopf-word-editor",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "author": "Maxim_Dembitsky (Nextems)",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "superdoc": "1.47.2"
+  }
+}

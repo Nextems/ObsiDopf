@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -7,15 +7,25 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Assets\ObsidianDocs.ico</ApplicationIcon>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <AssemblyName>ObsiDopf</AssemblyName>
     <AssemblyTitle>ObsiDopf</AssemblyTitle>
     <RootNamespace>ObsidianDocs</RootNamespace>
     <Product>ObsiDopf</Product>
+    <Authors>Maxim_Dembitsky (Nextems)</Authors>
+    <Copyright>Copyright (c) 2026 Maxim_Dembitsky (Nextems)</Copyright>
+    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
     <Description>PDF and DOCX viewer, comments, conversion and local OCR</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\..\LICENSE" Link="LICENSE" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\COPYRIGHT.md" Link="COPYRIGHT.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\packaging\superdoc\SOURCE-INFO.md" Link="Licensing\SOURCE-INFO.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\packaging\superdoc\source-lock.json" Link="Licensing\superdoc-source-lock.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\packaging\notices\**\*" Link="ThirdPartyNotices\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Compile Remove="DocxEditor.cs;DocxNumbering.cs;PagedWordView.cs;WordPageGaps.cs;WordMiniMap.cs" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
     <Resource Include="Assets\ObsidianDocs.ico" />
     <Resource Include="Assets\ObsidianDocs.png" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.5.1" />
@@ -24,4 +34,14 @@
     <PackageReference Include="PDFtoImage" Version="5.4.0" />
   </ItemGroup>
 
+  <Target Name="BuildWordAssets" BeforeTargets="PrepareForBuild" Inputs="$(MSBuildProjectDirectory)\..\..\web\word\editor.js;$(MSBuildProjectDirectory)\..\..\web\word\editor.css;$(MSBuildProjectDirectory)\..\..\web\word\index.html;$(MSBuildProjectDirectory)\..\..\web\word\build.mjs;$(MSBuildProjectDirectory)\..\..\web\word\layout-performance.js;$(MSBuildProjectDirectory)\..\..\web\word\selection-assistant.js;$(MSBuildProjectDirectory)\..\..\web\word\color-picker.js;$(MSBuildProjectDirectory)\..\..\web\word\patch-engine.mjs;$(MSBuildProjectDirectory)\..\..\web\word\patch-engine-source.mjs;$(MSBuildProjectDirectory)\..\..\web\word\package-lock.json;$(MSBuildProjectDirectory)\..\..\web\word\SUPERDOC-LICENSE.txt" Outputs="$(MSBuildProjectDirectory)\WordAssets\.built">
+    <Exec Command="npm.cmd ci --no-audit --no-fund" WorkingDirectory="$(MSBuildProjectDirectory)\..\..\web\word" Condition="!Exists('$(MSBuildProjectDirectory)\..\..\web\word\node_modules\superdoc\dist\superdoc.min.js')" />
+    <Exec Command="npm.cmd run build" WorkingDirectory="$(MSBuildProjectDirectory)\..\..\web\word" />
+    <Touch Files="$(MSBuildProjectDirectory)\WordAssets\.built" AlwaysCreate="true" />
+  </Target>
+  <Target Name="IncludeWordAssets" BeforeTargets="AssignTargetPaths" DependsOnTargets="BuildWordAssets">
+    <ItemGroup>
+      <Content Include="WordAssets\**\*" Exclude="WordAssets\.built" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    </ItemGroup>
+  </Target>
 </Project>

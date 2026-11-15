@@ -30,24 +30,84 @@
   <Style TargetType="TabItem"><Setter Property="Background" Value="#303039"/><Setter Property="Foreground" Value="#D8D5E2"/><Setter Property="Padding" Value="12,8"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TabItem"><Border x:Name="TabBorder" Background="#25252D" BorderBrush="Transparent" BorderThickness="0,0,0,2" Padding="14,9"><ContentPresenter ContentSource="Header"/></Border><ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter TargetName="TabBorder" Property="Background" Value="#34303E"/><Setter TargetName="TabBorder" Property="BorderBrush" Value="#A88ADB"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>
  </Window.Resources>
  <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="64"/><ColumnDefinition Width="*"/><ColumnDefinition Width="5"/><ColumnDefinition Width="285"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="34"/></Grid.RowDefinitions>
-  <Border Background="#19191F" Grid.RowSpan="2"><DockPanel><Image DockPanel.Dock="Top" Source="Assets/ObsidianDocs.png" Width="38" Height="38" HorizontalAlignment="Center" Margin="0,16"/><StackPanel><Button Content="＋" FontSize="23" ToolTip="Открыть документ" Click="Open_Click"/><Button Content="▤" FontSize="23" ToolTip="Открытые документы" Click="Documents_Click"/><Button Content="⇄" FontSize="23" ToolTip="Конвертация" Click="Convert_Click"/></StackPanel></DockPanel></Border>
-  <Grid Grid.Column="1"><Grid.RowDefinitions><RowDefinition Height="44"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-   <TabControl x:Name="Tabs" Background="#25252D" BorderThickness="0" SelectionChanged="Tabs_Changed"/>
-   <Border Grid.Row="1" Background="#25252D" BorderBrush="#37343F" BorderThickness="0,0,0,1"><StackPanel Margin="10,5"><WrapPanel VerticalAlignment="Center">
-    <Button Content="Открыть" Click="Open_Click"/><Button Content="Сохранить как…" Click="Save_Click" ToolTip="Ctrl+Shift+S · Ctrl+S сохраняет текущий документ"/><Button Content="⇄ Экспорт" Click="Convert_Click"/>
+  <Border Background="#19191F" Grid.RowSpan="2"><DockPanel>
+   <Button DockPanel.Dock="Top" Content="§" FontSize="26" Width="42" Height="42" Padding="0" HorizontalAlignment="Center" Margin="0,14" ToolTip="Лицензии и исходники" AutomationProperties.Name="Лицензии и исходники" Click="Licenses_Click"/>
+   <StackPanel><Button Content="＋" FontSize="23" ToolTip="Открыть документ" Click="Open_Click"/><Button Content="▤" FontSize="23" ToolTip="История открытых файлов" AutomationProperties.Name="История открытых файлов" Click="Documents_Click"/><Button Content="⇄" FontSize="23" ToolTip="Конвертация" Click="Convert_Click"/><Button Content="⚙" FontSize="23" ToolTip="Настройки API Gemini · ключ и модель" Click="AiSettings_Click" AutomationProperties.Name="Настройки API Gemini"/><Button Content="✦" FontSize="23" ToolTip="Открыть или свернуть чат Gemini" Click="ToggleAiChat_Click" AutomationProperties.Name="Чат Gemini"/></StackPanel>
+  </DockPanel></Border>
+  <Grid Grid.Column="1"><Grid.ColumnDefinitions><ColumnDefinition x:Name="AiChatColumn" Width="0"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="44"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+   <TabControl x:Name="Tabs" Grid.ColumnSpan="2" Background="#25252D" BorderThickness="0" SelectionChanged="Tabs_Changed">
+    <TabControl.Template><ControlTemplate TargetType="TabControl"><Border Background="{TemplateBinding Background}" ClipToBounds="True">
+     <ScrollViewer x:Name="TabStripScroller" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" CanContentScroll="False" Focusable="False" PanningMode="HorizontalOnly">
+      <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+     </ScrollViewer>
+    </Border></ControlTemplate></TabControl.Template>
+   </TabControl>
+   <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#25252D" BorderBrush="#37343F" BorderThickness="0,0,0,1"><StackPanel Margin="10,5"><WrapPanel VerticalAlignment="Center">
+    <Button Content="Открыть" Click="Open_Click"/><Button Content="＋ DOCX" Click="NewDocx_Click" ToolTip="Создать документ · Ctrl+N"/><Button Content="Сохранить как…" Click="Save_Click" ToolTip="Ctrl+Shift+S · Ctrl+S сохраняет текущий документ"/><Button Content="⇄ Экспорт" Click="Convert_Click"/><Button x:Name="PdfEditButton" Content="Правка PDF ▾" Click="PdfEdit_Click" Visibility="Collapsed"/>
+    <Button Content="✦ Спросить ИИ" Click="Ai_Click" ToolTip="Выделите текст и отправьте его вместе с запросом в Gemini"/>
     <Border Width="1" Background="#49434F" Margin="10,8"/>
-    <Button x:Name="OcrButton" Content="⌗ OCR области" Click="OcrMode_Click" Background="#69518E"/>
+    <Button x:Name="OcrButton" Content="⌗ OCR области" Click="OcrMode_Click"/>
     <Button x:Name="NoteButton" Content="✎ Комментарий" Click="NoteMode_Click"/>
     <Button x:Name="TextNoteButton" Content="Комментарий к тексту" Click="TextNoteMode_Click" ToolTip="Выберите этот инструмент, выделите слова мышью и введите комментарий"/>
     <ComboBox x:Name="OcrLanguage" Width="72" Margin="7" SelectedIndex="0" ToolTip="Язык OCR"><ComboBoxItem Content="RU" Tag="ru"/><ComboBoxItem Content="EN" Tag="en"/></ComboBox>
-   </WrapPanel><ContentControl x:Name="DocxTools" Visibility="Collapsed"/></StackPanel></Border>
-   <Grid Grid.Row="2" x:Name="Workspace" Background="#1E1E24" SizeChanged="Workspace_SizeChanged">
+   </WrapPanel><ContentControl x:Name="DocxTools" Visibility="Collapsed"/>
+   <Border x:Name="FindBar" Visibility="Collapsed" Background="#22212A" Padding="6" Margin="0,5,0,0"><WrapPanel><TextBox x:Name="FindText" Width="240" Height="34" Padding="7" VerticalContentAlignment="Center" ToolTip="Поиск в документе · Enter — далее · Shift+Enter — назад" TextChanged="FindText_Changed" PreviewKeyDown="FindText_KeyDown"/><Button Content="↑" Click="FindPrevious_Click" ToolTip="Предыдущее совпадение · Shift+F3"/><Button Content="↓" Click="FindNext_Click" ToolTip="Следующее совпадение · F3"/><TextBlock x:Name="FindStatus" VerticalAlignment="Center" Margin="10,0" MaxWidth="380" TextTrimming="CharacterEllipsis"/><Button Content="×" Click="CloseFind_Click" ToolTip="Закрыть поиск · Esc"/></WrapPanel></Border>
+   </StackPanel></Border>
+   <Border x:Name="AiChatPanel" Grid.Row="2" Visibility="Collapsed" Background="#24232C" BorderBrush="#3F374C" BorderThickness="0,0,1,0" Padding="12">
+    <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <StackPanel><DockPanel><Button Content="×" DockPanel.Dock="Right" Click="CloseAiChat_Click" ToolTip="Свернуть чат"/><TextBlock Text="✦ Gemini" FontSize="17" VerticalAlignment="Center"/></DockPanel>
+      <StackPanel Orientation="Horizontal"><Button Content="Новый чат" Click="NewAiChat_Click"/><Button Content="API ⚙" Click="AiSettings_Click"/></StackPanel>
+      <TextBlock Text="Выделение скрыто. Запросы и контекст отправляются в Google только по кнопке." FontSize="11" Foreground="#ADA3BD" TextWrapping="Wrap" Margin="2,6"/>
+     </StackPanel>
+     <ScrollViewer x:Name="ChatScroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel x:Name="ChatMessages"/></ScrollViewer>
+     <StackPanel Grid.Row="2"><DockPanel><Button x:Name="ChooseMaterial" Content="＋ Выбрать материал" Click="ChooseMaterial_Click" ToolTip="Выбрать страницы PDF или фотографии и разметить их"/><Button Content="×" Click="ClearMaterial_Click" ToolTip="Убрать изображения из следующего запроса"/></DockPanel><TextBlock x:Name="MaterialHint" Foreground="#BFA6F4" TextWrapping="Wrap" FontSize="11" Margin="2,4"/>
+      <DockPanel x:Name="ChatContext" Visibility="Collapsed"><Button Content="×" DockPanel.Dock="Right" Click="ClearChatContext_Click" ToolTip="Убрать выделение из следующего запроса"/><TextBlock Text="Фрагмент прикреплён" Foreground="#BFA6F4" VerticalAlignment="Center"/></DockPanel>
+      <CheckBox x:Name="ChatComment" Content="Ответ в комментарий" Visibility="Collapsed" IsEnabled="False" Foreground="#CDB8EF" Margin="3,6" ToolTip="Добавить ответ к исходному выделению от выбранного автора комментариев"/>
+      <TextBox x:Name="ChatPrompt" AcceptsReturn="True" TextWrapping="Wrap" Height="85" MaxLength="20000" Padding="8" VerticalScrollBarVisibility="Auto" ToolTip="Вопрос с выделением или на любую тему · Ctrl+Enter" PreviewKeyDown="ChatPrompt_KeyDown"/>
+      <DockPanel><Button x:Name="ChatSend" Content="Отправить ↑" Click="ChatSend_Click" Background="#69518E"/><Button x:Name="ChatCancel" Content="Стоп" IsEnabled="False" Click="ChatCancel_Click"/></DockPanel>
+      <TextBlock x:Name="ChatStatus" TextWrapping="Wrap" FontSize="11" Foreground="#B8A9CD" Margin="2,5"/>
+     </StackPanel>
+    </Grid>
+   </Border>
+   <Border x:Name="RecentFilesPanel" Grid.Row="2" Visibility="Collapsed" Background="#24232C" BorderBrush="#3F374C" BorderThickness="0,0,1,0" Padding="12">
+    <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <StackPanel>
+      <DockPanel><Button Content="×" DockPanel.Dock="Right" Click="CloseRecentFiles_Click" ToolTip="Свернуть историю" AutomationProperties.Name="Свернуть историю"/><Button Content="↻" DockPanel.Dock="Right" Click="RefreshRecentFiles_Click" ToolTip="Обновить историю" AutomationProperties.Name="Обновить историю"/><TextBlock Text="История файлов" FontSize="17" VerticalAlignment="Center"/></DockPanel>
+      <TextBlock Text="Ранее открытые документы. Нажмите на файл, чтобы открыть его снова." FontSize="11" Foreground="#ADA3BD" TextWrapping="Wrap" Margin="2,6,2,10"/>
+     </StackPanel>
+     <TextBox x:Name="RecentFilesSearch" Grid.Row="1" Margin="0,0,0,10" Padding="8" ToolTip="Поиск по имени или пути" AutomationProperties.Name="Поиск в истории файлов" TextChanged="RecentFilesSearch_Changed"/>
+     <Grid Grid.Row="2">
+      <ListBox x:Name="RecentFilesList" AutomationProperties.Name="Ранее открытые файлы" ScrollViewer.CanContentScroll="True" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
+       <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}"><Setter Property="Padding" Value="0"/><Setter Property="Margin" Value="0,3"/></Style></ListBox.ItemContainerStyle>
+       <ListBox.ItemTemplate><DataTemplate>
+        <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+         <Button Click="OpenRecentFile_Click" Tag="{Binding FilePath}" ToolTip="{Binding FilePath}" AutomationProperties.Name="{Binding Name}" HorizontalContentAlignment="Stretch" Margin="0" Padding="8" Background="Transparent">
+          <StackPanel>
+           <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+           <TextBlock Text="{Binding Folder}" FontSize="11" Foreground="#AAA2B8" TextTrimming="CharacterEllipsis" Margin="0,4,0,0"/>
+           <TextBlock Text="{Binding OpenedLabel}" FontSize="10" Foreground="#92899F" Margin="0,4,0,0"/>
+          </StackPanel>
+         </Button>
+         <Button Grid.Column="1" Content="×" Tag="{Binding FilePath}" Click="RemoveRecentFile_Click" ToolTip="Убрать запись из истории" AutomationProperties.Name="Убрать запись из истории" VerticalAlignment="Top" Margin="0,3,0,0" Padding="6,3" Background="Transparent"/>
+        </Grid>
+       </DataTemplate></ListBox.ItemTemplate>
+      </ListBox>
+      <TextBlock x:Name="RecentFilesEmpty" TextWrapping="Wrap" Foreground="#AAA2B8" Margin="8,20" VerticalAlignment="Top" IsHitTestVisible="False"/>
+     </Grid>
+     <StackPanel Grid.Row="3" Margin="0,10,0,0">
+      <TextBlock x:Name="RecentFilesCount" Foreground="#AAA2B8" FontSize="11" Margin="3,0,0,5"/>
+      <Button x:Name="ClearRecentFilesButton" Content="Очистить историю" Click="ClearRecentFiles_Click" ToolTip="Удалить записи из списка. Сами файлы останутся на диске." HorizontalAlignment="Left"/>
+      <TextBlock x:Name="RecentFilesStatus" Foreground="#B8A9CD" TextWrapping="Wrap" FontSize="11" Margin="3,5"/>
+     </StackPanel>
+    </Grid>
+   </Border>
+   <Grid Grid.Row="2" Grid.Column="1" x:Name="Workspace" Background="#1E1E24" SizeChanged="Workspace_SizeChanged">
     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition x:Name="CommentColumn" Width="270"/></Grid.ColumnDefinitions>
-    <ScrollViewer x:Name="Viewer" Grid.Column="0" Background="Transparent" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PanningMode="Both" ScrollChanged="Viewer_ScrollChanged"><StackPanel x:Name="PageStack" Margin="24" HorizontalAlignment="Stretch" Visibility="Collapsed"/></ScrollViewer>
+    <ScrollViewer x:Name="Viewer" Focusable="True" Grid.Column="0" Background="Transparent" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PanningMode="Both" ScrollChanged="Viewer_ScrollChanged"><StackPanel x:Name="PageStack" Margin="24" HorizontalAlignment="Stretch" Visibility="Collapsed"/></ScrollViewer>
     <Border x:Name="CommentPanel" Grid.Column="1" Background="#22232D" BorderBrush="#344A67" BorderThickness="1,0,0,0" Padding="12">
      <DockPanel>
       <StackPanel DockPanel.Dock="Top">
-       <TextBlock Text="КОММЕНТАРИИ" Foreground="#9EBBE6" FontSize="11" Margin="3,8,0,12"/>
+       <DockPanel Margin="3,0,0,8"><Button DockPanel.Dock="Right" Content="›" Click="HideComments_Click" ToolTip="Свернуть комментарии" Padding="10,3" FontSize="19"/><TextBlock Text="КОММЕНТАРИИ" Foreground="#9EBBE6" FontSize="11" VerticalAlignment="Center"/></DockPanel>
        <TextBlock Text="Автор новых комментариев и копии" Foreground="#AAA4B7" TextWrapping="Wrap" FontSize="11" Margin="3,0,0,6"/>
        <ComboBox x:Name="AuthorPicker" Height="34" SelectionChanged="Author_Changed"/>
        <DockPanel Margin="0,8,0,0"><Button Content="＋" DockPanel.Dock="Right" Click="AddAuthor_Click" ToolTip="Добавить своё имя"/><TextBox x:Name="NewAuthor" MaxLength="100" ToolTip="Новое имя автора" VerticalContentAlignment="Center"/></DockPanel>
@@ -58,7 +118,7 @@
      </DockPanel>
     </Border>
     <ContentControl x:Name="DocxHost" Grid.Column="0" Visibility="Collapsed"/>
-    <StackPanel x:Name="Welcome" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"><Image Source="Assets/ObsidianDocs.png" Width="86" Height="86" HorizontalAlignment="Center"/><TextBlock Text="Место для ваших документов" FontSize="26" Margin="0,15"/><TextBlock Text="PDF · DOCX · фотографии и сканы" Foreground="#96909F" HorizontalAlignment="Center"/><Button Content="Открыть документ" Click="Open_Click" Margin="35,28" Background="#69518E"/><TextBlock Text="Выделите область → распознайте → скопируйте текст" Foreground="#96909F"/></StackPanel>
+    <StackPanel x:Name="Welcome" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"><Image Source="Assets/ObsidianDocs.png" Width="86" Height="86" HorizontalAlignment="Center"/><TextBlock Text="Место для ваших документов" FontSize="26" Margin="0,15"/><TextBlock Text="PDF · DOCX · DOC · фотографии и сканы" Foreground="#96909F" HorizontalAlignment="Center"/><Button Content="Открыть документ" Click="Open_Click" Margin="35,28" Background="#69518E"/><TextBlock Text="Выделите область → распознайте → скопируйте текст" Foreground="#96909F"/></StackPanel>
     <Canvas Grid.ColumnSpan="2" x:Name="FloatingLayer" IsHitTestVisible="True">
      <Border x:Name="OcrCard" Visibility="Collapsed" Width="340" Background="#2C2935" BorderBrush="#786096" BorderThickness="1" CornerRadius="10" Padding="14">
       <Border.Effect><DropShadowEffect BlurRadius="24" Opacity=".4" ShadowDepth="6"/></Border.Effect>
@@ -67,11 +127,17 @@
        <StackPanel Orientation="Horizontal" Margin="0,10,0,0"><Button x:Name="CardAction" Content="Копировать всё" Click="CardAction_Click" Background="#725495"/><Button x:Name="RetryButton" Content="Повторить" Click="Retry_Click"/><Button x:Name="DeleteCommentButton" Content="Удалить" Click="DeleteComment_Click" Background="#71404E" Visibility="Collapsed"/></StackPanel>
       </StackPanel></Border>
     </Canvas>
+    <Grid x:Name="LoadingOverlay" Grid.ColumnSpan="2" Panel.ZIndex="20" Visibility="Collapsed" Background="#B01E1E24">
+     <Border Width="430" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#2C2935" BorderBrush="#69518E" BorderThickness="1" CornerRadius="10" Padding="24">
+      <StackPanel><TextBlock x:Name="LoadingTitle" FontSize="17" TextWrapping="Wrap"/><ProgressBar IsIndeterminate="True" Height="5" Margin="0,18" Foreground="#B39AF5" Background="#40364E"/><TextBlock x:Name="LoadingDetail" Foreground="#C4B9D1" TextWrapping="Wrap"/><TextBlock x:Name="LoadingElapsed" Foreground="#AAA2B8" Margin="0,12,0,0"/><Button x:Name="CancelOpeningButton" Content="Отменить · Esc" Click="CancelOpening_Click" HorizontalAlignment="Right" Margin="0,18,0,0"/></StackPanel>
+     </Border>
+    </Grid>
    </Grid>
   </Grid>
   <GridSplitter Grid.Column="2" Width="5" HorizontalAlignment="Stretch" Background="#18181E"/>
-  <Border Grid.Column="3" Background="#25252D"><Grid Margin="12"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions><StackPanel><TextBlock Text="ОБЛАСТЬ ДОКУМЕНТА" Foreground="#91899F" FontSize="11" Margin="8,12"/><StackPanel Orientation="Horizontal"><Button Content="Страницы" Click="Pages_Click"/><Button x:Name="SideCommentsButton" Content="Комментарии" Click="Comments_Click"/></StackPanel><TextBlock x:Name="SideHint" Text="Откройте файл для начала работы" Foreground="#9A93A5" TextWrapping="Wrap" Margin="8,12"/></StackPanel><ListBox x:Name="SideList" Grid.Row="1" SelectionChanged="Side_Changed"/></Grid></Border>
-  <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Background="#19191F"><DockPanel Margin="12,0"><StackPanel x:Name="PdfNavigation" DockPanel.Dock="Right" Orientation="Horizontal"><Button Content="‹" Padding="10,2" Click="Prev_Click"/><TextBlock x:Name="PageStatus" VerticalAlignment="Center" Margin="8,0"/><Button Content="›" Padding="10,2" Click="Next_Click"/><Button Content="−" Padding="10,2" Click="ZoomOut_Click"/><TextBlock x:Name="ZoomStatus" Text="100%" VerticalAlignment="Center" Margin="7,0"/><Button Content="＋" Padding="10,2" Click="ZoomIn_Click"/></StackPanel><TextBlock x:Name="Status" Text="Готово · все документы обрабатываются локально" VerticalAlignment="Center" Foreground="#A59CAE" TextTrimming="CharacterEllipsis"/></DockPanel></Border>
+  <Border Grid.Column="3" Background="#25252D"><Grid Margin="12"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions><StackPanel><TextBlock Text="ОБЛАСТЬ ДОКУМЕНТА" Foreground="#91899F" FontSize="11" Margin="8,12"/><StackPanel Orientation="Horizontal"><Button Content="Страницы" Click="Pages_Click"/><Button x:Name="SideCommentsButton" Content="Комментарии" Click="Comments_Click"/></StackPanel><TextBlock x:Name="SideHint" Text="Откройте файл для начала работы" Foreground="#9A93A5" TextWrapping="Wrap" Margin="8,12"/></StackPanel><ContentControl x:Name="WordMapHost" Grid.Row="1" Visibility="Collapsed" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+<ListBox x:Name="SideList" ScrollViewer.CanContentScroll="False" ScrollViewer.ScrollChanged="Side_ScrollChanged" Grid.Row="1" SelectionChanged="Side_Changed"/></Grid></Border>
+  <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Background="#19191F"><DockPanel Margin="12,0"><StackPanel x:Name="PdfNavigation" DockPanel.Dock="Right" Orientation="Horizontal"><Button Content="‹" Padding="10,2" Click="Prev_Click"/><TextBox x:Name="PageJump" Width="45" Height="26" Padding="4" Margin="5,0" VerticalContentAlignment="Center" ToolTip="Номер страницы во всём документе · Enter" PreviewKeyDown="PageJump_KeyDown"/><TextBlock x:Name="PageStatus" VerticalAlignment="Center" Margin="8,0"/><Button Content="›" Padding="10,2" Click="Next_Click"/></StackPanel><StackPanel DockPanel.Dock="Right" Orientation="Horizontal"><Button Content="−" Padding="10,2" Click="ZoomOut_Click"/><TextBlock x:Name="ZoomStatus" Text="100%" VerticalAlignment="Center" Margin="7,0"/><Button Content="＋" Padding="10,2" Click="ZoomIn_Click"/></StackPanel><TextBlock x:Name="Status" Text="Готово · все документы обрабатываются локально" VerticalAlignment="Center" Foreground="#A59CAE" TextTrimming="CharacterEllipsis"/></DockPanel></Border>
  </Grid>
 </Window>
 

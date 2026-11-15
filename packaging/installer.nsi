@@ -8,7 +8,10 @@ Unicode true
  !error "PAYLOAD must point to the published application"
 !endif
 !ifndef VERSION
- !define VERSION "1.0.0"
+ !define VERSION "1.1.0"
+!endif
+!ifndef PRODUCT_VERSION
+ !define PRODUCT_VERSION "${VERSION}.0"
 !endif
 !ifndef OUTPUT
  !define OUTPUT "ObsiDopf-Setup-x64.exe"
@@ -18,10 +21,10 @@ OutFile "${OUTPUT}"
 InstallDir "$LOCALAPPDATA\Programs\ObsiDopf"
 InstallDirRegKey HKCU "Software\ObsidianDocs" "InstallDir"
 RequestExecutionLevel user
-SetCompressor /SOLID zlib
-SetCompressionLevel 5
+SetCompressor /SOLID lzma
+SetCompressorDictSize 32
 BrandingText "ObsiDopf"
-VIProductVersion "1.0.0.0"
+VIProductVersion "${PRODUCT_VERSION}"
 VIAddVersionKey "ProductName" "ObsiDopf"
 VIAddVersionKey "FileDescription" "ObsiDopf Setup"
 VIAddVersionKey "FileVersion" "${VERSION}"
@@ -31,7 +34,7 @@ Var TestMode
 !define MUI_ICON "..\src\ObsidianDocs\Assets\ObsidianDocs.ico"
 !define MUI_UNICON "..\src\ObsidianDocs\Assets\ObsidianDocs.ico"
 !define MUI_WELCOMEPAGE_TITLE "Установка ObsiDopf"
-!define MUI_WELCOMEPAGE_TEXT "Редактор PDF-комментариев, просмотр PDF и DOCX, конвертация и локальный OCR.$\r$\n$\r$\nВсе компоненты включены. Установка для текущего пользователя без прав администратора."
+!define MUI_WELCOMEPAGE_TEXT "Редактор PDF, DOC и DOCX, конвертация, локальный OCR и чат Gemini.$\r$\n$\r$\nOCR и LibreOffice включены. Для редактора Word требуется Microsoft Edge WebView2 Runtime. Для Gemini нужен собственный API-ключ и интернет.$\r$\n$\r$\nУстановка для текущего пользователя без прав администратора. Перед обновлением закройте ObsiDopf."
 !define MUI_FINISHPAGE_RUN "$INSTDIR\ObsiDopf.exe"
 !define MUI_FINISHPAGE_RUN_TEXT "Запустить ObsiDopf"
 !insertmacro MUI_PAGE_WELCOME
@@ -104,12 +107,17 @@ Section "Программа и компоненты (обязательно)" Ma
  ${EndIf}
 SectionEnd
 
-Section "Открытие PDF и DOCX через «Открыть с помощью»" FileAssociations
+Section "Открытие PDF, DOCX и DOC через «Открыть с помощью»" FileAssociations
  ${If} $TestMode == 0
   WriteRegStr HKCU "Software\Classes\Applications\ObsiDopf.exe" "FriendlyAppName" "ObsiDopf"
   WriteRegStr HKCU "Software\Classes\Applications\ObsiDopf.exe\shell\open\command" "" '$\"$INSTDIR\ObsiDopf.exe$\" $\"%1$\"'
   WriteRegStr HKCU "Software\Classes\Applications\ObsiDopf.exe\SupportedTypes" ".pdf" ""
   WriteRegStr HKCU "Software\Classes\Applications\ObsiDopf.exe\SupportedTypes" ".docx" ""
+  WriteRegStr HKCU "Software\Classes\Applications\ObsiDopf.exe\SupportedTypes" ".doc" ""
+  WriteRegStr HKCU "Software\Classes\ObsiDopf.Doc" "" "Документ Word 97–2003 · ObsiDopf"
+  WriteRegStr HKCU "Software\Classes\ObsiDopf.Doc\DefaultIcon" "" '$\"$INSTDIR\ObsiDopf.exe$\",0'
+  WriteRegStr HKCU "Software\Classes\ObsiDopf.Doc\shell\open\command" "" '$\"$INSTDIR\ObsiDopf.exe$\" $\"%1$\"'
+  WriteRegStr HKCU "Software\Classes\.doc\OpenWithProgids" "ObsiDopf.Doc" ""
   WriteRegStr HKCU "Software\Classes\ObsiDopf.Pdf" "" "PDF · ObsiDopf"
   WriteRegStr HKCU "Software\Classes\ObsiDopf.Pdf\DefaultIcon" "" '$\"$INSTDIR\ObsiDopf.exe$\",0'
   WriteRegStr HKCU "Software\Classes\ObsiDopf.Pdf\shell\open\command" "" '$\"$INSTDIR\ObsiDopf.exe$\" $\"%1$\"'
@@ -122,6 +130,7 @@ Section "Открытие PDF и DOCX через «Открыть с помощ�
   WriteRegStr HKCU "Software\ObsiDopf\Capabilities" "ApplicationDescription" "Документы PDF и DOCX, комментарии и OCR"
   WriteRegStr HKCU "Software\ObsiDopf\Capabilities\FileAssociations" ".pdf" "ObsiDopf.Pdf"
   WriteRegStr HKCU "Software\ObsiDopf\Capabilities\FileAssociations" ".docx" "ObsiDopf.Docx"
+  WriteRegStr HKCU "Software\ObsiDopf\Capabilities\FileAssociations" ".doc" "ObsiDopf.Doc"
   WriteRegStr HKCU "Software\RegisteredApplications" "ObsiDopf" "Software\ObsiDopf\Capabilities"
   System::Call 'shell32::SHChangeNotify(i 0x08000000, i 0, p 0, p 0)'
  ${EndIf}
@@ -156,8 +165,10 @@ Section "Uninstall"
    DeleteRegKey HKCU "Software\Classes\Applications\ObsiDopf.exe"
    DeleteRegKey HKCU "Software\Classes\ObsiDopf.Pdf"
    DeleteRegKey HKCU "Software\Classes\ObsiDopf.Docx"
+   DeleteRegKey HKCU "Software\Classes\ObsiDopf.Doc"
    DeleteRegValue HKCU "Software\Classes\.pdf\OpenWithProgids" "ObsiDopf.Pdf"
    DeleteRegValue HKCU "Software\Classes\.docx\OpenWithProgids" "ObsiDopf.Docx"
+   DeleteRegValue HKCU "Software\Classes\.doc\OpenWithProgids" "ObsiDopf.Doc"
    DeleteRegValue HKCU "Software\RegisteredApplications" "ObsiDopf"
    DeleteRegKey HKCU "Software\ObsiDopf\Capabilities"
    DeleteRegKey /ifempty HKCU "Software\ObsiDopf"

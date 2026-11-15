@@ -13,7 +13,10 @@ public static class PdfTextComments
     public static List<TextWord> ReadWords(byte[] bytes,int pageIndex)
     {
         using var pdf=UglyToad.PdfPig.PdfDocument.Open(bytes);
-        var page=pdf.GetPage(pageIndex+1);
+        return ReadWords(pdf.GetPage(pageIndex+1));
+    }
+    public static List<TextWord> ReadWords(UglyToad.PdfPig.Content.Page page)
+    {
         if (page.Width<=0 || page.Height<=0) return [];
         var order=new Dictionary<UglyToad.PdfPig.Content.Letter,int>();
         for (int i=0;i<page.Letters.Count;i++) order.TryAdd(page.Letters[i],i);
@@ -44,6 +47,44 @@ public static class PdfTextComments
         double l=Math.Max(m.X1,c.X1),b=Math.Max(m.Y1,c.Y1),r=Math.Min(m.X2,c.X2),t=Math.Min(m.Y2,c.Y2);
         return r>l && t>b ? new PdfRectangle(new XPoint(l,b),new XPoint(r,t)) : m;
     }
+    public static List<Rect> HighlightBands(IReadOnlyList<TextWord> words,double pageAspect)
+    {
+        // Word boxes have different heights (capitals, descenders, punctuation).
+        // Group by baseline area first, then use one height for the whole row.
+        var lines=new List<List<Rect>>();
+        foreach(var word in words.OrderBy(w=>w.Bounds.Top).ThenBy(w=>w.Bounds.Left))
+        {
+            var rect=Rect.Intersect(word.Bounds,new Rect(0,0,1,1));
+            if(rect.IsEmpty || rect.Width<=0 || rect.Height<=0) continue;
+            List<Rect>? best=null; double distance=double.MaxValue;
+            foreach(var line in lines)
+            {
+                double center=line.Average(r=>(r.Top+r.Bottom)/2),height=line.Average(r=>r.Height);
+                double delta=Math.Abs((rect.Top+rect.Bottom)/2-center);
+                double overlap=Math.Min(rect.Bottom,center+height/2)-Math.Max(rect.Top,center-height/2);
+                if(delta<=Math.Max(height,rect.Height)*.45 && overlap>=Math.Min(height,rect.Height)*.35 && delta<distance) { best=line; distance=delta; }
+            }
+            if(best is null) { best=[]; lines.Add(best); }
+            best.Add(rect);
+        }
+        var result=new List<Rect>();
+        foreach(var line in lines)
+        {
+            double top=line.Min(r=>r.Top),bottom=line.Max(r=>r.Bottom);
+            // Convert the row height to horizontal page units. Bridge normal
+            // and justified spaces, while keeping wide column gutters separate.
+            double maxGap=Math.Max(.01,(bottom-top)*pageAspect*4);
+            Rect band=Rect.Empty;
+            foreach(var rect in line.OrderBy(r=>r.Left))
+            {
+                if(!band.IsEmpty && rect.Left-band.Right>maxGap) { result.Add(band); band=Rect.Empty; }
+                if(band.IsEmpty) band=new Rect(rect.Left,top,rect.Width,bottom-top);
+                else band.Union(new Rect(rect.Left,top,rect.Width,bottom-top));
+            }
+            if(!band.IsEmpty) result.Add(band);
+        }
+        return result;
+    }
     public static XPoint ToPdf(PdfPage page,Point point)
     {
         double u=point.X,v=point.Y;
@@ -56,9 +97,10 @@ public static class PdfTextComments
         if (selected.Count==0 || string.IsNullOrWhiteSpace(text)) throw new ArgumentException("Выделите текст и введите комментарий.");
         var page=document.Pages[pageIndex];
         var quad=new PdfArray(document); var boxes=new List<(double X,double Y,double W,double H)>();
-        foreach (var word in selected)
+        var visible=VisibleBox(page);
+        double aspect=page.Rotate%180==0 ? visible.Height/visible.Width : visible.Width/visible.Height;
+        foreach (var r in HighlightBands(selected,aspect))
         {
-            var r=word.Bounds;
             var points=new[] { ToPdf(page,r.TopLeft),ToPdf(page,r.TopRight),ToPdf(page,r.BottomLeft),ToPdf(page,r.BottomRight) };
             foreach (var p in points) { quad.Elements.Add(new PdfReal(p.X)); quad.Elements.Add(new PdfReal(p.Y)); }
             double l=points.Min(p=>p.X),b=points.Min(p=>p.Y),right=points.Max(p=>p.X),top=points.Max(p=>p.Y);

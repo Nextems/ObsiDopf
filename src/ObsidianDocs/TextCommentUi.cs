@@ -11,9 +11,9 @@ public partial class MainWindow
     List<TextWord> selectedWords=[];
     void TextNoteMode_Click(object sender,RoutedEventArgs e)
     {
-        HideCard(); textNoteMode=true; noteMode=false;
-        TextNoteButton.Background=Brush("#69518E"); NoteButton.Background=OcrButton.Background=Brush("#303039");
-        Status.Text="Выделите слова мышью, затем введите комментарий. Для сканов сначала нужен PDF с OCR-слоем.";
+        if(busy) return;
+        bool enable=!textNoteMode; SetTool(textNote:enable);
+        Status.Text=enable ? "Выделите слова мышью, затем введите комментарий." : "Режим комментариев отключён · выделите текст и нажмите Ctrl+C";
     }
     async Task LoadTextWordsAsync(PageSurface surface)
     {
@@ -24,25 +24,36 @@ public partial class MainWindow
     void UpdateTextSelection(Point end)
     {
         selectedWords=PdfTextComments.Select(activeSurface.Words ?? [],new Point(start.X/activeSurface.Width,start.Y/activeSurface.Height),new Point(end.X/activeSurface.Width,end.Y/activeSurface.Height));
+        PaintTextSelection();
+    }
+    void PaintTextSelection()
+    {
         activeSurface.TextHighlights.Children.Clear();
+        if(selectedWords.Count==0 && (ocrMode || noteMode || pdfTextMode)) return;
         selection=Rect.Empty;
-        foreach (var word in selectedWords)
+        foreach (var band in PdfTextComments.HighlightBands(selectedWords,activeSurface.Ratio))
         {
-            var r=new Rect(word.Bounds.X*activeSurface.Width,word.Bounds.Y*activeSurface.Height,word.Bounds.Width*activeSurface.Width,word.Bounds.Height*activeSurface.Height);
+            var r=new Rect(band.X*activeSurface.Width,band.Y*activeSurface.Height,band.Width*activeSurface.Width,band.Height*activeSurface.Height);
             var box=new Rectangle { Width=r.Width,Height=r.Height,Fill=Brush("#663A91F1") };
             Canvas.SetLeft(box,r.X); Canvas.SetTop(box,r.Y); activeSurface.TextHighlights.Children.Add(box);
             selection.Union(r);
         }
     }
-    async Task FinishTextSelectionAsync(Point end)
+    async Task FinishTextSelectionAsync(Point end,bool comment=true)
     {
         int epoch=selectionEpoch; var surface=activeSurface;
         try
         {
             await wordsTask;
-            if (epoch!=selectionEpoch || !textNoteMode || surface!=activeSurface) return;
+            if (epoch!=selectionEpoch || surface!=activeSurface || (comment ? !textNoteMode : ocrMode || noteMode || pdfTextMode)) return;
             UpdateTextSelection(end);
             if (selectedWords.Count==0) { Status.Text="В этой области нет выделяемого текста. Для скана создайте PDF с OCR-слоем."; return; }
+            if(!comment)
+            {
+                Viewer.Focus(); Status.Text="Текст выделен · Ctrl+C или правая кнопка мыши → Копировать";
+                ShowAiSelectionPopup(string.Join(" ",selectedWords.Select(w=>w.Text)),SelectionCanvas.TranslatePoint(end,Workspace));
+                return;
+            }
             ShowCard(selection,true); OcrText.Text=""; OcrText.Focus();
             CardStatus.Text="К тексту: «"+string.Join(" ",selectedWords.Select(w=>w.Text))+"»";
         }
