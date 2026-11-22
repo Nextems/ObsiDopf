@@ -12,6 +12,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File packaging/package-release-so
 
 This archives the actual working tree, copies release notes, and creates SHA-256 sums and release metadata. Publish from a clean commit so BaseCommit identifies the source used for both the installer and archives. It does not commit, tag, push, publish, run the application, install anything, or call Gemini. Original ObsiDopf code is licensed under AGPL-3.0-only (root LICENSE and COPYRIGHT.md); third-party licenses are preserved. Both root notices are included in application builds. Publish both source archives alongside the matching installer; see RELEASE-NOTES.md and web/word/README.md.
 
+For a revision of an already built installer, keep its internal `Version` and pass a distinct tag, for example `-Version 1.1.0 -ReleaseTag v1.1.0-r2`. Metadata records both the installer version and the release tag; source archives and validation must still match the exact installer and commit.
+
 `collect-npm-notices.mjs` collects exact-version npm license texts from both the lock file and SuperDoc source map, verifying npm archive integrity. `collect-native-notices.mjs` supplements the existing native notices with pinned crate repository licenses, .NET runtime pack notices, ONNX Runtime, DirectML and PDFium distribution notices. Their generated files are committed under `packaging/notices` and automatically included in the installer. Regenerate them when changing dependencies, then commit the results before building release artifacts. Collection scripts download/read build inputs only and never execute the application or tests.
 
 The source packager also prepares `ObsiDopf-1.1.0-SuperDoc-1.47.2-Source.zip` using

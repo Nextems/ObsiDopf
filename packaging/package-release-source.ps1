@@ -1,9 +1,11 @@
-param([string]$Version='1.1.0',[switch]$SourcesOnly)
+param([string]$Version='1.1.0',[switch]$SourcesOnly,[string]$ReleaseTag)
 $ErrorActionPreference='Stop'
 $projectRoot=Split-Path -Parent $PSScriptRoot
 Push-Location $projectRoot
 try {
     if ($Version -notmatch '^\d+\.\d+\.\d+$') { throw 'Version must have the form major.minor.patch' }
+    if (!$ReleaseTag) { $ReleaseTag='v'+$Version }
+    if ($ReleaseTag -notmatch ('^v'+[regex]::Escape($Version)+'(?:-[0-9A-Za-z.-]+)?$')) { throw 'ReleaseTag must match Version, optionally followed by a revision suffix' }
     $outputRoot=Join-Path $projectRoot 'dist'
     $installer=Join-Path $outputRoot "ObsiDopf-$Version-Setup-x64.exe"
     if (!$SourcesOnly -and !(Test-Path -LiteralPath $installer)) { throw 'Build the installer first, or use -SourcesOnly for source preparation.' }
@@ -61,7 +63,7 @@ try {
     })
     $artifacts | ForEach-Object { $_.SHA256+'  '+$_.Name } | Set-Content -LiteralPath (Join-Path $outputRoot "ObsiDopf-$Version-SHA256SUMS.txt") -Encoding ascii
     [ordered]@{
-        Product='ObsiDopf'; Version=$Version; Platform='win-x64'; Stage=$(if($SourcesOnly){'source-preparation'}else{'release-candidate'})
+        Product='ObsiDopf'; Version=$Version; ReleaseTag=$ReleaseTag; Platform='win-x64'; Stage=$(if($SourcesOnly){'source-preparation'}else{'release-candidate'})
         PreparedUtc=[DateTime]::UtcNow.ToString('o'); BaseCommit=(& git rev-parse HEAD).Trim()
         Source='Source.zip is the build source snapshot; BaseCommit identifies the release commit. Publish only from a clean working tree.'
         Build=$(if($SourcesOnly){'Source preparation only; this command did not build an installer.'}else{'dotnet publish Release, self-contained; NSIS solid LZMA'})
@@ -71,7 +73,7 @@ try {
         Prerequisites=@('Windows 10/11 x64','Microsoft Edge WebView2 Runtime for DOC/DOCX')
         License='Original ObsiDopf code: AGPL-3.0-only; third-party licenses preserved.'
         EngineSource='SuperDoc 1.47.2: pinned repository snapshot, complete published source-map contents, original npm archive, preferred-source changes and build instructions.'
-        Publication=('Prepared for GitHub release v'+$Version+'. Publishing is a separate operation.')
+        Publication=('Prepared for GitHub release '+$ReleaseTag+'. Publishing is a separate operation.')
         Artifacts=$artifacts
     } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $outputRoot "ObsiDopf-$Version-Release.json") -Encoding utf8
     $artifacts | Select-Object Name,Bytes
