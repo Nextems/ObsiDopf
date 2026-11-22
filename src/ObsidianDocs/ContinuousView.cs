@@ -74,6 +74,7 @@ public partial class MainWindow
         if (surfaces.Count==0) return;
         double available=Viewer.ViewportWidth>80 ? Viewer.ViewportWidth : Math.Max(300,Workspace.ActualWidth-CommentColumn.ActualWidth-18);
         double width=Math.Max(180,Math.Min(800,available-48))*zoom;
+        if(commentDrag is { } drag && Math.Abs(drag.Size.Width-width)>.01) CancelCommentDrag();
         double top=24;
         foreach (var surface in WindowSurfaces) { surface.Size(width); surface.Top=top; top+=surface.Height+24; BuildMarkers(surface); }
         PaintSearchHighlights();
@@ -210,19 +211,18 @@ public partial class MainWindow
     }
     void BuildMarkers(PageSurface surface)
     {
+        if(commentDrag?.Surface==surface) return;
         surface.Markers.Children.Clear();
         if (current?.Pdf is null || !current.CanEditPdf) return;
         var page=current.Pdf.Pages[surface.Index];
         for (int i=0;i<page.Annotations.Count;i++)
         {
             var note=page.Annotations[i]; if (string.IsNullOrWhiteSpace(note.Contents)) continue;
-            var box=PdfTextComments.VisibleBox(page);
-            double u=(note.Rectangle.X1-box.X1)/box.Width;
-            double v=1-(note.Rectangle.Y2-box.Y1)/box.Height;
-            (u,v)=(((page.Rotate%360)+360)%360) switch { 90=>(1-v,u),180=>(1-u,1-v),270=>(v,1-u),_=>(u,v) };
+            var position=PdfCommentPosition.Get(page,note,new Size(surface.Width,surface.Height));
             int index=i;
             var marker=CommentIcon.CreateButton($"{note.Title}: {note.Contents}");
-            Canvas.SetLeft(marker,note.Elements.GetName("/Subtype")=="/Highlight" ? Math.Max(0,surface.Width-28) : Math.Clamp(u*surface.Width,0,Math.Max(0,surface.Width-24))); Canvas.SetTop(marker,Math.Clamp(v*surface.Height,0,Math.Max(0,surface.Height-24)));
+            Canvas.SetLeft(marker,position.X); Canvas.SetTop(marker,position.Y);
+            EnableCommentDragging(marker,surface,index);
             marker.Click+=async (_,_)=> { if (busy) return; try { await OpenCommentAsync(surface.Index,index); } catch (Exception error) { Error(error); } };
             surface.Markers.Children.Add(marker);
         }

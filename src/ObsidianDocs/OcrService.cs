@@ -12,12 +12,13 @@ public sealed class OcrService : IDisposable
 {
     Process? process;
     readonly SemaphoreSlim gate = new(1);
-    public async Task<OcrResult> RecognizeAsync(BitmapSource bitmap, string language)
+    public async Task<OcrResult> RecognizeAsync(BitmapSource bitmap, string language, CancellationToken cancellation = default)
     {
-        await gate.WaitAsync();
+        await gate.WaitAsync(cancellation);
         var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".png");
         try
         {
+            cancellation.ThrowIfCancellationRequested();
             var encoder = new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
             using (var file = File.Create(path)) encoder.Save(file);
             if (process is null || process.HasExited)
@@ -34,7 +35,8 @@ public sealed class OcrService : IDisposable
             }
             await process.StandardInput.WriteLineAsync(JsonSerializer.Serialize(new { path, lang = language }));
             await process.StandardInput.FlushAsync();
-            using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+            using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
+            timeout.CancelAfter(TimeSpan.FromMinutes(5));
             while (await process.StandardOutput.ReadLineAsync(timeout.Token) is { } line)
             {
                 if (!line.StartsWith("OCR_RESULT:")) continue;

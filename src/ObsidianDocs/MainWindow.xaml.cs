@@ -33,6 +33,7 @@ public partial class MainWindow : Window
         ConfigureAiChat();
         ConfigurePageWindow();
         ConfigureTabReordering();
+        Deactivated+=(_,_)=>CancelCommentDrag();
         SourceInitialized += (_, _) => WindowTheme.Apply(this);
         AuthorPicker.ItemsSource = authors.Names; AuthorPicker.SelectedItem = authors.Selected;
         Closing += OnClosing; OcrLanguage.SelectionChanged += (_, _) => HideCard();
@@ -41,11 +42,13 @@ public partial class MainWindow : Window
     void Error(Exception error) => DarkDialog.Show(this, error.Message, "Не удалось выполнить действие", MessageBoxButton.OK, MessageBoxImage.Warning);
     void SetBusy(bool value, string message)
     {
+        if(value) CancelCommentDrag();
         busy = value; Tabs.IsEnabled = !value; OcrButton.IsEnabled = !value; NoteButton.IsEnabled = !value;
         CardAction.IsEnabled = !value; RetryButton.IsEnabled = !value; Status.Text = message;
         TextNoteButton.IsEnabled=!value; DeleteCommentButton.IsEnabled=!value;
         DocxHost.IsEnabled=DocxTools.IsEnabled=!value;
         RecentFilesList.IsEnabled=!value;
+        GlobalActionsButton.IsEnabled=!value;
     }
     async void Open_Click(object sender, RoutedEventArgs e)
     {
@@ -199,6 +202,7 @@ public partial class MainWindow : Window
     async void Retry_Click(object s, RoutedEventArgs e) => await RunOcrAsync();
     void HideCard()
     {
+        CancelCommentDrag();
         HideAiSelectionPopup();
         dragging = false;
         if (SelectionCanvas.IsMouseCaptured) SelectionCanvas.ReleaseMouseCapture();

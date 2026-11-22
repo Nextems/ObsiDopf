@@ -84,6 +84,12 @@ public sealed class DocumentSession : IDisposable
         SaveTo(Path);
         Dirty=false;
     }
+    internal void ReloadPdfAfterBatch(DocumentSession reloaded)
+    {
+        if(!CanEditPdf || Dirty || reloaded.Pdf is null) throw new InvalidOperationException("Нельзя перечитать PDF с несохранёнными правками.");
+        var previous=Pdf; Pdf=reloaded.Pdf; reloaded.Pdf=null; RenderBytes=reloaded.RenderBytes;
+        pdfUndo.Clear(); Page=Math.Clamp(Page,0,Pdf.PageCount-1); previous.Dispose();
+    }
     public void DuplicateWithAuthor(string destination, string author)
     {
         author = author.Trim();
